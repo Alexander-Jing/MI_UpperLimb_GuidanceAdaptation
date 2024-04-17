@@ -58,7 +58,7 @@ MotorClass = 2; % 运动想象动作数量，注意这里是纯设计的运动想象动作的数量，不包括
 original_seq = [1, 2, 0];  % 原始序列数组
 training_seqs = 1;  % 训练轮数
 session_idx = 1;  % session index数量，如果是1的话，会自动生成相关排布
-TrialNum = length(original_seq)*training_seqs/(MotorClass+1);  % 每一个类别的trial的数量
+TrialNum = length(original_seq)*training_seqs;  % 每一个类别的trial的数量
 
 % 运动想象任务调整设置
 score_init = 1.0;  % 这是在之前离线时候计算的mu衰减和EI指标的均值
@@ -161,9 +161,9 @@ RestTimeLens = [];  % 用于存储休息时间长度
 % 关于训练时刻的操作和flag的处理
 Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
 Train_Flag = 0;  % 用于判断是keep还是adjust的flag
-Train_Thre_Global_FeasibleInit = [0.35, 0.35;
-                                  0.45, 0.45;
-                                  1,    2;];  % 初始数值，用于可行部分轨迹的生成
+Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
+                                  0, 0.45, 0.45;
+                                  0, 1,    2;];  % 初始数值，用于可行部分轨迹的生成
 traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % 用于生成阈值的轨迹的函数
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全局均值的可行-最优策略的阈值设定
 Train_Thre_Global_Flag = 0;  % 用于判断是后续可行还是最优的flag
@@ -235,6 +235,12 @@ while(AllTrial <= TrialNum)
                 Train_Thre_Global = Train_Thre_Global_Optim;  % 选择最优
             end
         end
+    end
+    if Timer == 2 && Trials(AllTrial)> 0 && Timer < 30  % 开始的时候将动画置零帧的时候
+       sendbuf(1,2) = hex2dec('01') ;
+       sendbuf(1,3) = hex2dec('00') ;
+       sendbuf(1,5) = uint8(0);
+       fwrite(UnityControl,sendbuf);
     end
     
     % 开始动态想象
