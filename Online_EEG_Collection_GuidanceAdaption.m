@@ -166,7 +166,7 @@ Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
                                   0, 1,    2;];  % 初始数值，用于可行部分轨迹的生成
 traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % 用于生成阈值的轨迹的函数
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全局均值的可行-最优策略的阈值设定
-Train_Thre_Global_Flag = 0;  % 用于判断是后续可行还是最优的flag
+Train_Thre_Global_Flag = 0;  % 用于判断是否达到阈值的flag
 Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
 Flag_FesOptim = 0;  % 用于判断是选择可行还是最优的flag 
 
@@ -273,11 +273,12 @@ while(AllTrial <= TrialNum)
         disp(['cls prob: ', num2str(resultMI(2,1))]);
         
         % 收集全局的概率，用于显示
-        MI_Acc = [MI_Acc, resultMI];
+        MI_Acc = [MI_Acc, resultMI(2,1)];
         MI_Acc_GlobalAvg = [MI_Acc_GlobalAvg, mean(MI_Acc)];
         % 当达到全局阈值的时候，flag置1
         if MI_Acc_GlobalAvg(end) > Train_Thre_Global
             Train_Thre_Global_Flag = 1;
+            disp(['达到条件 MI_Acc_GlobalAvg：', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
         end
         
         % 根据概率显示动画，用于给与实时反馈
@@ -386,7 +387,7 @@ while(AllTrial <= TrialNum)
         disp(['cls prob: ', num2str(resultMI(2,1))]);
         
         % 收集全局的概率，用于显示
-        MI_Acc = [MI_Acc, resultMI];
+        MI_Acc = [MI_Acc, resultMI(2,1)];
         MI_Acc_GlobalAvg = [MI_Acc_GlobalAvg, mean(MI_Acc)];
         % 收集这次的数据，准备后面分析
         TriggerRepeat_ = repmat(Trigger,1,512);
@@ -418,7 +419,7 @@ while(AllTrial <= TrialNum)
    %% 运动想象给与反馈阶段（想对/时间范围内没有想对）,同时更新模型
    if Timer == 30 && Trials(AllTrial) > 0
        Trigger = 7;
-       if Train_Flag==1  % 如果想对了
+       if Train_Thre_Global_Flag==1  % 如果想对了，达到阈值
            if Trials(AllTrial) > 0  % 运动想象任务
                 % 播放动作的AO动画（Idle, MI1, MI2）
                 mat2unity = ['0', num2str(Trials(AllTrial) + 3)];
@@ -458,7 +459,7 @@ while(AllTrial <= TrialNum)
         order = 2.0;  % 传输数据和训练的命令
         Online_Data2Server_Send(order, [0,0,0,0], ip, port, subject_name, config_data);  % 发送指令，让服务器更新数据，[0,0,0,0]单纯是用于凑下数据，防止应为空集影响传输
         % 重置下flag
-        Train_Flag = 0;
+        Train_Thre_Global_Flag = 0;
    end
 
    %% 休息阶段，确定下一个动作
@@ -477,7 +478,7 @@ while(AllTrial <= TrialNum)
         % 进入确定下一个任务
         average_score = mean(EI_index_scores(1, :));  % 这里换成EI指标，后续可能还会换
         scores_trial = [scores_trial, average_score];  % 存储好平均的分数
-        max_MuSup = max(mu_suppressions(1,:))/MI_MUSup_thre;  % 计算最大的Mu衰减比上阈值，衡量任务完成情况
+        max_MuSup = max(mu_suppressions(1,:));  % 计算最大的Mu衰减比上阈值，衡量任务完成情况
         muSups_trial = [muSups_trial, [max_MuSup; Trials(AllTrial)]];  % 存储好完成情况
         %visual_feedbacks_trial = [visual_feedbacks_trial, [mean(visual_feedbacks(1,:)); Trials(AllTrial)]];  % 存储相关视觉反馈情况
         MI_Acc_Trials = [MI_Acc_Trials, [MI_Acc; repmat(Trials(AllTrial),1,length(MI_Acc));]];  % 存储精度
@@ -499,7 +500,7 @@ while(AllTrial <= TrialNum)
         % 进入确定下一个任务
         average_score = mean(EI_index_scores(1, :));  % 这里换成EI指标，后续可能还会换
         scores_trial = [scores_trial, average_score];  % 存储好平均的分数
-        max_MuSup = max(mu_suppressions(1,:))/MI_MUSup_thre;  % 计算最大的Mu衰减比上阈值，衡量任务完成情况
+        max_MuSup = max(mu_suppressions(1,:));  % 计算最大的Mu衰减比上阈值，衡量任务完成情况
         muSups_trial = [muSups_trial, [max_MuSup; Trials(AllTrial)]];  % 存储好完成情况
         %visual_feedbacks_trial = [visual_feedbacks_trial, [mean(visual_feedbacks(1,:)); Trials(AllTrial)]];  % 存储相关视觉反馈情况
         MI_Acc_Trials = [MI_Acc_Trials, [MI_Acc; repmat(Trials(AllTrial),1,length(MI_Acc));]];  % 存储精度
