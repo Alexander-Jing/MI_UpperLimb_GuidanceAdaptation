@@ -236,6 +236,7 @@ while(AllTrial <= TrialNum)
             end
         end
     end
+
     if Timer == 2 && Trials(AllTrial)> 0 && Timer < 30  % 开始的时候将动画置零帧的时候
        sendbuf(1,2) = hex2dec('01') ;
        sendbuf(1,3) = hex2dec('00') ;
@@ -246,6 +247,7 @@ while(AllTrial <= TrialNum)
     % 开始动态想象
     % 切换画面展示，开始运动想象
     if ((Timer-2)-7*Train_Seg == 0) && Timer > 2 && Trials(AllTrial)> 0 && Timer < 30
+        Trigger = Trials(AllTrial);
         sendbuf(1,1) = hex2dec(mat2unity) ;
         sendbuf(1,2) = hex2dec('01') ;
         sendbuf(1,3) = hex2dec('00') ;
@@ -356,6 +358,7 @@ while(AllTrial <= TrialNum)
     
     % 运动想象的Keep/Adjust引导
     if ((Timer-2)-7*Train_Seg >= 5) && ((Timer-2)-7*Train_Seg <=6) && Trials(AllTrial)> 0 && Timer < 30
+        Trigger = 10;
         disp(['开始引导']);
         sendbuf(1,3) = hex2dec('00');
         sendbuf(1,4) = hex2dec('00');
@@ -418,7 +421,7 @@ while(AllTrial <= TrialNum)
    end
    %% 运动想象给与反馈阶段（想对/时间范围内没有想对）,同时更新模型
    if Timer == 30 && Trials(AllTrial) > 0
-       Trigger = 7;
+       Trigger = 8;
        if Train_Thre_Global_Flag==1  % 如果想对了，达到阈值
            if Trials(AllTrial) > 0  % 运动想象任务
                 % 播放动作的AO动画（Idle, MI1, MI2）

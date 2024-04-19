@@ -170,7 +170,7 @@ Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [
 
 Online_FES_ExamingNum = 5;  % 在线的时候每隔多久检查判断是否需要进行FES辅助
 Online_FES_flag = 0;  % 用于设置是否进行实时FES刺激的相关控制flag
-RestTimeLenBaseline = 7 + session_idx;  % 休息时间随着session的数量增加
+RestTimeLenBaseline = 7;  % 休息时间随着session的数量增加
 RestTimeLen = RestTimeLenBaseline;  % 初始化休息时间
 
 % 其余指标和参数
@@ -226,6 +226,7 @@ while(AllTrial <= TrialNum)
         end
     end
     if Timer == 2 && Trials(AllTrial)> 0 && Timer < 18  % 开始的时候将动画置零帧的时候
+       Trigger = Trials(AllTrial);
        sendbuf(1,2) = hex2dec('01') ;
        sendbuf(1,3) = hex2dec('00') ;
        sendbuf(1,5) = uint8(0);
