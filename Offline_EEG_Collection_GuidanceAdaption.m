@@ -249,7 +249,7 @@ rawdata = TrialData;
 sample_frequency = 256; 
 WindowLength = 512;  % 每个窗口的长度
 SlideWindowLength = 256;  % 滑窗间隔
-[DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning(rawdata, classes, sample_frequency, WindowLength, SlideWindowLength, channels, subject_name, foldername);
+[DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_GuidanceAdaption(rawdata, classes, sample_frequency, WindowLength, SlideWindowLength, channels, subject_name, foldername);
 
 %% 每一种任务对应的各项指标的平均分数以及4分位数确定，并且存储相关指标
 foldername_Scores = [foldername, '\\Offline_EEGMI_Scores_', subject_name]; % 指定文件夹路径和名称
