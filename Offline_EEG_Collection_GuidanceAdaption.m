@@ -46,8 +46,8 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0310_offline';  % ±»ÊÔĞÕÃû
-TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+subject_name = 'Jyt_test_0422_offline';  % ±»ÊÔĞÕÃû
+TrialNum = 3*1;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 %TrialNum = 3*3;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
 % µ±Ç°ÉèÖÃµÄÈÎÎñ
@@ -73,7 +73,7 @@ ip = '172.18.22.21';
 port = 8888;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
-Fes_flag = 0;  % ÊÇ·ñ¿ªÆôFes¸¨Öú
+Fes_flag = 1;  % ÊÇ·ñ¿ªÆôFes¸¨Öú
 StimAmplitude_1 = 7;
 StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 
@@ -137,13 +137,16 @@ while(AllTrial <= TrialNum)
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);       
         AllTrial = AllTrial + 1;
+        if AllTrial > TrialNum
+            break;
+        end
     end
     
     if Timer==2
         Trigger = RandomTrial(AllTrial);  % ²¥·Å¶¯×÷µÄAO¶¯»­£¨Idle, MI1, MI2£©
         mat2unity = ['0', num2str(Trigger + 3)];
         sendbuf(1,1) = hex2dec(mat2unity) ;
-        sendbuf(1,2) = hex2dec('01') ;
+        sendbuf(1,2) = hex2dec('02') ;
         sendbuf(1,3) = hex2dec('00') ;
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);
@@ -168,16 +171,24 @@ while(AllTrial <= TrialNum)
                 disp(['MIÖ®Ç°¸¨Öúµç´Ì¼¤']);
             end
         end
-        Trigger = 9;  % ¼ÇÂ¼´ËÊ±ÓĞAOºÍµç´Ì¼¤Ê±ºòµÄÊı¾İ£¬·ÀÖ¹ºóĞøµÄÊı¾İ´¦ÀíÓĞÓ°Ïì
+        if Trigger > 0
+            Trigger = 9;  % ¼ÇÂ¼´ËÊ±ÓĞAOºÍµç´Ì¼¤Ê±ºòµÄÊı¾İ£¬·ÀÖ¹ºóĞøµÄÊı¾İ´¦ÀíÓĞÓ°Ïì
+        else
+            Trigger = 0;
+        end
     end
 
-    if Timer >= 6 && Timer < 10
+    if Timer >= 6 && Timer < 10 && RandomTrial(AllTrial)> 0
         Trigger = RandomTrial(AllTrial);  % ¶¯×÷£¨Idle, MI1, MI2£©
+        sendbuf(1,2) = hex2dec('01') ;
+        sendbuf(1,3) = hex2dec('00') ;
+        sendbuf(1,5) = uint8(0);
+        fwrite(UnityControl,sendbuf);
     end
 
 
     % µÚ8s¿ªÊ¼È¡512µÄTrigger~=6µÄMIµÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö£¬ÕâÀï¾àÀëµç´Ì¼¤»¹¼ä¸ôÁË1s£¬·ÀÖ¹³öÏÖµç´Ì¼¤µÄÓ°Ïì
-    if Timer > 7 && Timer <= 10
+    if Timer > 7 && Timer <= 10 && RandomTrial(AllTrial)> 0
         rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
         rawdata = rawdata(2:end,:);
         
@@ -204,7 +215,44 @@ while(AllTrial <= TrialNum)
         mu_suppressions = [mu_suppressions, mu_suppression];  % Ìí¼ÓÏà¹ØµÄmuË¥¼õÇé¿ö£¬ÓÃÓÚºóĞøµÄ·ÖÎö
     end
     
-    if Timer==10  %¿ªÊ¼ĞİÏ¢
+    if Timer==10 && RandomTrial(AllTrial)> 0  %¿ªÊ¼ĞİÏ¢
+        Trigger = 7;
+        sendbuf(1,1) = hex2dec('02') ;
+        sendbuf(1,2) = hex2dec('00') ;
+        sendbuf(1,3) = hex2dec('00') ;
+        sendbuf(1,4) = hex2dec('00') ;
+        fwrite(UnityControl,sendbuf);  
+    end
+    
+    % µÚ8s¿ªÊ¼È¡512µÄTrigger~=6µÄMIµÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö£¬ÕâÀï¾àÀëµç´Ì¼¤»¹¼ä¸ôÁË1s£¬·ÀÖ¹³öÏÖµç´Ì¼¤µÄÓ°Ïì
+    if Timer > 3 && Timer <= 6 && RandomTrial(AllTrial)==0
+        rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
+        rawdata = rawdata(2:end,:);
+        
+        [FilteredDataMI, EI_index, mu_power_MI] = Online_DataPreprocess_Hanning(rawdata, Trigger, sample_frequency, WindowLength, channels);
+        % mu_suppression = (mu_power_MI(mu_channel,1) - mu_power_(mu_channel,1))/mu_power_(mu_channel,1);  % ¼ÆËãmiuÆµ´øË¥¼õÇé¿ö
+        % ¼ÆËãÁ½¸öÖ¸±ê
+        mu_suppression = MI_MuSuperesion(mu_power_, mu_power_MI, mu_channels);  
+        EI_index_score = EI_index_Caculation(EI_index, EI_channels);
+        
+        score = weight_mu * mu_suppression + (1 - weight_mu) * EI_index_score;  % ¼ÆËãµÃ·Ö
+        scores = [scores, score];  % ±£´æµÃ·Ö
+        scores_task_ = [score; Trigger];
+        scores_task = [scores_task, scores_task_];  % ±£´æ·ÖÊı-ÈÎÎñ¶Ô£¬ÓÃÓÚºóĞøµÄ·ÖÎöÈÎÎñÄÑ¶ÈÓÃµÄ
+        
+        % ´æ´¢Õâ¼¸¸öÖ¸±êµÄÊıÖµ
+        EI_index_score = [EI_index_score; Trigger];
+        EI_index = [EI_index; Trigger];
+        mu_power_MI = [mu_power_MI; Trigger];  
+        mu_suppression = [mu_suppression; Trigger]; % ÕâÀïÌí¼ÓÉÏTriggerµÄÏà¹ØÊıÖµ£¬·½±ã´æ´¢
+
+        EI_index_scores = [EI_index_scores, EI_index_score];  % Ìí¼ÓÏà¹ØµÄEI_index_scoresÊıÖµ£¬×¢ÒâÕâ¸öÊÇ¼ÆËãÁË¼¸¸öchannelsÍ¨µÀµÄÆ½¾ùÊıÖµ£¬ÏÂÃæÄÇ¸öEI_indicesÊÇ´æ´¢ÁËËùÓĞÊıÖµ
+        EI_indices = [EI_indices, EI_index];  % Ìí¼ÓÏà¹ØµÄEIÖ¸±êÊıÖµ£¬ÓÃÓÚºóĞøµÄ·ÖÎö  
+        mu_powers = [mu_powers, mu_power_MI];  % Ìí¼ÓÏà¹ØµÄmu½ÚÂÉÄÜÁ¿£¬ÓÃÓÚºóĞøµÄ·ÖÎö
+        mu_suppressions = [mu_suppressions, mu_suppression];  % Ìí¼ÓÏà¹ØµÄmuË¥¼õÇé¿ö£¬ÓÃÓÚºóĞøµÄ·ÖÎö
+    end
+    
+    if Timer==6 && RandomTrial(AllTrial)==0  %¿ªÊ¼ĞİÏ¢
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
         sendbuf(1,2) = hex2dec('00') ;
@@ -224,7 +272,13 @@ while(AllTrial <= TrialNum)
     TrialData = [TrialData,data];
     Timer = Timer + 1;
     
-    if Timer == (10 + RestTimeLenBaseline)
+    if Timer == (10 + RestTimeLenBaseline) && RandomTrial(AllTrial)> 0
+        Timer = 0;  % ¼ÆÊ±Æ÷Çå0
+        disp(['Trial: ', num2str(AllTrial), ', Task: ', num2str(RandomTrial(AllTrial))]);  % ÏÔÊ¾Ïà¹ØÊı¾İ
+        score = weight_mu * mu_suppression + (1 - weight_mu) * EI_index_score;  % ¼ÆËãµÃ·Ö
+    end
+    
+    if Timer == (6 + RestTimeLenBaseline) && RandomTrial(AllTrial)==0
         Timer = 0;  % ¼ÆÊ±Æ÷Çå0
         disp(['Trial: ', num2str(AllTrial), ', Task: ', num2str(RandomTrial(AllTrial))]);  % ÏÔÊ¾Ïà¹ØÊı¾İ
         score = weight_mu * mu_suppression + (1 - weight_mu) * EI_index_score;  % ¼ÆËãµÃ·Ö
