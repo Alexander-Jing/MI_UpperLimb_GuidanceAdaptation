@@ -49,14 +49,14 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0417_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0310_offline_20240310_195952653_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0310_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0422_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0422_offline_20240422_152139532_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0422_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
 %original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
 original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
-training_seqs = 1;  % ÑµÁ·ÂÖÊı
+training_seqs = 2;  % ÑµÁ·ÂÖÊı
 session_idx = 1;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 
@@ -105,14 +105,14 @@ if ~exist(foldername, 'dir')
 end
 
 % ¶ÁÈ¡Ö®Ç°µÄÀëÏß²É¼¯µÄÊı¾İ
-% foldername_Scores = [sub_offline_collection_folder, '\\Offline_EEGMI_Scores_', subject_name_offline]; % Ö¸¶¨Ö®Ç°´æ´¢µÄÀëÏßÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
-% mean_std_EI_score = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_EI_score');
-% mean_std_muSup = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_muSup');
-% quartile_caculation_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_mu');
-% min_max_value_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'min_max_value_mu');
-% quartile_caculation_EI = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_EI');
+foldername_Scores = [sub_offline_collection_folder, '\\Offline_EEGMI_Scores_', subject_name_offline]; % Ö¸¶¨Ö®Ç°´æ´¢µÄÀëÏßÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
+mean_std_EI_score = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_EI_score');
+mean_std_muSup = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_muSup');
+quartile_caculation_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_mu');
+min_max_value_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'min_max_value_mu');
+quartile_caculation_EI = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_EI');
 min_max_value_EI = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'min_max_value_EI');
-%min_max_value_EI = [1;2];  % ÁÙÊ±ÉèÖÃÏÂmaxºÍminÊıÖµ
+min_max_value_EI = min_max_value_EI.min_max_value_EI;  % ÁÙÊ±ÉèÖÃÏÂmaxºÍminÊıÖµ
 
 %% ÔË¶¯ÏëÏóÄÚÈİ°²ÅÅ
 Trials = [];  % ³õÊ¼»¯ÑµÁ·µÄÊı×é
