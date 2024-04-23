@@ -49,9 +49,9 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0417_onlinebaseline';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0310_offline_20240310_195952653_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0310_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0423_onlineBasline';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0422_offline_20240422_152139532_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0422_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
 original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
@@ -104,14 +104,14 @@ if ~exist(foldername, 'dir')
 end
 
 % ¶ÁÈ¡Ö®Ç°µÄÀëÏß²É¼¯µÄÊı¾İ
-% foldername_Scores = [sub_offline_collection_folder, '\\Offline_EEGMI_Scores_', subject_name_offline]; % Ö¸¶¨Ö®Ç°´æ´¢µÄÀëÏßÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
-% mean_std_EI_score = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_EI_score');
-% mean_std_muSup = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_muSup');
-% quartile_caculation_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_mu');
-% min_max_value_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'min_max_value_mu');
-% quartile_caculation_EI = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_EI');
+foldername_Scores = [sub_offline_collection_folder, '\\Offline_EEGMI_Scores_', subject_name_offline]; % Ö¸¶¨Ö®Ç°´æ´¢µÄÀëÏßÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
+mean_std_EI_score = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_EI_score');
+mean_std_muSup = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'mean_std_muSup');
+quartile_caculation_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_mu');
+min_max_value_mu = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'min_max_value_mu');
+quartile_caculation_EI = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'quartile_caculation_EI');
 min_max_value_EI = load([foldername_Scores, '\\', ['Offline_EEGMI_Scores_', subject_name_offline], '.mat' ], 'min_max_value_EI');
-%min_max_value_EI = [1;2];  % ÁÙÊ±ÉèÖÃÏÂmaxºÍminÊıÖµ
+min_max_value_EI = min_max_value_EI.min_max_value_EI;  % ÉèÖÃÏÂmaxºÍminÊıÖµ
 
 %% ÔË¶¯ÏëÏóÄÚÈİ°²ÅÅ
 Trials = [];  % ³õÊ¼»¯ÑµÁ·µÄÊı×é
@@ -164,13 +164,13 @@ Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
                                   0, 0.45, 0.45;
                                   0, 1,    2;];  % ³õÊ¼ÊıÖµ£¬ÓÃÓÚ¿ÉĞĞ²¿·Ö¹ì¼£µÄÉú³É
 traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % ÓÃÓÚÉú³ÉãĞÖµµÄ¹ì¼£µÄº¯Êı
-Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % ÓÃÓÚ²¢ÇÒµ÷ÕûµÄÕë¶ÔÈ«¾Ö¾ùÖµµÄ¿ÉĞĞ-×îÓÅ²ßÂÔµÄãĞÖµÉè¶¨
+Train_Thre_Global = Train_Thre_Global_FeasibleInit(2,2);  % ÓÃÓÚ²¢ÇÒµ÷ÕûµÄÕë¶ÔÈ«¾Ö¾ùÖµµÄ¿ÉĞĞ-×îÓÅ²ßÂÔµÄãĞÖµÉè¶¨
 Train_Thre_Global_Flag = 0;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ´ïµ½ãĞÖµµÄflag
 Train_Performance = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialµÄÑµÁ·±íÏÖ£¬ Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
 
 Online_FES_ExamingNum = 5;  % ÔÚÏßµÄÊ±ºòÃ¿¸ô¶à¾Ã¼ì²éÅĞ¶ÏÊÇ·ñĞèÒª½øĞĞFES¸¨Öú
 Online_FES_flag = 0;  % ÓÃÓÚÉèÖÃÊÇ·ñ½øĞĞÊµÊ±FES´Ì¼¤µÄÏà¹Ø¿ØÖÆflag
-RestTimeLenBaseline = 7;  % ĞİÏ¢Ê±¼äËæ×ÅsessionµÄÊıÁ¿Ôö¼Ó
+RestTimeLenBaseline = 7 + session_idx;  % ĞİÏ¢Ê±¼äËæ×ÅsessionµÄÊıÁ¿Ôö¼Ó
 RestTimeLen = RestTimeLenBaseline;  % ³õÊ¼»¯ĞİÏ¢Ê±¼ä
 
 % ÆäÓàÖ¸±êºÍ²ÎÊı
@@ -333,7 +333,7 @@ while(AllTrial <= TrialNum)
    end
    %% ÔË¶¯ÏëÏó¸øÓë·´À¡½×¶Î£¨Ïë¶Ô/Ê±¼ä·¶Î§ÄÚÃ»ÓĞÏë¶Ô£©,Í¬Ê±¸üĞÂÄ£ĞÍ
    if Timer == 18 && Trials(AllTrial) > 0
-       Trigger = 7;
+       Trigger = 8;
        if Train_Thre_Global_Flag==1  % Èç¹ûÏë¶ÔÁË
            if Trials(AllTrial) > 0  % ÔË¶¯ÏëÏóÈÎÎñ
                 % ²¥·Å¶¯×÷µÄAO¶¯»­£¨Idle, MI1, MI2£©
