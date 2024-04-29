@@ -56,7 +56,7 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
         % 基于概率进行选择可行还是最优，performance_pro越高则越有可能提升难度
         if rand() < performance_pro
             % 选取Train_Performance(1, :)里面的0.75分位数来作为新的最优的阈值
-            Train_Thre_Global_Optim = quantile(Train_Performance(1, :), 0.75);
+            Train_Thre_Global_Optim = quantile(Train_Performance(1, :), 0.75)*1.25;
             Flag_FesOptim = 1;
         else
             % 使用可行解
