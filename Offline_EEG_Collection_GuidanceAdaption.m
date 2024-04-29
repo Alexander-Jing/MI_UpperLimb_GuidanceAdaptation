@@ -146,7 +146,7 @@ while(AllTrial <= TrialNum)
         Trigger = RandomTrial(AllTrial);  % 播放动作的AO动画（Idle, MI1, MI2）
         mat2unity = ['0', num2str(Trigger + 3)];
         sendbuf(1,1) = hex2dec(mat2unity) ;
-        sendbuf(1,2) = hex2dec('02') ;
+        sendbuf(1,2) = hex2dec('04') ;  % 播放速度是原来动画的2倍，保证在4s内放完
         sendbuf(1,3) = hex2dec('00') ;
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);
