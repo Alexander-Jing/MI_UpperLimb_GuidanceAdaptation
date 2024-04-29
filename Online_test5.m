@@ -18,9 +18,9 @@ close all;
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation\unity_test.exe&');
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation_modified_DoubleThreshold\unity_test.exe&');
-system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 %system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
-%system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % 鏂扮殑绔彛鏀逛负8881
@@ -38,6 +38,8 @@ pause(3)
 % 机械臂的通信部分 
 RobotControl = tcpip('localhost', 5288, 'NetworkRole','client');
 fopen(RobotControl);
+GloveControl = tcpip("192.168.2.30", 8003, 'NetworkRole','client');
+fopen(GloveControl);
 
 %% 鍑嗗鍒濆鐨勫瓨鍌ㄦ暟鎹殑鏂囦欢澶?
 subject_name = 'Jyt_test_online';  % 琚瘯鐨勫鍚?  
@@ -228,14 +230,34 @@ for trial_idx = 1:length(ChoiceTrial)
            disp(['session: ', num2str(session_idx)]);
            disp(['trial: ', num2str(trial_idx)]);
            disp('training model');
-           
-           if  ChoiceTrial(trial_idx)>0
-               disp('Robotic feedback');
-               textSend='Y1';
-               %pause(0.1);
-               fwrite(RobotControl, textSend);
-           end
+
        end
+
+       if  timer==29  && ChoiceTrial(trial_idx)>0
+           disp('Glove on');
+           textsend='G1';
+           %pause(0.1);
+           fwrite(GloveControl, textsend);
+       end
+       if timer==31  && ChoiceTrial(trial_idx)>0
+           disp('Robotic reaching');
+           textSend='Y1';
+           %pause(0.1);
+           fwrite(RobotControl, textSend);
+       end
+       if  timer==40 && ChoiceTrial(trial_idx)>0
+           disp('Glove grasp');
+           textsend='G2';
+           %pause(0.1);
+           fwrite(GloveControl, textsend);
+       end
+       if timer==45    && ChoiceTrial(trial_idx)>0
+            disp('Robotic back');
+            textSend='Y2';
+            %pause(0.1);
+            fwrite(RobotControl, textSend);
+       end
+
        if timer == (trial_time_all-5)
            sendbuf(1,1) = hex2dec('02') ;
            sendbuf(1,2) = hex2dec('00') ;

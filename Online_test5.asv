@@ -19,7 +19,8 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation\unity_test.exe&');
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation_modified_DoubleThreshold\unity_test.exe&');
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel_MI\unity_test.exe&');
-system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % 鏂扮殑绔彛鏀逛负8881
@@ -37,6 +38,8 @@ pause(3)
 % 机械臂的通信部分 
 RobotControl = tcpip('localhost', 5288, 'NetworkRole','client');
 fopen(RobotControl);
+GloveControl = tcpip("192.168.2.30", 8003, 'NetworkRole','client');
+fopen(GloveControl);
 
 %% 鍑嗗鍒濆鐨勫瓨鍌ㄦ暟鎹殑鏂囦欢澶?
 subject_name = 'Jyt_test_online';  % 琚瘯鐨勫鍚?  
@@ -69,7 +72,7 @@ trial_random = 0;
 % end
 
 %ChoiceTrial = ChoiceTrial.session;
-original_seq = [1,2,0,0];  % 原始序列数组
+original_seq = [1,2,0];  % 原始序列数组
 training_seqs = 8;  % 训练轮数
 Trials = [];  % 初始化训练的数组
 
@@ -103,7 +106,7 @@ scores_trial = [];  % 鐢ㄤ簬瀛樺偍姣忎竴涓猼rial鐨勫钩鍧囧垎鏁
 ip = '172.18.22.21';
 port = 8888;  % 鍜屽悗绔湇鍔″櫒杩炴帴鐨勪袱涓弬鏁?
 clsFlag = 0; % 鐢ㄤ簬鍒ゆ柇瀹炴椂鍒嗙被鏄惁姝ｇ‘鐨刦lag
-
+trial_time_all = 65;
 
 Trials = [];
 Trials = [Trials, ChoiceTrial(1,1)];  % 鍒濆鍖朢andomTrial锛岀涓?涓暟鍊兼槸ChoiceTrial浠诲姟闆嗗悎涓殑绗竴涓?
@@ -116,7 +119,7 @@ for trial_idx = 1:length(ChoiceTrial)
     sendbuf(1,7) = uint8((score_thre1));
     fwrite(UnityControl,sendbuf);
     seg_trial= 0;
-    for timer = 1:45
+    for timer = 1:trial_time_all
        pause(1.0);
        if timer <= 28
            if  (timer - 7*seg_trial >= 1) & (timer - 7*seg_trial <= 4)
@@ -228,12 +231,28 @@ for trial_idx = 1:length(ChoiceTrial)
            disp(['trial: ', num2str(trial_idx)]);
            disp('training model');
            
-           disp('Robotic feedback');
-           textSend='Y1';
-           %pause(0.1);
-           fwrite(RobotControl, textSend);
+           
        end
-       if timer == 40
+
+       if  Timer==29 && ChoiceTrial(trial_idx)>0
+               
+               disp('Glove feedback');
+               textsend='G1';
+               %pause(0.1);
+               fwrite(GloveControl, textsend);
+       end
+       
+       if  Timer==29 && ChoiceTrial(trial_idx)>0
+               disp('Robotic feedback');
+               textSend='Y1';
+               %pause(0.1);
+               fwrite(RobotControl, textSend);
+               disp('Glove feedback');
+               textsend='G3';
+               %pause(0.1);
+               fwrite(GloveControl, textsend);
+       end
+       if timer == (trial_time_all-5)
            sendbuf(1,1) = hex2dec('02') ;
            sendbuf(1,2) = hex2dec('00') ;
            sendbuf(1,3) = hex2dec('00') ;

@@ -3,8 +3,7 @@ pnet('closeall');
 clc;
 clear;
 close all;
-%% Establish RobotControl comm.
-global GloveControl 
+%% Establish RobotControl comm. 
 GloveControl = tcpip("192.168.2.30", 8003, 'NetworkRole','client');
 fopen(GloveControl);
 

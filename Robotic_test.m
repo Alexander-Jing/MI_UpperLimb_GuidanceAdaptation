@@ -8,11 +8,11 @@ global RobotControl
 RobotControl = tcpip('localhost', 5288, 'NetworkRole','client');
 fopen(RobotControl);
 
-RandomScene = [0,1];
+RandomScene = [0,1,0,1];
 pause(1);
 
 for i=1:length(RandomScene)
-    pause(30);
+    pause(15);
     disp(['Send message: ', num2str(RandomScene(i))]);
     switch RandomScene(i)
         case 0
