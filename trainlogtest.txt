@@ -1,0 +1,1287 @@
+Labels: FP1     ÿÿ   fU fW   J333T                        P8     ÿÿ    P 36333E  U3336333E                 
+ClientGetChannelMessage successful
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.922651 秒。
+时间：1
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.017568 秒。
+时间：2
+轮数：0
+根据上一轮情况，这一轮选择可行
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004933 秒。
+时间：3
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005088 秒。
+时间：4
+轮数：0
+开始训练
+predict cls: 2
+cls prob: 0.21734
+feedback now:111.6448
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016550 秒。
+时间：5
+轮数：0
+开始训练
+predict cls: 0
+cls prob: 0.30628
+feedback now:134.4864
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012382 秒。
+时间：6
+轮数：0
+开始训练
+predict cls: 2
+cls prob: 0.32861
+feedback now:145.9244
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001372 秒。
+时间：7
+轮数：0
+开始引导
+poor performance, adjust, value: 0.32861
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006945 秒。
+时间：8
+轮数：0
+开始引导
+poor performance, adjust, value: 0.32861
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016215 秒。
+时间：9
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016567 秒。
+时间：10
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006801 秒。
+时间：11
+轮数：1
+开始训练
+predict cls: 2
+cls prob: 0.19865
+feedback now:134.9536
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005934 秒。
+时间：12
+轮数：1
+开始训练
+predict cls: 0
+cls prob: 0.26548
+feedback now:135.2371
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002977 秒。
+时间：13
+轮数：1
+开始训练
+predict cls: 1
+cls prob: 0.43016
+feedback now:149.5252
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.011827 秒。
+时间：14
+轮数：1
+开始引导
+poor performance, adjust, value: 0.43016
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016526 秒。
+时间：15
+轮数：1
+开始引导
+poor performance, adjust, value: 0.43016
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003262 秒。
+时间：16
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012024 秒。
+时间：17
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003540 秒。
+时间：18
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.39647
+feedback last:149.5252
+feedback now:157.2583
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001521 秒。
+时间：19
+轮数：2
+开始训练
+predict cls: 0
+cls prob: 0.23167
+feedback last:157.2583
+feedback now:152.4767
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012472 秒。
+时间：20
+轮数：2
+开始训练
+predict cls: 0
+cls prob: 0.28875
+feedback last:152.4767
+feedback now:152.0152
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008005 秒。
+时间：21
+轮数：2
+开始引导
+poor performance, adjust, value: 0.39647
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.017480 秒。
+时间：22
+轮数：2
+开始引导
+poor performance, adjust, value: 0.39647
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005911 秒。
+时间：23
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008812 秒。
+时间：24
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004349 秒。
+时间：25
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.46575
+feedback last:152.0152
+feedback now:160.7384
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001575 秒。
+时间：26
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.44573
+feedback last:160.7384
+feedback now:166.9406
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005265 秒。
+时间：27
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.38909
+feedback last:166.9406
+feedback now:169.6847
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012842 秒。
+时间：28
+轮数：3
+开始引导
+poor performance, adjust, value: 0.46575
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.017921 秒。
+时间：29
+轮数：3
+开始引导
+poor performance, adjust, value: 0.46575
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009864 秒。
+时间：30
+轮数：3
+连接成功
+数据发送
+连接断开
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012409 秒。
+时间：31
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008905 秒。
+时间：32
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009431 秒。
+时间：33
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004852 秒。
+时间：34
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.011102 秒。
+时间：35
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005484 秒。
+时间：36
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005591 秒。
+时间：37
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007234 秒。
+时间：38
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009858 秒。
+时间：39
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014357 秒。
+时间：40
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003958 秒。
+时间：41
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001943 秒。
+时间：42
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009315 秒。
+时间：43
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007569 秒。
+时间：44
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008537 秒。
+时间：45
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010151 秒。
+时间：46
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003642 秒。
+时间：47
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003237 秒。
+时间：48
+轮数：3
+Trial: 1, Task: 1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012758 秒。
+时间：1
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003684 秒。
+时间：2
+轮数：0
+根据上一轮情况，这一轮选择可行
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001378 秒。
+时间：3
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007063 秒。
+时间：4
+轮数：0
+开始训练
+predict cls: 1
+cls prob: 0.019267
+feedback now:9.8971
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009154 秒。
+时间：5
+轮数：0
+开始训练
+predict cls: 1
+cls prob: 0.069612
+feedback now:22.8276
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008434 秒。
+时间：6
+轮数：0
+开始训练
+predict cls: 1
+cls prob: 0.087325
+feedback now:30.1708
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004204 秒。
+时间：7
+轮数：0
+开始引导
+poor performance, adjust, value: 0.087325
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015269 秒。
+时间：8
+轮数：0
+开始引导
+poor performance, adjust, value: 0.087325
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003433 秒。
+时间：9
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006369 秒。
+时间：10
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.018720 秒。
+时间：11
+轮数：1
+开始训练
+predict cls: 1
+cls prob: 0.36487
+feedback now:69.4844
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005511 秒。
+时间：12
+轮数：1
+开始训练
+predict cls: 1
+cls prob: 0.1072
+feedback now:66.6005
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001368 秒。
+时间：13
+轮数：1
+开始训练
+predict cls: 1
+cls prob: 0.19412
+feedback now:72.12
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001517 秒。
+时间：14
+轮数：1
+开始引导
+poor performance, adjust, value: 0.36487
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014714 秒。
+时间：15
+轮数：1
+开始引导
+poor performance, adjust, value: 0.36487
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010130 秒。
+时间：16
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016171 秒。
+时间：17
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006007 秒。
+时间：18
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.082725
+feedback last:72.12
+feedback now:67.8877
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012957 秒。
+时间：19
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.10314
+feedback last:67.8877
+feedback now:66.0245
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010936 秒。
+时间：20
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.035328
+feedback last:66.0245
+feedback now:60.7048
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.013881 秒。
+时间：21
+轮数：2
+开始引导
+poor performance, adjust, value: 0.10314
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014993 秒。
+时间：22
+轮数：2
+开始引导
+poor performance, adjust, value: 0.10314
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.061815 秒。
+时间：23
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010871 秒。
+时间：24
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005762 秒。
+时间：25
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.0035161
+feedback last:60.7048
+feedback now:54.8149
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.013984 秒。
+时间：26
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.01115
+feedback last:54.8149
+feedback now:50.3524
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015703 秒。
+时间：27
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.0039105
+feedback last:50.3524
+feedback now:46.3238
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012738 秒。
+时间：28
+轮数：3
+开始引导
+poor performance, adjust, value: 0.01115
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.017072 秒。
+时间：29
+轮数：3
+开始引导
+poor performance, adjust, value: 0.01115
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006628 秒。
+时间：30
+轮数：3
+连接成功
+数据发送
+连接断开
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016327 秒。
+时间：31
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.011975 秒。
+时间：32
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002246 秒。
+时间：33
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003822 秒。
+时间：34
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007592 秒。
+时间：35
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.018092 秒。
+时间：36
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015858 秒。
+时间：37
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016960 秒。
+时间：38
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.017729 秒。
+时间：39
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015679 秒。
+时间：40
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002945 秒。
+时间：41
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006512 秒。
+时间：42
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005807 秒。
+时间：43
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003208 秒。
+时间：44
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006280 秒。
+时间：45
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008872 秒。
+时间：46
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005512 秒。
+时间：47
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005464 秒。
+时间：48
+轮数：3
+Trial: 2, Task: 2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007718 秒。
+时间：1
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001381 秒。
+时间：2
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010466 秒。
+时间：3
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007345 秒。
+时间：4
+轮数：0
+predict cls: 2
+cls prob: 0.010746
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001711 秒。
+时间：5
+轮数：0
+predict cls: 2
+cls prob: 0.0049883
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002986 秒。
+时间：6
+轮数：0
+predict cls: 2
+cls prob: 0.0059833
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.018505 秒。
+时间：7
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016201 秒。
+时间：8
+轮数：0
+predict cls: 2
+cls prob: 0.03137
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001325 秒。
+时间：9
+轮数：0
+predict cls: 2
+cls prob: 0.050837
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001487 秒。
+时间：10
+轮数：1
+predict cls: 2
+cls prob: 0.0082731
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003417 秒。
+时间：11
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012546 秒。
+时间：12
+轮数：1
+predict cls: 2
+cls prob: 0.011177
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003014 秒。
+时间：13
+轮数：1
+predict cls: 2
+cls prob: 0.016018
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002144 秒。
+时间：14
+轮数：1
+predict cls: 2
+cls prob: 0.023041
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001300 秒。
+时间：15
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010960 秒。
+时间：16
+轮数：1
+predict cls: 2
+cls prob: 0.065853
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002629 秒。
+时间：17
+轮数：2
+predict cls: 2
+cls prob: 0.0476
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001312 秒。
+时间：18
+轮数：2
+predict cls: 2
+cls prob: 0.13982
+连接成功
+数据发送
+连接断开
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002918 秒。
+时间：19
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002008 秒。
+时间：20
+轮数：2
+Trial: 3, Task: 0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014243 秒。
+时间：1
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009255 秒。
+时间：2
+轮数：0
+根据上一轮情况，这一轮选择可行
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006490 秒。
+时间：3
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.009807 秒。
+时间：4
+轮数：0
+开始训练
+predict cls: 0
+cls prob: 0.021812
+feedback now:10.5575
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001239 秒。
+时间：5
+轮数：0
+开始训练
+predict cls: 0
+cls prob: 0.133
+feedback now:37.4652
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001593 秒。
+时间：6
+轮数：0
+开始训练
+predict cls: 0
+cls prob: 0.12541
+feedback now:45.2109
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003754 秒。
+时间：7
+轮数：0
+开始引导
+poor performance, adjust, value: 0.133
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003231 秒。
+时间：8
+轮数：0
+开始引导
+poor performance, adjust, value: 0.133
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007632 秒。
+时间：9
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008052 秒。
+时间：10
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006754 秒。
+时间：11
+轮数：1
+开始训练
+predict cls: 0
+cls prob: 0.039697
+feedback now:38.7117
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002732 秒。
+时间：12
+轮数：1
+开始训练
+predict cls: 0
+cls prob: 0.03833
+feedback now:34.6798
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001525 秒。
+时间：13
+轮数：1
+开始训练
+predict cls: 0
+cls prob: 0.12102
+feedback now:38.6623
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010625 秒。
+时间：14
+轮数：1
+开始引导
+poor performance, adjust, value: 0.12102
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004610 秒。
+时间：15
+轮数：1
+开始引导
+poor performance, adjust, value: 0.12102
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005653 秒。
+时间：16
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006223 秒。
+时间：17
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001534 秒。
+时间：18
+轮数：2
+开始训练
+predict cls: 0
+cls prob: 0.20582
+feedback last:38.6623
+feedback now:47.3703
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006831 秒。
+时间：19
+轮数：2
+开始训练
+predict cls: 0
+cls prob: 0.062779
+feedback last:47.3703
+feedback now:45.2472
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001372 秒。
+时间：20
+轮数：2
+开始训练
+predict cls: 0
+cls prob: 0.18473
+feedback last:45.2472
+feedback now:50.1544
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006299 秒。
+时间：21
+轮数：2
+开始引导
+poor performance, adjust, value: 0.20582
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004678 秒。
+时间：22
+轮数：2
+开始引导
+poor performance, adjust, value: 0.20582
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016136 秒。
+时间：23
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.018329 秒。
+时间：24
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002379 秒。
+时间：25
+轮数：3
+开始训练
+predict cls: 0
+cls prob: 0.071731
+feedback last:50.1544
+feedback now:48.6109
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001833 秒。
+时间：26
+轮数：3
+开始训练
+predict cls: 0
+cls prob: 0.06735
+feedback last:48.6109
+feedback now:47.1552
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004808 秒。
+时间：27
+轮数：3
+开始训练
+predict cls: 0
+cls prob: 0.15264
+feedback last:47.1552
+feedback now:49.3823
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010649 秒。
+时间：28
+轮数：3
+开始引导
+poor performance, adjust, value: 0.15264
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.013171 秒。
+时间：29
+轮数：3
+开始引导
+poor performance, adjust, value: 0.15264
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002958 秒。
+时间：30
+轮数：3
+连接成功
+数据发送
+连接断开
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015572 秒。
+时间：31
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007942 秒。
+时间：32
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006385 秒。
+时间：33
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007402 秒。
+时间：34
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004323 秒。
+时间：35
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015292 秒。
+时间：36
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005711 秒。
+时间：37
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003389 秒。
+时间：38
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003279 秒。
+时间：39
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002925 秒。
+时间：40
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014058 秒。
+时间：41
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014912 秒。
+时间：42
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005940 秒。
+时间：43
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012691 秒。
+时间：44
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008617 秒。
+时间：45
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006222 秒。
+时间：46
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004150 秒。
+时间：47
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016473 秒。
+时间：48
+轮数：3
+Trial: 4, Task: 1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.008108 秒。
+时间：1
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002569 秒。
+时间：2
+轮数：0
+根据上一轮情况，这一轮选择可行
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012473 秒。
+时间：3
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003811 秒。
+时间：4
+轮数：0
+开始训练
+predict cls: 0
+cls prob: 0.1288
+feedback now:62.3385
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001918 秒。
+时间：5
+轮数：0
+开始训练
+predict cls: 1
+cls prob: 0.048944
+feedback now:43.0141
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001410 秒。
+时间：6
+轮数：0
+开始训练
+predict cls: 0
+cls prob: 0.10502
+feedback now:45.6196
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001429 秒。
+时间：7
+轮数：0
+开始引导
+poor performance, adjust, value: 0.1288
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005815 秒。
+时间：8
+轮数：0
+开始引导
+poor performance, adjust, value: 0.1288
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015805 秒。
+时间：9
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002951 秒。
+时间：10
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006108 秒。
+时间：11
+轮数：1
+开始训练
+predict cls: 0
+cls prob: 0.070369
+feedback now:42.7296
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010582 秒。
+时间：12
+轮数：1
+开始训练
+predict cls: 1
+cls prob: 0.25385
+feedback now:58.7567
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002234 秒。
+时间：13
+轮数：1
+开始训练
+predict cls: 1
+cls prob: 0.23026
+feedback now:67.5383
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001524 秒。
+时间：14
+轮数：1
+开始引导
+poor performance, adjust, value: 0.25385
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004427 秒。
+时间：15
+轮数：1
+开始引导
+poor performance, adjust, value: 0.25385
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006702 秒。
+时间：16
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002682 秒。
+时间：17
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003175 秒。
+时间：18
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.20663
+feedback last:67.5383
+feedback now:72.1774
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016499 秒。
+时间：19
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.1685
+feedback last:72.1774
+feedback now:73.3498
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012576 秒。
+时间：20
+轮数：2
+开始训练
+predict cls: 1
+cls prob: 0.23593
+feedback last:73.3498
+feedback now:77.8879
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010872 秒。
+时间：21
+轮数：2
+开始引导
+poor performance, adjust, value: 0.23593
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015928 秒。
+时间：22
+轮数：2
+开始引导
+poor performance, adjust, value: 0.23593
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014539 秒。
+时间：23
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003937 秒。
+时间：24
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.013406 秒。
+时间：25
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.09297
+feedback last:77.8879
+feedback now:74.599
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006657 秒。
+时间：26
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.11691
+feedback last:74.599
+feedback now:72.9614
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014112 秒。
+时间：27
+轮数：3
+开始训练
+predict cls: 1
+cls prob: 0.053974
+feedback last:72.9614
+feedback now:69.0583
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003228 秒。
+时间：28
+轮数：3
+开始引导
+poor performance, adjust, value: 0.11691
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.013748 秒。
+时间：29
+轮数：3
+开始引导
+poor performance, adjust, value: 0.11691
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.013817 秒。
+时间：30
+轮数：3
+连接成功
+数据发送
+连接断开
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016203 秒。
+时间：31
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015288 秒。
+时间：32
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.055920 秒。
+时间：33
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.011449 秒。
+时间：34
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.015448 秒。
+时间：35
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007736 秒。
+时间：36
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005329 秒。
+时间：37
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007319 秒。
+时间：38
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016535 秒。
+时间：39
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005501 秒。
+时间：40
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010423 秒。
+时间：41
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.019815 秒。
+时间：42
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002490 秒。
+时间：43
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010964 秒。
+时间：44
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.007028 秒。
+时间：45
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.016236 秒。
+时间：46
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006355 秒。
+时间：47
+轮数：3
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004471 秒。
+时间：48
+轮数：3
+Trial: 5, Task: 2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003461 秒。
+时间：1
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.010324 秒。
+时间：2
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003056 秒。
+时间：3
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.012246 秒。
+时间：4
+轮数：0
+predict cls: 2
+cls prob: 0.29009
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001919 秒。
+时间：5
+轮数：0
+predict cls: 2
+cls prob: 0.15058
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003240 秒。
+时间：6
+轮数：0
+predict cls: 2
+cls prob: 0.35895
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003142 秒。
+时间：7
+轮数：0
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.006794 秒。
+时间：8
+轮数：0
+predict cls: 2
+cls prob: 0.39907
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004483 秒。
+时间：9
+轮数：0
+predict cls: 0
+cls prob: 0.57205
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004885 秒。
+时间：10
+轮数：1
+predict cls: 0
+cls prob: 0.67624
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001320 秒。
+时间：11
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.004291 秒。
+时间：12
+轮数：1
+predict cls: 0
+cls prob: 0.74157
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.002329 秒。
+时间：13
+轮数：1
+predict cls: 0
+cls prob: 0.7235
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001391 秒。
+时间：14
+轮数：1
+predict cls: 0
+cls prob: 0.75996
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.001505 秒。
+时间：15
+轮数：1
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.005687 秒。
+时间：16
+轮数：1
+predict cls: 0
+cls prob: 0.76596
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.003391 秒。
+时间：17
+轮数：2
+predict cls: 0
+cls prob: 0.65995
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.011450 秒。
+时间：18
+轮数：2
+predict cls: 0
+cls prob: 0.76815
+连接成功
+数据发送
+连接断开
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.014374 秒。
+时间：19
+轮数：2
+Received 33.792 kBytes, EEG, 256 samples
+时间已过 1.017207 秒。
+时间：20
+轮数：2
+Trial: 6, Task: 0
+>> 

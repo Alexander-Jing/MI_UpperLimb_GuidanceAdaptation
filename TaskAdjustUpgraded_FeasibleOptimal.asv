@@ -1,5 +1,5 @@
 %% 根据之前的表现进行调整任务难度
-function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial, RestTimeLenBaseline, min_max_value_EI)
+function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_] = TaskAdjustUpgraded_FeasibleOptimal(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial, RestTimeLenBaseline, min_max_value_EI)
     EI_max = max(min_max_value_EI(1,:));
     EI_min = min(min_max_value_EI(2,:));
     RestTimeLenBaseline_add = 5;
@@ -9,7 +9,7 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
         Flag_FesOptim = 0;  % 使用可行解
         Train_Thre_Global_Optim = 0.0;
         RestTimeLen = RestTimeLenBaseline;
-        Train_Thre_FesOpt = [Train_Thre_FesOpt, [Train_Thre_Global_Optim; Flag_FesOptim; Trigger]];
+        Train_Thre_FesOpt = [Train_Thre_FesOpt, [Flag_FesOptim; Trigger]];
     else
         %提取之前3个任务的EI指标的变化情况（微分的形式）
         delta_score = scores_trial(end-2:end) - scores_trial(end-3:end-1);  
@@ -63,6 +63,5 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
             Flag_FesOptim = 0;
             Train_Thre_Global_Optim = 0.0;
         end
-        Train_Thre_FesOpt = [Train_Thre_FesOpt, [Train_Thre_Global_Optim; Flag_FesOptim; Trigger]];
     end
 end

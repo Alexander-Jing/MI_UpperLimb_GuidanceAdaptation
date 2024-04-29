@@ -169,9 +169,7 @@ Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全
 Train_Thre_Global_Flag = 0;  % 用于判断是否达到阈值的flag
 Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
 Flag_FesOptim = 0;  % 用于判断是选择可行还是最优的flag 
-Train_Thre_FesOpt = [];  % 用于存储规划的阈值的数组，存储方法 Train_Thre_FesOpt = [Train_Thre_FesOpt, [Train_Thre_Global_Optim; Flag_FesOptim; Trigger]];
-Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;1]];
-Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;2]];  % 初始化Train_Thre_FesOpt，一开始都是选择可行
+Train_Thre_FesOpt = [];  % 用于存储规划的阈值的数组，存储方法 Train_Thre_FesOpt = [Train_Thre_FesOpt, [Thre_Optimal; Trigger]];
 
 Online_FES_ExamingNum = 5;  % 在线的时候每隔多久检查判断是否需要进行FES辅助
 Online_FES_flag = 0;  % 用于设置是否进行实时FES刺激的相关控制flag
@@ -235,15 +233,14 @@ while(AllTrial <= TrialNum)
             % 读取这一类别上一次的判断是可行还是最优
             Trial_tasks = Train_Thre_FesOpt(3,:);
             Train_Thre_FesOpt_ = Train_Thre_FesOpt(:, Trial_tasks==Trials(AllTrial));
-            Flag_FesOptim = Train_Thre_FesOpt_(2, end);  % 提取上一次的类别的对应的可行/最优的flag判断
-            Train_Thre_Global_Optim = Train_Thre_FesOpt_(1, end);  % 提取上一次的类别的对应的最优的数值，如果对应的判断是选择最优的话
+            Flag_FesOptim = OptimTrain_Thre_FesOpt_(2, end);  % 提取上一次的类别的对应的可行/最优的flag判断
+            Flag_FesOptim = OptimTrain_Thre_FesOpt_(2, end);  % 提取上一次的类别的对应的可行/最优的flag判断
             % 根据TaskAdjustUpgraded_FeasibleOptimal来判定是选择可行还是最优
             if Flag_FesOptim == 0
                 Train_Thre_Global = Train_Thre_Global_Fes;  % 选择可行
-                disp(['根据上一轮情况，这一轮选择可行']);
             else
+                
                 Train_Thre_Global = Train_Thre_Global_Optim;  % 选择最优
-                disp(['根据上一轮情况，这一轮选择最优']);
             end
         end
     end
@@ -522,7 +519,7 @@ while(AllTrial <= TrialNum)
         Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trials(AllTrial)]];
         
         % 阈值调整部分还需要修改
-        [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial, RestTimeLenBaseline, min_max_value_EI);
+        [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen] = TaskAdjustUpgraded_FeasibleOptimal(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial, RestTimeLenBaseline, min_max_value_EI);
         RestTimeLen_ = [RestTimeLen; Trials(AllTrial)];
         RestTimeLens = [RestTimeLens, RestTimeLen_];
     end
@@ -621,7 +618,7 @@ if ~exist(foldername_rawdata, 'dir')
    mkdir(foldername_rawdata);
 end
 save([foldername_rawdata, '\\', FunctionNowFilename(['Online_EEGMI_trajectory_',num2str(session_idx), '_', subject_name], '.mat' )],'scores_trial','traj_Feasible',...
-    'RestTimeLens','muSups_trial', 'scores_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance','Train_Thre_FesOpt');
+    'RestTimeLens','muSups_trial', 'scores_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance');
 
 
 %% 存储在运动想象过程中的参与度指标
