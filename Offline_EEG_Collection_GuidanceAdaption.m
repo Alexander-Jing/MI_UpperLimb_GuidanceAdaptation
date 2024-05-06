@@ -19,7 +19,8 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation\unity_test.exe&');
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
-system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % 新的端口改为8881
@@ -69,7 +70,8 @@ EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 2
 weight_mu = 0.6;  % 用于计算ERD/ERS指标和EI指标的加权和
 
 % 通信设置
-ip = '172.18.22.21';
+%ip = '172.18.22.21';
+ip = '127.0.0.1';
 port = 8888;  % 和后端服务器连接的两个参数
 
 % 电刺激强度设置
@@ -81,7 +83,7 @@ StimAmplitude_2 = 9;  % 幅值设置（mA）
 %task_weights = [3,5,2];
 
 %% 设置电刺激连接
-% 设置连接
+%设置连接
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
 system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
 pause(1);

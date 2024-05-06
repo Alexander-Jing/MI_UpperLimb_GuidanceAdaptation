@@ -22,7 +22,8 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation_modified_DoubleThreshold\unity_test.exe&');
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
-system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % ĞÂµÄ¶Ë¿Ú¸ÄÎª8881
@@ -49,8 +50,8 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0428_onlineSelected';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0422_offline_20240422_152139532_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name = 'Jyt_test_0506_onlineSelected';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0422_offline_20240506_211503496_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_test_0422_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -76,14 +77,15 @@ trial_random = 0;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1
 
 
 % Í¨ĞÅÉèÖÃ
-ip = '172.18.22.21';
+%ip = '172.18.22.21';
+ip = '127.0.0.1';
 port = 8888;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 StimAmplitude_1 = 7;
 StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 
-%% ÉèÖÃµç´Ì¼¤Á¬½Ó
+% %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
 system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
