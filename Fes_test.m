@@ -1,6 +1,7 @@
 % for fes testing
 
-system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&'); 
+%system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&'); 
+system('D:\workspace\fes\x64\Release\fes.exe&');
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
 pause(1);
 StimControl = tcpip('localhost', 8888, 'NetworkRole', 'client','Timeout',1000);
