@@ -233,25 +233,25 @@ for trial_idx = 1:length(ChoiceTrial)
 
        end
 
-       if  timer==29  && ChoiceTrial(trial_idx)>0
+       if  timer==29  && ChoiceTrial(trial_idx)==1
            disp('Glove on');
            textsend='G1';
            %pause(0.1);
            fwrite(GloveControl, textsend);
        end
-       if timer==31  && ChoiceTrial(trial_idx)>0
+       if timer==31  && ChoiceTrial(trial_idx)==1
            disp('Robotic reaching');
            textSend='Y1';
            %pause(0.1);
            fwrite(RobotControl, textSend);
        end
-       if  timer==40 && ChoiceTrial(trial_idx)>0
+       if  timer==29 && ChoiceTrial(trial_idx)==2
            disp('Glove grasp');
            textsend='G2';
            %pause(0.1);
            fwrite(GloveControl, textsend);
        end
-       if timer==45    && ChoiceTrial(trial_idx)>0
+       if timer==31  && ChoiceTrial(trial_idx)==2
             disp('Robotic back');
             textSend='Y2';
             %pause(0.1);
