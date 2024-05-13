@@ -573,7 +573,7 @@ while(AllTrial <= TrialNum)
         % 阈值调整部分还需要修改
         [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial, RestTimeLenBaseline, min_max_value_EI);
         RestTimeLen_ = [RestTimeLen; Trials(AllTrial)];
-        RestTimeLens = [RestTimeLens, RestTimeLen_];
+        RestTimeLens = [RestTimeLens, RestTimeLen_];+ 
     end
     
     %% 时钟更新
