@@ -20,7 +20,8 @@ close all;
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
 %system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
-system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI_ReachGrasp\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % ĞÂµÄ¶Ë¿Ú¸ÄÎª8881
@@ -47,8 +48,8 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0422_offline';  % ±»ÊÔĞÕÃû
-TrialNum = 3*1;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+subject_name = 'Jyt_test_0513_offline';  % ±»ÊÔĞÕÃû
+TrialNum = 30*3;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 %TrialNum = 3*3;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
 % µ±Ç°ÉèÖÃµÄÈÎÎñ
@@ -72,7 +73,7 @@ weight_mu = 0.6;  % ÓÃÓÚ¼ÆËãERD/ERSÖ¸±êºÍEIÖ¸±êµÄ¼ÓÈ¨ºÍ
 % Í¨ĞÅÉèÖÃ
 %ip = '172.18.22.21';
 ip = '127.0.0.1';
-port = 8888;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
+port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 Fes_flag = 1;  % ÊÇ·ñ¿ªÆôFes¸¨Öú
@@ -85,7 +86,8 @@ StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 %ÉèÖÃÁ¬½Ó
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
-system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
+%system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
+system('D:\workspace\fes\x64\Release\fes.exe&');
 pause(1);
 StimControl = tcpip('localhost', 8888, 'NetworkRole', 'client','Timeout',1000);
 StimControl.InputBuffersize = 1000;

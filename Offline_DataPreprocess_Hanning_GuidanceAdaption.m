@@ -69,7 +69,7 @@ function [DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_Gu
         for j = 1:(windows_per_session/3)
             for i = 1:3
                 PointStart =(j-1)*256*4 + (i-1)*SlideWindowLength;  % 在数据中确定起始点
-                DataSamplePre{1, i} = FilteredData(channels, PointStart + 1:PointStart + WindowLength );  % 生成划窗的元祖
+                DataSamplePre{1, 3*(j-1)+i} = FilteredData(channels, PointStart + 1:PointStart + WindowLength );  % 生成划窗的元祖
                 LabelWindows = [LabelWindows; class_index];  % 生成装label的数据
             end
         end

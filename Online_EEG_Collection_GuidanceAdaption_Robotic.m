@@ -23,7 +23,8 @@ close all;
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
 %system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
-system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI_ReachGrasp\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % ĞÂµÄ¶Ë¿Ú¸ÄÎª8881
@@ -50,14 +51,14 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0506_onlineSelected';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0422_offline_20240506_211503496_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0422_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0513_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0513_offline_20240513_171257133_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0513_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
-%original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
-original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
-training_seqs = 2;  % ÑµÁ·ÂÖÊı
+original_seq = [1,2, 0,0, 1,2, 0,0, 1,2, 1,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
+%original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
+training_seqs = 4;  % ÑµÁ·ÂÖÊı
 session_idx = 1;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 
@@ -79,7 +80,7 @@ trial_random = 0;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1
 % Í¨ĞÅÉèÖÃ£¬ÓÃÓÚÁ¬½Ó±¾µØpythonµÄËã·¨²¿·Ö
 %ip = '172.18.22.21';
 ip = '127.0.0.1';
-port = 8888;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
+port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 StimAmplitude_1 = 7;
@@ -166,7 +167,7 @@ scores_trial = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialµÄÆ½¾ù·ÖÊıÖµ
 RestTimeLens = [];  % ÓÃÓÚ´æ´¢ĞİÏ¢Ê±¼ä³¤¶È
 
 % ¹ØÓÚÑµÁ·Ê±¿ÌµÄ²Ù×÷ºÍflagµÄ´¦Àí
-Train_Thre = 0.5;  % ÓÃÓÚºâÁ¿ºóĞøÊÇkeep»¹ÊÇadjustµÄãĞÖµ
+Train_Thre = 0.45;  % ÓÃÓÚºâÁ¿ºóĞøÊÇkeep»¹ÊÇadjustµÄãĞÖµ
 Train_Flag = 0;  % ÓÃÓÚÅĞ¶ÏÊÇkeep»¹ÊÇadjustµÄflag
 Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
                                   0, 0.45, 0.45;
@@ -186,7 +187,7 @@ RestTimeLenBaseline = 7 + session_idx;  % ĞİÏ¢Ê±¼äËæ×ÅsessionµÄÊıÁ¿Ôö¼Ó
 RestTimeLen = RestTimeLenBaseline;  % ³õÊ¼»¯ĞİÏ¢Ê±¼ä
 
 % ÆäÓàÖ¸±êºÍ²ÎÊı
-MI_AO_Len = 200;  % ¶¯»­Êµ¼ÊÓĞ¶àÉÙÖ¡
+MI_AO_Len = 150;  % ¶¯»­Êµ¼ÊÓĞ¶àÉÙÖ¡
 
 while(AllTrial <= TrialNum)
     %% ÌáÊ¾×¨×¢½×¶Î
@@ -392,7 +393,7 @@ while(AllTrial <= TrialNum)
     end
     
    %% ¾²Ï¢Ì¬ÑµÁ·½×¶Î
-   if Timer > 2 && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
+   if Timer > 2 && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0  && Timer<=18
         Trigger = Trials(AllTrial);
         rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
         rawdata = rawdata(2:end,:);
@@ -480,12 +481,13 @@ while(AllTrial <= TrialNum)
         order = 2.0;  % ´«ÊäÊı¾İºÍÑµÁ·µÄÃüÁî
         Online_Data2Server_Send(order, [0,0,0,0], ip, port, subject_name, config_data);  % ·¢ËÍÖ¸Áî£¬ÈÃ·şÎñÆ÷¸üĞÂÊı¾İ£¬[0,0,0,0]µ¥´¿ÊÇÓÃÓÚ´ÕÏÂÊı¾İ£¬·ÀÖ¹Ó¦Îª¿Õ¼¯Ó°Ïì´«Êä
         % ÖØÖÃÏÂflag
-        Train_Thre_Global_Flag = 0;
+        %Train_Thre_Global_Flag = 0;
    end
     
    % »úĞµ±Û/Æø¶¯ÊÖÖúÁ¦²¿·Ö
    if Timer == 30
        if Train_Thre_Global_Flag==1
+           disp("Æø¶¯ÊÖÆô¶¯");
            if Trials(AllTrial)==1
                disp('Glove on');
                textsend='G1';
@@ -504,6 +506,7 @@ while(AllTrial <= TrialNum)
 
    if Timer == 32
        if Train_Thre_Global_Flag==1
+           disp('»úĞµ±ÛÆô¶¯');
            if Trials(AllTrial)==1
                disp('Robotic reaching');
                textSend='Y1';
@@ -517,11 +520,13 @@ while(AllTrial <= TrialNum)
                 %pause(0.1);
                 fwrite(RobotControl, textSend);
            end
+           % ÖØÖÃÏÂflag
+           Train_Thre_Global_Flag = 0;
        end
    end
 
    %% ĞİÏ¢½×¶Î£¬È·¶¨ÏÂÒ»¸ö¶¯×÷
-    % ¿ÕÏëÖ»¸ø2s¾ÍĞİÏ¢
+    % ¿ÕÏëÖ»¸ø2s¾ÍĞİÏ¢£¬µ«ÊÇ»¹ÓĞ10sÓÃÓÚ¸üĞÂÄ£ĞÍ
     if Timer==18 && Trials(AllTrial)==0  %¿ªÊ¼ĞİÏ¢
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
@@ -593,8 +598,8 @@ while(AllTrial <= TrialNum)
     end
     
     %% ×îºóµÄ¸÷¸öÊıÖµ¸´Î»
-    % ¿ÕÏëÈÎÎñÏëÏó18s£¬µ½µÚ18sÖ®ºó¿ªÊ¼ĞİÏ¢£¬µ½µÚ20s¾Í½áÊøÈÎÎñ
-    if Timer == 20 && Trials(AllTrial)==0  %½áÊøĞİÏ¢£¬×¼±¸ÏÂÒ»¸ö
+    % ¿ÕÏëÈÎÎñÏëÏó18s£¬µ½µÚ18sÖ®ºó¿ªÊ¼ĞİÏ¢£¬µ½µÚ30s¾Í½áÊøÈÎÎñ£¬ÁôÏÂ10sÓÃÓÚ¸üĞÂÄ£ĞÍ
+    if Timer == 30 && Trials(AllTrial)==0  %½áÊøĞİÏ¢£¬×¼±¸ÏÂÒ»¸ö
         % ´æ´¢Ïà¹ØµÄEIÖ¸±êºÍmu½ÚÂÉÄÜÁ¿µÄÊı¾İ
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);

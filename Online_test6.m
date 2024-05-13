@@ -18,8 +18,9 @@ close all;
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation\unity_test.exe&');
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation_modified_DoubleThreshold\unity_test.exe&');
-system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+%system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 %system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI_ReachGrasp\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % 鏂扮殑绔彛鏀逛负8881
@@ -65,7 +66,7 @@ trial_random = 0;
 % end
 
 %ChoiceTrial = ChoiceTrial.session;
-original_seq = [1,2,0,0];  % 原始序列数组
+original_seq = [2,1,0,0];  % 原始序列数组
 training_seqs = 8;  % 训练轮数
 Trials = [];  % 初始化训练的数组
 
