@@ -265,6 +265,12 @@ for trial_idx = 1:length(ChoiceTrial)
            sendbuf(1,4) = hex2dec('00') ;
            fwrite(UnityControl,sendbuf); 
            disp("resting");
+
+           if ChoiceTrial(trial_idx)>0
+               textSend='G3';
+               disp('Glove loose');
+               fwrite(GloveControl, textSend);
+           end
        end
            
    end
