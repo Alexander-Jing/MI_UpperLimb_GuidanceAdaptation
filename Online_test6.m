@@ -66,7 +66,7 @@ trial_random = 0;
 % end
 
 %ChoiceTrial = ChoiceTrial.session;
-original_seq = [2,1,0,0];  % 原始序列数组
+original_seq = [1,1,1,1,2,2,2,2,0,0,0,0];  % 原始序列数组
 training_seqs = 8;  % 训练轮数
 Trials = [];  % 初始化训练的数组
 
@@ -145,7 +145,7 @@ for trial_idx = 1:length(ChoiceTrial)
                
                %resultMI = Online_Data2Server_Communicate(order, FilteredDataMI, ip, port, subject_name, config_data, foldername);  % 浼犺緭鏁版嵁缁欑嚎涓婄殑妯″瀷锛岀湅鍒嗙被鎯呭喌
                % score 鏁版嵁浼犺緭璁剧疆
-               score_fb = score/100.0 * 200.0;
+               score_fb = score/100.0 * 60.0;
                
                if score_fb > 200.0
                    score_fb = 200.0;
@@ -191,7 +191,7 @@ for trial_idx = 1:length(ChoiceTrial)
                sendbuf(1,3) = hex2dec('00');
                sendbuf(1,4) = hex2dec('00');
                previous_best = max(scores(end-2:end));
-               if previous_best > 125
+               if previous_best > 180
                    sendbuf(1,8) = hex2dec('01');
                    disp(['good performance, keep ', 'value: ', num2str(previous_best)]);
                else
