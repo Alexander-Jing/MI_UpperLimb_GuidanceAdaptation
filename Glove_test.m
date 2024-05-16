@@ -11,7 +11,7 @@ RandomScene = [0,1,2,0,1,2];
 pause(1);
 
 for i=1:length(RandomScene)
-    pause(5);
+    pause(10);
     disp(['Send message: ', num2str(RandomScene(i))]);
     switch RandomScene(i) 
         case 0

@@ -24,7 +24,7 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
 %system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 %system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
-system('D:\workspace\UpperLimb_AO_NewModel_MI_ReachGrasp\unity_test.exe&');
+system('D:\workspace\UpperLimb_AO_NewModel_MI_ReachGrasp_1\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % 新的端口改为8881
@@ -518,6 +518,8 @@ while(AllTrial <= TrialNum)
                textSend='Y1';
                %pause(0.1);
                fwrite(RobotControl, textSend);
+               % 重置下flag
+               Train_Thre_Global_Flag = 0;
            end
 
            if Trials(AllTrial)==2
@@ -526,11 +528,38 @@ while(AllTrial <= TrialNum)
                 %pause(0.1);
                 fwrite(RobotControl, textSend);
            end
-           % 重置下flag
-           Train_Thre_Global_Flag = 0;
+
        end
    end
 
+    if Timer==38  && Trials(AllTrial)==2
+        if Train_Thre_Global_Flag==1
+            disp('Drinking back');
+            textSend='Y3';
+            %pause(0.1);
+            fwrite(RobotControl, textSend);
+        end
+     end
+       
+   if Timer==45  && Trials(AllTrial)==2
+       if Train_Thre_Global_Flag==1
+           disp('Glove on');
+           textsend='G1';
+           %pause(0.1);
+           fwrite(GloveControl, textsend);
+       end
+   end
+
+   if Timer==47  && Trials(AllTrial)==2
+       if Train_Thre_Global_Flag==1
+            disp('Robotic arm back');
+            textSend='Y4';
+            %pause(0.1);
+            fwrite(RobotControl, textSend);
+            % 重置下flag
+            Train_Thre_Global_Flag = 0;
+       end
+   end
    %% 休息阶段，确定下一个动作
     % 空想只给2s就休息，但是还有10s用于更新模型
     if Timer==18 && Trials(AllTrial)==0  %开始休息

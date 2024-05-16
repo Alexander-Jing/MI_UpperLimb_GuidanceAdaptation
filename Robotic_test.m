@@ -8,11 +8,11 @@ global RobotControl
 RobotControl = tcpip('localhost', 5288, 'NetworkRole','client');
 fopen(RobotControl);
 
-RandomScene = [0,1,0,1];
+RandomScene = [0,1,2,3, 0,1,2,3, 0,1,2,3, 0,1,2,3];
 pause(1);
 
 for i=1:length(RandomScene)
-    pause(15);
+    pause(10);
     disp(['Send message: ', num2str(RandomScene(i))]);
     switch RandomScene(i)
         case 0
@@ -25,6 +25,10 @@ for i=1:length(RandomScene)
             fwrite(RobotControl, textSend);
         case 2
             textsend='Y3';
+            %pause(0.1);
+            fwrite(RobotControl, textsend);
+        case 3
+            textsend='Y4';
             %pause(0.1);
             fwrite(RobotControl, textsend);
     end
