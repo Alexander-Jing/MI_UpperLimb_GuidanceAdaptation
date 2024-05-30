@@ -22,8 +22,8 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation_modified_DoubleThreshold\unity_test.exe&');
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
-%system('E:\UpperLimb_AO_NewModel_MI\unity_test.exe&');
-system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+system('E:\UpperLimb_AO_NewModel_MI_1\unity_test.exe&');
+%system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % 新的端口改为8881
@@ -77,8 +77,8 @@ trial_random = 0;  % 用于判断是否进行随机训练顺序的参数 false 0， true 1
 
 
 % 通信设置
-%ip = '172.18.22.21';
-ip = '127.0.0.1';
+ip = '172.18.22.21';
+%ip = '127.0.0.1';
 port = 8888;  % 和后端服务器连接的两个参数
 
 % 电刺激强度设置
