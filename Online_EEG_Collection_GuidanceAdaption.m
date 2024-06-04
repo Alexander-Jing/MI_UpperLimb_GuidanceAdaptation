@@ -50,14 +50,14 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0506_onlineSelected';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0422_offline_20240506_211503496_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0422_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0601_online_2';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0601_offline_20240601_213002613_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0601_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
-%original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
-original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
-training_seqs = 2;  % ÑµÁ·ÂÖÊı
+original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
+%original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
+training_seqs = 4;  % ÑµÁ·ÂÖÊı
 session_idx = 1;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 
@@ -66,24 +66,31 @@ score_init = 1.0;  % ÕâÊÇÔÚÖ®Ç°ÀëÏßÊ±ºò¼ÆËãµÄmuË¥¼õºÍEIÖ¸±êµÄ¾ùÖµ
 MaxMITime = 35; % ÔÚÏßÔË¶¯ÏëÏó×î´óÔÊĞíÊ±¼ä 
 sample_frequency = 256; 
 WindowLength = 512;  % Ã¿¸ö´°¿ÚµÄ³¤¶È
-channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % Ñ¡ÔñµÄÍ¨µÀ,
-mu_channels = struct('C3',24, 'C4',22);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
-EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+channel_selection=0;  % ÅĞ¶ÏÊÇ·ñÒª½øĞĞÍ¨µÀÑ¡Ôñ£¬Ä¿Ç°ÉèÖÃÎª0£¬±£ÁôËùÓĞÊı¾İ£¬µ«ÊÇÔÚºóÃæ·şÎñÆ÷ÉÏ¿ÉÒÔ¿ªÆôÑ¡Ôñ
+if channel_selection==0
+    channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % Ñ¡ÔñµÄÍ¨µÀ,
+    mu_channels = struct('C3',24, 'C4',22);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
+    EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+else
+    channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  % Ñ¡ÔñµÄÍ¨µÀ£¬ÕâÀïÈ¥µôÁËOZ£¬M1,M2£¬Fp1£¬Fp2Õâ¼¸¸öchannel
+    mu_channels = struct('C3',24-3, 'C4',22-3);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
+    EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+end
 weight_mu = 0.6;  % ÓÃÓÚ¼ÆËãERD/ERSÖ¸±êºÍEIÖ¸±êµÄ¼ÓÈ¨ºÍ
 MI_MUSup_thre = 0;  % ÓÃÓÚMIÊ±ºòµÄãĞÖµ³õÊ¼»¯
 MI_MUSup_thre_weight_baseline = 0.714;  % ÓÃÓÚ¼ÆËãMIÊ±ºòµÄmuË¥¼õµÄãĞÖµÈ¨ÖØ³õÊ¼»¯ÊıÖµ£¬Õâ¸öÈ¨ÖØÒ»°ãÊÇºÍ·ÖÀàµÄ¸ÅÂÊÏà¹ØµÄ£¬Ò²»áËæ×ÅÏà¹ØÊı¾İ½øĞĞµ÷Õû
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % ÓÃÓÚ¼ÆËãMIÊ±ºòµÄmuË¥¼õµÄãĞÖµÈ¨ÖØÊıÖµ£¬Õâ¸öÈ¨ÖØÒ»°ãÊÇºÍ·ÖÀàµÄ¸ÅÂÊÏà¹ØµÄ£¬Ò²»áËæ×ÅÏà¹ØÊı¾İ½øĞĞµ÷Õû
-trial_random = 0;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1
+trial_random = 1;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1
 
 
 % Í¨ĞÅÉèÖÃ
 ip = '172.18.22.21';
 %ip = '127.0.0.1';
-port = 8888;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
+port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 StimAmplitude_1 = 7;
-StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_2 = 7;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
@@ -193,6 +200,12 @@ while(AllTrial <= TrialNum)
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);       
         AllTrial = AllTrial + 1;
+        if mod(AllTrial,12)==0
+            RestTimeLen_idle = 60*3;
+            disp(["12¸ötrialÁË£¬ĞİÏ¢3·ÖÖÓ"]);
+        else
+            RestTimeLen_idle = 5;
+        end
         if AllTrial > TrialNum
             break;
         end
@@ -387,7 +400,7 @@ while(AllTrial <= TrialNum)
     end
     
    %% ¾²Ï¢Ì¬ÑµÁ·½×¶Î
-   if Timer > 2 && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
+   if Timer > 2 && Timer <= 18 && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
         Trigger = Trials(AllTrial);
         rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
         rawdata = rawdata(2:end,:);
@@ -552,7 +565,7 @@ while(AllTrial <= TrialNum)
     
     %% ×îºóµÄ¸÷¸öÊıÖµ¸´Î»
     % ¿ÕÏëÈÎÎñÏëÏó18s£¬µ½µÚ18sÖ®ºó¿ªÊ¼ĞİÏ¢£¬µ½µÚ20s¾Í½áÊøÈÎÎñ
-    if Timer == 20 && Trials(AllTrial)==0  %½áÊøĞİÏ¢£¬×¼±¸ÏÂÒ»¸ö
+    if Timer == 18+RestTimeLen_idle && Trials(AllTrial)==0  %½áÊøĞİÏ¢£¬×¼±¸ÏÂÒ»¸ö
         % ´æ´¢Ïà¹ØµÄEIÖ¸±êºÍmu½ÚÂÉÄÜÁ¿µÄÊı¾İ
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);

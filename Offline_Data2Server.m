@@ -17,23 +17,30 @@ task_dict = containers.Map(task_keys, task_values);
 % 鑴戠數璁惧鐨勬暟鎹噰闆?
 sample_frequency = 256; 
 WindowLength = 512;  % 姣忎釜绐楀彛鐨勯暱搴?
-channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 閫夋嫨鐨勯?氶亾,
-mu_channels = struct('C3',24, 'C4',22);  % 鐢ㄤ簬璁＄畻ERD/ERS鐨勫嚑涓猚hannels锛屾槸C3鍜孋4涓や釜閫氶亾,闇?瑕佽瀹氫綅缃?
-EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % 鐢ㄤ簬璁＄畻EI鎸囨爣鐨勫嚑涓猚hannels锛岄渶瑕佺‘瀹氫笅浣嶇疆鐨?
+channel_selection=0;
+if channel_selection==0 % 判断是否要进行通道选择，目前设置为0，保留所有数据，但是在后面服务器上可以开启选择
+    channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 选择的通道,
+    mu_channels = struct('C3',24, 'C4',22);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
+    EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % 用于计算EI指标的几个channels，需要确定下位置的
+else
+    channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  % 选择的通道，这里去掉了OZ，M1,M2，Fp1，Fp2这几个channel
+    mu_channels = struct('C3',24-3, 'C4',22-3);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
+    EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % 用于计算EI指标的几个channels，需要确定下位置的
+end
 weight_mu = 0.6;  % 鐢ㄤ簬璁＄畻ERD/ERS鎸囨爣鍜孍I鎸囨爣鐨勫姞鏉冨拰
 
 % 閫氫俊璁剧疆
 %ip = '127.0.0.1';
 %port = 8880;  % 鍜屽悗绔湇鍔″櫒杩炴帴鐨勪袱涓弬鏁?
 ip = '172.18.22.21';
-port = 8888;
+port = 8880;
 
 % 浼犺緭鏁版嵁鐨勬枃浠跺す浣嶇疆璁剧疆
-foldername = 'Jyt_test_0530_offline_20240530_204909875_data';
+foldername = 'Jyt_test_0601_offline_20240601_213002613_data';
 windows_per_session = 90;
 classes = MotorClasses;
 %% 璇诲彇寰呬紶杈撶殑鍘熷鏁版嵁
-TrialData = load([foldername, '\\', 'Offline_EEGMI_RawData_Jyt_test_0530_offline', '\\', 'Offline_EEGMI_RawData_Jyt_test_0530_offline20240530_211903325.mat' ],'TrialData');
+TrialData = load([foldername, '\\', 'Offline_EEGMI_RawData_Jyt_test_0601_offline', '\\', 'Offline_EEGMI_RawData_Jyt_test_0601_offline20240601_220846845.mat' ],'TrialData');
 
 % 鏁版嵁棰勫鐞?
 % 鍒掔獥鍙傛暟璁剧疆
