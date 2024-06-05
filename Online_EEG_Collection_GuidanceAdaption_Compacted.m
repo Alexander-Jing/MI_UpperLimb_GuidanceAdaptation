@@ -61,6 +61,19 @@ training_seqs = 4;  % 训练轮数
 session_idx = 1;  % session index数量，如果是1的话，会自动生成相关排布
 TrialNum = length(original_seq)*training_seqs;  % 每一个类别的trial的数量
 
+% 运动想象时间节点设定
+MI_preFeedBack = 13;  % 运动想象提供视觉电刺激反馈的时间节点
+MI_AOTime = 5;  % AO+FES的时间长度
+RestTimeLenBaseline = 2;  % 休息时间（运动想象）
+RestTimeLen = RestTimeLenBaseline;  % 初始化休息时间（运动想象）
+Idle_preBreak = 10;  % 静息态提供休息的时间点
+RestTimeLen_idleBasline = 5;  % 初始化休息时间（静息态）
+
+
+
+% 其余指标和参数
+MI_AO_Len = 200;  % 动画实际有多少帧
+
 % 运动想象任务调整设置
 score_init = 1.0;  % 这是在之前离线时候计算的mu衰减和EI指标的均值
 MaxMITime = 35; % 在线运动想象最大允许时间 
@@ -82,6 +95,12 @@ MI_MUSup_thre_weight_baseline = 0.714;  % 用于计算MI时候的mu衰减的阈值权重初始化
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % 用于计算MI时候的mu衰减的阈值权重数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
 trial_random = 1;  % 用于判断是否进行随机训练顺序的参数 false 0， true 1
 
+Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
+Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
+                                  0, 0.45, 0.45;
+                                  0, 1,    2;];  % 初始数值，用于可行部分轨迹的生成
+traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % 用于生成阈值的轨迹的函数
+Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全局均值的可行-最优策略的阈值设定
 
 % 通信设置
 ip = '172.18.22.21';
@@ -168,13 +187,7 @@ scores_trial = [];  % 用于存储每一个trial的平均分数值
 RestTimeLens = [];  % 用于存储休息时间长度
 
 % 关于训练时刻的操作和flag的处理
-Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
 Train_Flag = 0;  % 用于判断是keep还是adjust的flag
-Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
-                                  0, 0.45, 0.45;
-                                  0, 1,    2;];  % 初始数值，用于可行部分轨迹的生成
-traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % 用于生成阈值的轨迹的函数
-Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全局均值的可行-最优策略的阈值设定
 Train_Thre_Global_Flag = 0;  % 用于判断是否达到阈值的flag
 Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
 Flag_FesOptim = 0;  % 用于判断是选择可行还是最优的flag 
@@ -184,11 +197,7 @@ Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;2]];  % 初始化Train_Thre_FesOpt，一
 
 Online_FES_ExamingNum = 5;  % 在线的时候每隔多久检查判断是否需要进行FES辅助
 Online_FES_flag = 0;  % 用于设置是否进行实时FES刺激的相关控制flag
-RestTimeLenBaseline = 7 + session_idx;  % 休息时间随着session的数量增加
-RestTimeLen = RestTimeLenBaseline;  % 初始化休息时间
 
-% 其余指标和参数
-MI_AO_Len = 200;  % 动画实际有多少帧
 
 while(AllTrial <= TrialNum)
     %% 提示专注阶段
@@ -204,7 +213,7 @@ while(AllTrial <= TrialNum)
             RestTimeLen_idle = 60*3;
             disp(["12个trial了，休息3分钟"]);
         else
-            RestTimeLen_idle = 5;
+            RestTimeLen_idle = RestTimeLen_idleBasline;
         end
         if AllTrial > TrialNum
             break;
@@ -263,7 +272,7 @@ while(AllTrial <= TrialNum)
         end
     end
 
-    if Timer == 2 && Trials(AllTrial)> 0 && Timer < 30  % 开始的时候将动画置零帧的时候
+    if Timer == 2 && Trials(AllTrial)> 0 && Timer <= MI_preFeedBack  % 开始的时候将动画置零帧的时候
        sendbuf(1,2) = hex2dec('01') ;
        sendbuf(1,3) = hex2dec('00') ;
        sendbuf(1,5) = uint8(0);
@@ -272,7 +281,7 @@ while(AllTrial <= TrialNum)
     
     % 开始动态想象
     % 切换画面展示，开始运动想象
-    if ((Timer-2)-7*Train_Seg == 0) && Timer > 2 && Trials(AllTrial)> 0 && Timer < 30
+    if ((Timer-2)-7*Train_Seg == 0) && Timer > 2 && Trials(AllTrial)> 0 && Timer <= MI_preFeedBack
         Trigger = Trials(AllTrial);
         sendbuf(1,1) = hex2dec(mat2unity) ;
         sendbuf(1,2) = hex2dec('01') ;
@@ -284,7 +293,7 @@ while(AllTrial <= TrialNum)
     end
 
     % 画面变动
-    if ((Timer-2)-7*Train_Seg >1) && ((Timer-2)-7*Train_Seg <=4) && Trials(AllTrial)> 0 && Timer < 30
+    if ((Timer-2)-7*Train_Seg >1) && ((Timer-2)-7*Train_Seg <=4) && Trials(AllTrial)> 0 && Timer <= MI_preFeedBack
         disp(['开始训练']);
         Trigger = Trials(AllTrial);
         rawdata = TrialData(:,end-512+1:end);  % 取前一个512的窗口
@@ -383,7 +392,7 @@ while(AllTrial <= TrialNum)
     end
     
     % 运动想象的Keep/Adjust引导
-    if ((Timer-2)-7*Train_Seg >= 5) && ((Timer-2)-7*Train_Seg <=6) && Trials(AllTrial)> 0 && Timer < 30
+    if ((Timer-2)-7*Train_Seg >= 5) && ((Timer-2)-7*Train_Seg <=6) && Trials(AllTrial)> 0 && Timer <= MI_preFeedBack
         Trigger = 10;
         disp(['开始引导']);
         sendbuf(1,3) = hex2dec('00');
@@ -400,7 +409,7 @@ while(AllTrial <= TrialNum)
     end
     
    %% 静息态训练阶段
-   if Timer > 2 && Timer <= 18 && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
+   if Timer > 2 && Timer <= Idle_preBreak && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
         Trigger = Trials(AllTrial);
         rawdata = TrialData(:,end-512+1:end);  % 取前一个512的窗口
         rawdata = rawdata(2:end,:);
@@ -446,7 +455,7 @@ while(AllTrial <= TrialNum)
 
    end
    %% 运动想象给与反馈阶段（想对/时间范围内没有想对）,同时更新模型
-   if Timer == 30 && Trials(AllTrial) > 0
+   if Timer == MI_preFeedBack && Trials(AllTrial) > 0
        Trigger = 8;
        if Train_Thre_Global_Flag==1  % 如果想对了，达到阈值
            if Trials(AllTrial) > 0  % 运动想象任务
@@ -493,7 +502,7 @@ while(AllTrial <= TrialNum)
 
    %% 休息阶段，确定下一个动作
     % 空想只给2s就休息
-    if Timer==18 && Trials(AllTrial)==0  %开始休息
+    if Timer==Idle_preBreak && Trials(AllTrial)==0  %开始休息
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
         sendbuf(1,2) = hex2dec('00') ;
@@ -519,7 +528,7 @@ while(AllTrial <= TrialNum)
     end
     
     % 运动想象之后，AO和文字结束了之后让人休息
-    if Trials(AllTrial)>0 && Timer == 40  %开始休息
+    if Trials(AllTrial)>0 && Timer == (MI_preFeedBack + MI_AOTime)  %开始休息
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
         sendbuf(1,2) = hex2dec('00') ;
@@ -556,7 +565,7 @@ while(AllTrial <= TrialNum)
     disp(['时间：', num2str(Timer)]);
     disp(['轮数：', num2str(Train_Seg)]);
     % 计算轮数
-    if mod(Timer-2, 7)==0 && Timer > 2 && Timer < 30
+    if mod(Timer-2, 7)==0 && Timer > 2 && Timer <= MI_preFeedBack
         Train_Seg = Train_Seg + 1;
         if Train_Seg > 3
             Train_Seg = 0;
@@ -565,7 +574,7 @@ while(AllTrial <= TrialNum)
     
     %% 最后的各个数值复位
     % 空想任务想象18s，到第18s之后开始休息，到第20s就结束任务
-    if Timer == 18+RestTimeLen_idle && Trials(AllTrial)==0  %结束休息，准备下一个
+    if Timer == Idle_preBreak+RestTimeLen_idle && Trials(AllTrial)==0  %结束休息，准备下一个
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
@@ -591,7 +600,7 @@ while(AllTrial <= TrialNum)
         disp(['Trial: ', num2str(AllTrial), ', Task: ', num2str(Trials(AllTrial))]);  % 显示相关数据
     end
     % 想对了之后，AO之后，休息3s之后，结束休息，准备下一个
-    if Trials(AllTrial)>0 && Timer == (40 + RestTimeLen)  %结束休息
+    if Trials(AllTrial)>0 && Timer == (MI_preFeedBack + MI_AOTime + RestTimeLen)  %结束休息
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
