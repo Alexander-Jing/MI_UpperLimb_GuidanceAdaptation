@@ -50,22 +50,37 @@ status = CheckNetStreamingVersion(con);                                    % 判
 %% 在线实验参数设置部分，用于设置每一个被试的情况，依据被试情况进行修改
 
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0601_online_2';  % 被试姓名
+subject_name = 'Jyt_test_0601_online_5';  % 被试姓名
 sub_offline_collection_folder = 'Jyt_test_0601_offline_20240601_213002613_data';  % 被试的离线采集数据
 subject_name_offline =  'Jyt_test_0601_offline';  % 离线收集数据时候的被试名称
 MotorClass = 2; % 运动想象动作数量，注意这里是纯设计的运动想象动作的数量，不包括空想idle状态
 %MotorClassMI = 2;  % 如果是单运动想象任务的话，那就直接指定任务就好了
 original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % 原始序列数组
 %original_seq = [1, 2, 0];  % 原始序列数组
-training_seqs = 4;  % 训练轮数
+training_seqs = 8;  % 训练轮数
+trial_random = 2;  % 用于判断是否进行随机训练顺序的参数 false 0， true 1， 若设置成2的话选择固定的预先设置好的实验顺序
+preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 1, 2, 2, 1, 0, 0, ...
+              2, 2, 2, 1, 0, 0, 1, 2, 1, 1, 0, 0, ...
+              2, 1, 2, 1, 0, 0, 2, 2, 1, 1, 0, 0, ...
+              1, 1, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, ...
+              1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
+              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0]; 
 session_idx = 1;  % session index数量，如果是1的话，会自动生成相关排布
 TrialNum = length(original_seq)*training_seqs;  % 每一个类别的trial的数量
+if trial_random == 2
+    TrialNum = 
+end
+
 
 % 运动想象时间节点设定
-MI_preFeedBack = 13;  % 提供视觉电刺激反馈的时间节点
+MI_preFeedBack = 13;  % 运动想象提供视觉电刺激反馈的时间节点
 MI_AOTime = 5;  % AO+FES的时间长度
-RestTimeLenBaseline = 7;  % 休息时间
-RestTimeLen = RestTimeLenBaseline;  % 初始化休息时间
+RestTimeLenBaseline = 2;  % 休息时间（运动想象）
+RestTimeLen = RestTimeLenBaseline;  % 初始化休息时间（运动想象）
+Idle_preBreak = 10;  % 静息态提供休息的时间点
+RestTimeLen_idleBasline = 5;  % 初始化休息时间（静息态）
 
 % 其余指标和参数
 MI_AO_Len = 200;  % 动画实际有多少帧
@@ -89,7 +104,6 @@ weight_mu = 0.6;  % 用于计算ERD/ERS指标和EI指标的加权和
 MI_MUSup_thre = 0;  % 用于MI时候的阈值初始化
 MI_MUSup_thre_weight_baseline = 0.714;  % 用于计算MI时候的mu衰减的阈值权重初始化数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % 用于计算MI时候的mu衰减的阈值权重数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
-trial_random = 1;  % 用于判断是否进行随机训练顺序的参数 false 0， true 1
 
 Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
 Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
@@ -146,15 +160,18 @@ AllTrial = 0;
 for seq_id = 1:training_seqs
     
     temp_array = original_seq;  % 复制原始数组
-    if trial_random
+    if trial_random==1
         non_zero_indices = find(temp_array);  % 找到非零元素的索引
         random_permutation = randperm(length(non_zero_indices));  % 生成非零元素的随机排列
         temp_array(non_zero_indices) = temp_array(non_zero_indices(random_permutation));  % 将原始数组中的非零元素重新排列
     end
-
+    
     Trials = [Trials, temp_array];  % 将重新排列的数组添加到结果数组
 end    
 
+if trial_random==2
+    Trials = preSet_seq;  % 直接使用预先设定好的数值
+end
 
 %% 开始实验，离线采集
 Timer = 0;
@@ -205,11 +222,14 @@ while(AllTrial <= TrialNum)
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);       
         AllTrial = AllTrial + 1;
+        if session_idx > 1
+            AllTrial = 12*(session_idx-1) + AllTrial;  % 如果是session大于1的情况，需要计算下实际的AllTrial的数值
+        end
         if mod(AllTrial,12)==0
             RestTimeLen_idle = 60*3;
             disp(["12个trial了，休息3分钟"]);
         else
-            RestTimeLen_idle = 5;
+            RestTimeLen_idle = RestTimeLen_idleBasline;
         end
         if AllTrial > TrialNum
             break;
@@ -405,7 +425,7 @@ while(AllTrial <= TrialNum)
     end
     
    %% 静息态训练阶段
-   if Timer > 2 && Timer <= 18 && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
+   if Timer > 2 && Timer <= Idle_preBreak && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial)==0
         Trigger = Trials(AllTrial);
         rawdata = TrialData(:,end-512+1:end);  % 取前一个512的窗口
         rawdata = rawdata(2:end,:);
@@ -458,7 +478,7 @@ while(AllTrial <= TrialNum)
                 % 播放动作的AO动画（Idle, MI1, MI2）
                 mat2unity = ['0', num2str(Trials(AllTrial) + 3)];
                 sendbuf(1,1) = hex2dec(mat2unity);
-                sendbuf(1,2) = hex2dec('02') ;
+                sendbuf(1,2) = hex2dec('04') ;
                 sendbuf(1,3) = hex2dec('01') ;  % 给与反馈，显示文字
                 sendbuf(1,4) = hex2dec('00') ;
                 sendbuf(1,8) = hex2dec('00') ;
@@ -498,7 +518,7 @@ while(AllTrial <= TrialNum)
 
    %% 休息阶段，确定下一个动作
     % 空想只给2s就休息
-    if Timer==18 && Trials(AllTrial)==0  %开始休息
+    if Timer==Idle_preBreak && Trials(AllTrial)==0  %开始休息
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
         sendbuf(1,2) = hex2dec('00') ;
@@ -524,7 +544,7 @@ while(AllTrial <= TrialNum)
     end
     
     % 运动想象之后，AO和文字结束了之后让人休息
-    if Trials(AllTrial)>0 && Timer == MI + MI_AOTime  %开始休息
+    if Trials(AllTrial)>0 && Timer == (MI_preFeedBack + MI_AOTime)  %开始休息
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
         sendbuf(1,2) = hex2dec('00') ;
@@ -570,7 +590,7 @@ while(AllTrial <= TrialNum)
     
     %% 最后的各个数值复位
     % 空想任务想象18s，到第18s之后开始休息，到第20s就结束任务
-    if Timer == 18+RestTimeLen_idle && Trials(AllTrial)==0  %结束休息，准备下一个
+    if Timer == Idle_preBreak+RestTimeLen_idle && Trials(AllTrial)==0  %结束休息，准备下一个
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
@@ -596,7 +616,7 @@ while(AllTrial <= TrialNum)
         disp(['Trial: ', num2str(AllTrial), ', Task: ', num2str(Trials(AllTrial))]);  % 显示相关数据
     end
     % 想对了之后，AO之后，休息3s之后，结束休息，准备下一个
-    if Trials(AllTrial)>0 && Timer == (40 + RestTimeLen)  %结束休息
+    if Trials(AllTrial)>0 && Timer == (MI_preFeedBack + MI_AOTime + RestTimeLen)  %结束休息
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);

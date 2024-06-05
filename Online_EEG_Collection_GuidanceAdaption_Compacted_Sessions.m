@@ -57,9 +57,22 @@ MotorClass = 2; % 运动想象动作数量，注意这里是纯设计的运动想象动作的数量，不包括
 %MotorClassMI = 2;  % 如果是单运动想象任务的话，那就直接指定任务就好了
 original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % 原始序列数组
 %original_seq = [1, 2, 0];  % 原始序列数组
-training_seqs = 1;  % 训练轮数
+training_seqs = 8;  % 训练轮数
+trial_random = 2;  % 用于判断是否进行随机训练顺序的参数 false 0， true 1， 若设置成2的话选择固定的预先设置好的实验顺序
+preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 1, 2, 2, 1, 0, 0, ...
+              2, 2, 2, 1, 0, 0, 1, 2, 1, 1, 0, 0, ...
+              2, 1, 2, 1, 0, 0, 2, 2, 1, 1, 0, 0, ...
+              1, 1, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, ...
+              1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
+              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0]; 
 session_idx = 1;  % session index数量，如果是1的话，会自动生成相关排布
 TrialNum = length(original_seq)*training_seqs;  % 每一个类别的trial的数量
+if trial_random == 2
+    TrialNum = length(preSet_seq);  % 如果是trial_random为2的时候，修改数值为length(preSet_seq)
+end
+
 
 % 运动想象时间节点设定
 MI_preFeedBack = 13;  % 运动想象提供视觉电刺激反馈的时间节点
@@ -91,7 +104,6 @@ weight_mu = 0.6;  % 用于计算ERD/ERS指标和EI指标的加权和
 MI_MUSup_thre = 0;  % 用于MI时候的阈值初始化
 MI_MUSup_thre_weight_baseline = 0.714;  % 用于计算MI时候的mu衰减的阈值权重初始化数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % 用于计算MI时候的mu衰减的阈值权重数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
-trial_random = 1;  % 用于判断是否进行随机训练顺序的参数 false 0， true 1
 
 Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
 Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
@@ -148,30 +160,30 @@ AllTrial = 0;
 for seq_id = 1:training_seqs
     
     temp_array = original_seq;  % 复制原始数组
-    if trial_random
+    if trial_random==1
         non_zero_indices = find(temp_array);  % 找到非零元素的索引
         random_permutation = randperm(length(non_zero_indices));  % 生成非零元素的随机排列
         temp_array(non_zero_indices) = temp_array(non_zero_indices(random_permutation));  % 将原始数组中的非零元素重新排列
     end
-
+    
     Trials = [Trials, temp_array];  % 将重新排列的数组添加到结果数组
 end    
 
+if trial_random==2
+    Trials = preSet_seq;  % 直接使用预先设定好的数值
+end
 
 %% 开始实验，离线采集
 Timer = 0;
 TrialData = [];  % 用于原始数据的采集
 
+% trial里面的数值存储，一下变量是trial以内的数据存储
 % 关于精度/分类概率部分的指标存储
 MI_Acc = [];  % 用于存储一个trial里面的所有分类概率
 MI_Acc_GlobalAvg = [];  % 用于存储一个trial里面的全局的平均分类概率
-MI_Acc_Trials = [];  % 用于存储全部训练中的所有trial的分类概率，MI_Acc_Trials = [MI_Acc_Trials; [MI_Acc; Trigger]]
-MI_Acc_GlobalAvg_Trials = [];  % 用于存储全部训练中的所有trial里面的全局的平均分类概率，MI_Acc_GlobalAvg_Trials = [MI_Acc_GlobalAvg_Trials; [MI_Acc_GlobalAvg; Trigger]]
-
 % 关于训练时刻的数据的存储
 Train_Seg = 0;  % 用于确定是第几个Seg的数值
 TrialData_Processed = [];  % 用于存储训练中的实时数据，TrialData_Processed = [TrialData_Processed; [[Data_preprocessed;Trigger],[Data_preprocessed;Trigger],...[Data_preprocessed;Trigger]]]
-
 % 用于一些可以分析的指标的存储
 mu_powers = [];  % 用于存储每一个trial里面的每一个window的mu频带的能量数值
 mu_suppressions = [];  % 用于存储每一个trial里面的mu_suppression
@@ -180,23 +192,30 @@ EI_indices = [];  % 用于存储每一个trial里面的每一个window的EI分数值
 EI_index_scores = [];  % 用于存储EI_index_Caculation(EI_index, EI_channels)计算出来的EI_index_score数值
 EI_index_scores_normalized = [];  % 用于存储归一化的EI_index_scores数值
 resultsMI = [];  % 用于存储每一个trial里面的results
-muSups_trial = [];  % 用于存储一个trial的mu衰减
-scores_trial = [];  % 用于存储每一个trial的平均分数值
-RestTimeLens = [];  % 用于存储休息时间长度
-
 % 关于训练时刻的操作和flag的处理
 Train_Flag = 0;  % 用于判断是keep还是adjust的flag
 Train_Thre_Global_Flag = 0;  % 用于判断是否达到阈值的flag
-Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
 Flag_FesOptim = 0;  % 用于判断是选择可行还是最优的flag 
 Train_Thre_FesOpt = [];  % 用于存储规划的阈值的数组，存储方法 Train_Thre_FesOpt = [Train_Thre_FesOpt, [Train_Thre_Global_Optim; Flag_FesOptim; Trigger]];
-Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;1]];
-Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;2]];  % 初始化Train_Thre_FesOpt，一开始都是选择可行
-
 Online_FES_ExamingNum = 5;  % 在线的时候每隔多久检查判断是否需要进行FES辅助
 Online_FES_flag = 0;  % 用于设置是否进行实时FES刺激的相关控制flag
 
-
+% trial之间的数据存储，以下变量是和Session有关的
+if session_idx==1
+    MI_Acc_Trials = [];  % 用于存储全部训练中的所有trial的分类概率，MI_Acc_Trials = [MI_Acc_Trials; [MI_Acc; Trigger]]
+    MI_Acc_GlobalAvg_Trials = [];  % 用于存储全部训练中的所有trial里面的全局的平均分类概率，MI_Acc_GlobalAvg_Trials = [MI_Acc_GlobalAvg_Trials; [MI_Acc_GlobalAvg; Trigger]]
+    RestTimeLens = [];  % 用于存储休息时间长度
+    Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
+    Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;1]];
+    Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;2]];  % 初始化Train_Thre_FesOpt，一开始都是选择可行
+    muSups_trial = [];  % 用于存储一个trial的mu衰减
+    scores_trial = [];  % 用于存储每一个trial的平均分数值
+elseif session_idx > 1
+    % 从之前的文件中导引出变量
+    foldername_trajectory = [foldername, '\\Online_EEGMI_trajectory_', subject_name]; % 指定文件夹路径和名称
+    load([foldername_trajectory, '\\', ['Online_EEGMI_trajectory_', subject_name], '.mat'], 'scores_trial','traj_Feasible',...
+    'RestTimeLens','muSups_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance','Train_Thre_FesOpt');
+end
 
 while(AllTrial <= TrialNum)
     %% 提示专注阶段
@@ -208,6 +227,9 @@ while(AllTrial <= TrialNum)
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);       
         AllTrial = AllTrial + 1;
+        if session_idx > 1
+            AllTrial = 12*(session_idx-1) + AllTrial;  % 如果是session大于1的情况，需要计算下实际的AllTrial的数值
+        end
         if mod(AllTrial,12)==0
             RestTimeLen_idle = 60*3;
             disp(["12个trial了，休息3分钟"]);
@@ -636,15 +658,20 @@ foldername_rawdata = [foldername, '\\Online_EEGMI_RawData_', subject_name]; % 指
 if ~exist(foldername_rawdata, 'dir')
    mkdir(foldername_rawdata);
 end
-save([foldername_rawdata, '\\', FunctionNowFilename(['Online_EEGMI_RawData_',num2str(session_idx), '_', subject_name], '.mat' )],'TrialData','Trials','ChanLabel');
+save([foldername_rawdata, '\\', ['Online_EEGMI_RawData_', 'session_', num2str(session_idx), '_', subject_name], '.mat' ],'TrialData','Trials','ChanLabel');
 
 %% 存储轨迹追踪与调整的相关指标
-foldername_rawdata = [foldername, '\\Online_EEGMI_trajectory_', subject_name]; % 指定文件夹路径和名称
-if ~exist(foldername_rawdata, 'dir')
-   mkdir(foldername_rawdata);
+foldername_trajectory = [foldername, '\\Online_EEGMI_trajectory_', subject_name]; % 指定文件夹路径和名称
+if ~exist(foldername_trajectory, 'dir')
+   mkdir(foldername_trajectory);
 end
-save([foldername_rawdata, '\\', FunctionNowFilename(['Online_EEGMI_trajectory_',num2str(session_idx), '_', subject_name], '.mat' )],'scores_trial','traj_Feasible',...
-    'RestTimeLens','muSups_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance','Train_Thre_FesOpt');
+if session_idx==1
+    save([foldername_trajectory, '\\', ['Online_EEGMI_trajectory_', subject_name], '.mat'],'scores_trial','traj_Feasible',...
+        'RestTimeLens','muSups_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance','Train_Thre_FesOpt');
+elseif session_idx > 1  % 如果session大于1的话，可以进行覆盖存储
+    save([foldername_trajectory, '\\', ['Online_EEGMI_trajectory_', subject_name], '.mat'],'scores_trial','traj_Feasible',...
+        'RestTimeLens','muSups_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance','Train_Thre_FesOpt','-append');
+end
 
 
 %% 存储在运动想象过程中的参与度指标
@@ -656,9 +683,9 @@ function SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name
        mkdir(foldername);
     end
 
-    save([foldername, '\\', FunctionNowFilename(['Online_EEG_data2Server_', subject_name, '_class_', num2str(config_data(3,1)),  ...
+    save([foldername, '\\', ['Online_EEG_data2Server_', subject_name, '_class_', num2str(config_data(3,1)),  ...
         '_session_', num2str(config_data(4,1)), '_trial_', num2str(config_data(5,1)), ...
-        '_window_', num2str(config_data(6,1)), 'EI_mu' ], '.mat' )],'EI_indices','mu_powers','mu_suppressions', 'EI_index_scores','resultsMI',...
+        '_window_', num2str(config_data(6,1)), 'EI_mu' ], '.mat' ],'EI_indices','mu_powers','mu_suppressions', 'EI_index_scores','resultsMI',...
         'MI_Acc','MI_Acc_GlobalAvg','TrialData_Processed');  % 存储相关的数值
 end
 %% 计算相关mu频带衰减指标，这里需要修改
