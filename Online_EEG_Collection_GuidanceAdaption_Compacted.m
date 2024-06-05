@@ -50,14 +50,14 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0601_online_2';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0601_online_5';  % ±»ÊÔĞÕÃû
 sub_offline_collection_folder = 'Jyt_test_0601_offline_20240601_213002613_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_test_0601_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
 original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
 %original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
-training_seqs = 4;  % ÑµÁ·ÂÖÊı
+training_seqs = 1;  % ÑµÁ·ÂÖÊı
 session_idx = 1;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 
@@ -462,7 +462,7 @@ while(AllTrial <= TrialNum)
                 % ²¥·Å¶¯×÷µÄAO¶¯»­£¨Idle, MI1, MI2£©
                 mat2unity = ['0', num2str(Trials(AllTrial) + 3)];
                 sendbuf(1,1) = hex2dec(mat2unity);
-                sendbuf(1,2) = hex2dec('02') ;
+                sendbuf(1,2) = hex2dec('04') ;
                 sendbuf(1,3) = hex2dec('01') ;  % ¸øÓë·´À¡£¬ÏÔÊ¾ÎÄ×Ö
                 sendbuf(1,4) = hex2dec('00') ;
                 sendbuf(1,8) = hex2dec('00') ;
