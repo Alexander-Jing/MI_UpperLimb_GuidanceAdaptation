@@ -50,16 +50,29 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0601_online_5';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0601_online_8';  % ±»ÊÔĞÕÃû
 sub_offline_collection_folder = 'Jyt_test_0601_offline_20240601_213002613_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_test_0601_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
 original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
 %original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
-training_seqs = 1;  % ÑµÁ·ÂÖÊı
+training_seqs = 8;  % ÑµÁ·ÂÖÊı
 session_idx = 1;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
+trial_random = 2;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1£¬ ÈôÉèÖÃ³É2µÄ»°Ñ¡Ôñ¹Ì¶¨µÄÔ¤ÏÈÉèÖÃºÃµÄÊµÑéË³Ğò
+preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 1, 2, 2, 1, 0, 0, ...
+              2, 2, 2, 1, 0, 0, 1, 2, 1, 1, 0, 0, ...
+              2, 1, 2, 1, 0, 0, 2, 2, 1, 1, 0, 0, ...
+              1, 1, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, ...
+              1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
+              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0]; 
+TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
+if trial_random == 2
+    TrialNum = length(preSet_seq);  % Èç¹ûÊÇtrial_randomÎª2µÄÊ±ºò£¬ĞŞ¸ÄÊıÖµÎªlength(preSet_seq)
+end
 
 % ÔË¶¯ÏëÏóÊ±¼ä½ÚµãÉè¶¨
 MI_preFeedBack = 13;  % ÔË¶¯ÏëÏóÌá¹©ÊÓ¾õµç´Ì¼¤·´À¡µÄÊ±¼ä½Úµã
@@ -91,7 +104,6 @@ weight_mu = 0.6;  % ÓÃÓÚ¼ÆËãERD/ERSÖ¸±êºÍEIÖ¸±êµÄ¼ÓÈ¨ºÍ
 MI_MUSup_thre = 0;  % ÓÃÓÚMIÊ±ºòµÄãĞÖµ³õÊ¼»¯
 MI_MUSup_thre_weight_baseline = 0.714;  % ÓÃÓÚ¼ÆËãMIÊ±ºòµÄmuË¥¼õµÄãĞÖµÈ¨ÖØ³õÊ¼»¯ÊıÖµ£¬Õâ¸öÈ¨ÖØÒ»°ãÊÇºÍ·ÖÀàµÄ¸ÅÂÊÏà¹ØµÄ£¬Ò²»áËæ×ÅÏà¹ØÊı¾İ½øĞĞµ÷Õû
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % ÓÃÓÚ¼ÆËãMIÊ±ºòµÄmuË¥¼õµÄãĞÖµÈ¨ÖØÊıÖµ£¬Õâ¸öÈ¨ÖØÒ»°ãÊÇºÍ·ÖÀàµÄ¸ÅÂÊÏà¹ØµÄ£¬Ò²»áËæ×ÅÏà¹ØÊı¾İ½øĞĞµ÷Õû
-trial_random = 1;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1
 
 Train_Thre = 0.5;  % ÓÃÓÚºâÁ¿ºóĞøÊÇkeep»¹ÊÇadjustµÄãĞÖµ
 Train_Thre_Global_FeasibleInit = [0, 0.35, 0.35;
@@ -156,7 +168,9 @@ for seq_id = 1:training_seqs
 
     Trials = [Trials, temp_array];  % ½«ÖØĞÂÅÅÁĞµÄÊı×éÌí¼Óµ½½á¹ûÊı×é
 end    
-
+if trial_random==2
+    Trials = preSet_seq;  % Ö±½ÓÊ¹ÓÃÔ¤ÏÈÉè¶¨ºÃµÄÊıÖµ
+end
 
 %% ¿ªÊ¼ÊµÑé£¬ÀëÏß²É¼¯
 Timer = 0;
