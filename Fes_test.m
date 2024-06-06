@@ -20,7 +20,7 @@ fopen(StimControl);
 
 tStim = [3,14,2]; % [t_up,t_flat,t_down] * 100ms
 StimCommand_1 = uint8([0,9,tStim,1]); % left calf
-StimCommand_2 = uint8([0,7,tStim,2]); % left thigh
+StimCommand_2 = uint8([0,9,tStim,2]); % left thigh
 StimCommand_3 = uint8([0,5,tStim,3]); % right thigh 
 
 

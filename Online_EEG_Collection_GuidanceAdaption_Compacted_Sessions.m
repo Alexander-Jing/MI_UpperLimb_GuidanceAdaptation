@@ -50,18 +50,18 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0601_online_6_sessions';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0601_offline_20240601_213002613_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0601_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0606_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0606_offline_20240606_193249561_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0606_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
-foldername_Sessions = 'Jyt_test_0601_online_6_sessions_20240606_112742309_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
-session_idx = 2;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_test_0606_online_20240606_201926565_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
 original_seq = [1,1, 1,2, 0,0, 2,1, 2,2, 0,0];  % Ô­Ê¼ĞòÁĞÊı×é
 %original_seq = [1, 2, 0];  % Ô­Ê¼ĞòÁĞÊı×é
-training_seqs = 8;  % ÑµÁ·ÂÖÊı
+training_seqs = 9;  % ÑµÁ·ÂÖÊı
 trial_random = 2;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ½øĞĞËæ»úÑµÁ·Ë³ĞòµÄ²ÎÊı false 0£¬ true 1£¬ ÈôÉèÖÃ³É2µÄ»°Ñ¡Ôñ¹Ì¶¨µÄÔ¤ÏÈÉèÖÃºÃµÄÊµÑéË³Ğò
 preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
               2, 1, 1, 2, 0, 0, 1, 2, 2, 1, 0, 0, ...
@@ -70,7 +70,9 @@ preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
               1, 1, 1, 2, 0, 0, 2, 2, 1, 2, 0, 0, ...
               2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, ...
               1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
-              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0]; 
+              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, ...
+              1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0,]; 
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 if trial_random == 2
     TrialNum = length(preSet_seq);  % Èç¹ûÊÇtrial_randomÎª2µÄÊ±ºò£¬ĞŞ¸ÄÊıÖµÎªlength(preSet_seq)
@@ -121,8 +123,8 @@ ip = '172.18.22.21';
 port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
-StimAmplitude_1 = 7;
-StimAmplitude_2 = 7;  % ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_1 = 9;
+StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
@@ -260,7 +262,16 @@ while(AllTrial <= TrialNum_session)
             sendbuf(1,3) = hex2dec('00') ;
             sendbuf(1,4) = hex2dec('00') ;
             sendbuf(1,8) = hex2dec('00');
-            fwrite(UnityControl,sendbuf);  
+            fwrite(UnityControl,sendbuf);
+            % µÚ2sµÄÊ±ºò£¬È¡512µÄTrigger==6µÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö
+            rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
+            rawdata = rawdata(2:end,:);
+            % ÕâÀï½ö½öÌáÈ¡ÔÚMIÖ®Ç°µÄÆµ´øÄÜÁ¿
+            [preMIData_processed, ~, mu_power_] = Online_DataPreprocess_Hanning(rawdata, 6, sample_frequency, WindowLength, channels);
+            mu_power_ = [mu_power_; 6];
+            mu_powers = [mu_powers, mu_power_];  % Ìí¼ÓÏà¹ØµÄmu½ÚÂÉÄÜÁ¿
+            TriggerRepeat_ = repmat(6,1,512);
+            TrialData_Processed = [TrialData_Processed; [preMIData_processed;TriggerRepeat_]];
         end
         if Trials(AllTrial_Session)> 0  % ÔË¶¯ÏëÏóÈÎÎñ
             Trigger = Trials(AllTrial_Session);  % ²¥·Å¶¯×÷µÄAO¶¯»­£¨Idle, MI1, MI2£©
@@ -468,7 +479,7 @@ while(AllTrial <= TrialNum_session)
         % ´æ´¢ÕâÒ»ÏµÁĞÖ¸±êµÄÊıÖµ
         EI_index = [EI_index; Trigger];
         mu_power_MI = [mu_power_MI; Trigger];  % ÕâÀïÌí¼ÓÉÏTriggerµÄÏà¹ØÊıÖµ£¬·½±ã´æ´¢
-        mu_suppression = [mu_suppression; Trigger]; % ÕâÀïÌí¼ÓÉÏTriggerµÄÏà¹ØÊıÖµ£¬·½±ã´æ´¢
+        %mu_suppression = [mu_suppression; Trigger]; % ÕâÀïÌí¼ÓÉÏTriggerµÄÏà¹ØÊıÖµ£¬·½±ã´æ´¢
         EI_index_score = [EI_index_score; Trigger];
 %         EI_index_score_normalized = [EI_index_score_normalized; Trigger];
         resultMI_ = [resultMI; Trigger];

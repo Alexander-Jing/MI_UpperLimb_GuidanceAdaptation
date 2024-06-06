@@ -47,7 +47,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0601_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0606_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 %TrialNum = 3*3;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
@@ -83,8 +83,8 @@ port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 Fes_flag = 1;  % ÊÇ·ñ¿ªÆôFes¸¨Öú
-StimAmplitude_1 = 7;
-StimAmplitude_2 = 7;  % ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_1 = 9;
+StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % ÄÑ¶È¼ÆËãÓë»®·ÖÉèÖÃ
 %task_weights = [3,5,2];
