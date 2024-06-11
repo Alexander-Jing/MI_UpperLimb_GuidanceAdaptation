@@ -74,3 +74,4 @@ for category = 1:length(allData_MuSupTrial)
     fprintf('Trial: %d 到 %d \n', startTrial_2, endTrial_2);
     fprintf('类别 %d 的mu衰减: %.2f\n', category-1, mean(allData_MuSupTrial{category}((startTrial_2-1)/3+1:endTrial_2/3)));
 end
+

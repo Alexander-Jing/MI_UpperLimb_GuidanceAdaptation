@@ -13,13 +13,14 @@ allData = [];
 
 % 定义感兴趣的通道
 channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];
+channel_selected = 24;  % 选择C3作为分析的通道
 
 % 初始化t-SNE数据和标签
 tsneDataAll = [];
 tsneLabelsAll = [];
 
 % 遍历指定范围内的trial
-for category = 0:2
+for category = 1:2
     % 初始化存储每个类别数据的数组
     categoryData = [];
     
@@ -42,18 +43,22 @@ for category = 0:2
             if mod(numRows, 33) == 0
                 % 计算样本数量
                 numSamples = numRows / 33;
-                
-                % 取最后6个样本
-                for sampleIdx = numSamples-5:numSamples
-                    % 计算当前样本的起始行
-                    startRow = (sampleIdx-1)*33 + 1;
-                    % 提取样本
-                    sampleData = data.TrialData_Processed(startRow:startRow+32, :);
-                    % 选择指定的通道
-                    sampleData = sampleData(channels, :);
-                    % 存储样本数据
-                    categoryData = cat(3, categoryData, sampleData);
+                sampleFrames = [];
+                % 选取样本
+                for sampleIdx = 1:numSamples
+                    % 只选取下面 的数据，从而构成一个完整的trial的数据
+                    if sampleIdx==1 || sampleIdx==2 || sampleIdx==4 || sampleIdx==5 || sampleIdx==7
+                        % 计算当前样本的起始行
+                        startRow = (sampleIdx-1)*33 + 1;
+                        % 提取样本
+                        sampleData = data.TrialData_Processed(startRow:startRow+32, :);
+                        % 选择指定的通道
+                        sampleData = sampleData(channel_selected, :);
+                        % 存储样本数据
+                        sampleFrames = [sampleFrames; sampleData']; 
+                    end
                 end
+                categoryData = [categoryData, sampleFrames];
             end
         end
     end
@@ -63,32 +68,39 @@ for category = 0:2
 end
 
 % 假设 allData{2} 和 allData{3} 分别存储了类别1和类别2的数据
-% 并且数据的尺寸是 [样本数 x 通道数 x 时间点数]
-
 % 提取两个类别的数据
 dataClass1 = allData{2};
 dataClass2 = allData{3};
+%dataClass_all = [dataClass1, dataClass2];
 
-% 将数据转置以符合 FLD 的输入要求 [样本数 x 特征数]
-dataClass1 = permute(dataClass1, [3, 1, 2]);
-dataClass2 = permute(dataClass2, [3, 1, 2]);
+% 绘制ERSP图
+[ersp,itc,powbase,times,freqs]=newtimef(dataClass2,256*10,[-3*1000 8*1000],256, 0,'plotitc','off',...
+    'freqs',[1 35],  'erspmax', 10, 'scale', 'log', 'plotmean', 'off');
 
-% 将数据重塑为二维数组
-dataClass1 = reshape(dataClass1, [], size(dataClass1, 2)*size(dataClass1, 3));
-dataClass2 = reshape(dataClass2, [], size(dataClass2, 2)*size(dataClass2, 3));
-
-[V, eigvalueSum] = fld([dataClass1;dataClass2], [ones(size(dataClass1,1),1);2*ones(size(dataClass1,1),1)],1);
-fldProjectionClass1 = dataClass1 * V;
-fldProjectionClass2 = dataClass2 * V;
-
-% 绘制 FLD 投影
+% 创建一个新的图形窗口
 figure;
-scatter(fldProjectionClass1(:,1), zeros(size(fldProjectionClass1,1),1), 10, 'r', 'filled');
-hold on;
-scatter(fldProjectionClass2(:,1), zeros(size(fldProjectionClass2,1),1), 10, 'b', 'filled');
-hold off;
-title('Fisher''s Linear Discriminant Projection');
-xlabel('FLD Score');
-ylabel('Zero Line');
-legend('Category 1', 'Category 2');
 
+% 使用 imagesc 函数显示ERSP
+imagesc(times, freqs, ersp);
+
+% 设置坐标轴方向 - 通常时间是x轴，频率是y轴
+axis xy;
+
+% 添加颜色条以表示不同功率的颜色编码
+hColorbar = colorbar;
+hColorbar.Label.String = 'dB';  % 设置颜色条的标签为 'dB'
+
+% 增强颜色条的亮度
+hColorbar.Limits = [-10 10]; % 设置颜色条的范围
+colormap jet; % 使用 'jet' 颜色图，它具有鲜艳的颜色
+
+% 添加标题和轴标签
+title('C3');
+xlabel('Times (ms)');
+ylabel('Frequency (Hz)');
+
+% 在x轴的0刻度处添加一条黑色虚线
+line([0 0], ylim, 'Color', 'k', 'LineStyle', '--', 'LineWidth', 2);
+
+% 设置合适的颜色范围
+caxis([-10 10]);
