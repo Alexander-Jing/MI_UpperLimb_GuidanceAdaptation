@@ -80,11 +80,11 @@ end
 TrialNum_session = 12;  % 一个session里面的trial数量
 
 % 运动想象时间节点设定
-MI_preFeedBack = 13;  % 运动想象提供视觉电刺激反馈的时间节点
+MI_preFeedBack = 9;  % 运动想象提供视觉电刺激反馈的时间节点
 MI_AOTime = 5;  % AO+FES的时间长度
 RestTimeLenBaseline = 2;  % 休息时间（运动想象）
 RestTimeLen = RestTimeLenBaseline;  % 初始化休息时间（运动想象）
-Idle_preBreak = 10;  % 静息态提供休息的时间点
+Idle_preBreak = 9;  % 静息态提供休息的时间点
 RestTimeLen_idleBasline = 5;  % 初始化休息时间（静息态）
 
 % 其余指标和参数
@@ -190,7 +190,6 @@ TrialData = [];  % 用于原始数据的采集
 MI_Acc = [];  % 用于存储一个trial里面的所有分类概率
 MI_Acc_GlobalAvg = [];  % 用于存储一个trial里面的全局的平均分类概率
 % 关于训练时刻的数据的存储
-Train_Seg = 0;  % 用于确定是第几个Seg的数值
 TrialData_Processed = [];  % 用于存储训练中的实时数据，TrialData_Processed = [TrialData_Processed; [[Data_preprocessed;Trigger],[Data_preprocessed;Trigger],...[Data_preprocessed;Trigger]]]
 % 用于一些可以分析的指标的存储
 mu_powers = [];  % 用于存储每一个trial里面的每一个window的mu频带的能量数值
@@ -321,20 +320,8 @@ while(AllTrial <= TrialNum_session)
     end
     
     % 开始动态想象
-    % 切换画面展示，开始运动想象
-    if ((Timer-2)-7*Train_Seg == 0) && Timer > 2 && Trials(AllTrial_Session)> 0 && Timer <= MI_preFeedBack
-        Trigger = Trials(AllTrial_Session);
-        sendbuf(1,1) = hex2dec(mat2unity) ;
-        sendbuf(1,2) = hex2dec('01') ;
-        sendbuf(1,3) = hex2dec('00') ;
-        sendbuf(1,4) = hex2dec('00') ;
-        sendbuf(1,8) = hex2dec('00');
-        fwrite(UnityControl,sendbuf);
-        Train_Flag = 0;
-    end
-
     % 画面变动
-    if ((Timer-2)-7*Train_Seg >1) && ((Timer-2)-7*Train_Seg <=4) && Trials(AllTrial_Session)> 0 && Timer <= MI_preFeedBack
+    if ((Timer-2) >1) && Trials(AllTrial_Session)> 0 && Timer <= MI_preFeedBack
         disp(['开始训练']);
         Trigger = Trials(AllTrial_Session);
         rawdata = TrialData(:,end-512+1:end);  % 取前一个512的窗口
@@ -364,7 +351,7 @@ while(AllTrial <= TrialNum_session)
         sendbuf(1,2) = hex2dec('01');
         sendbuf(1,3) = hex2dec('00');
         sendbuf(1,4) = hex2dec('00');
-        if Train_Seg > 1
+        if size(MI_Acc_GlobalAvg,2) > 1
             % 将均值归一化到全局的阈值Train_Thre_Global范围内
             VisualFB_Rate_0 = MI_Acc_GlobalAvg(end-1)/Train_Thre_Global;
             VisualFB_Rate_1 = MI_Acc_GlobalAvg(end)/Train_Thre_Global;
@@ -394,16 +381,6 @@ while(AllTrial <= TrialNum_session)
             sendbuf(1,5) = uint8(VisualFB_1);
             fwrite(UnityControl,sendbuf);
         end
-
-
-        % 当时间到达第4s的时候，收集之前的3个seg的概率，用于分析是否是要keep还是adjust
-        if (Timer-2)-7*Train_Seg ==4
-            if max(MI_Acc(end-2:end)) > Train_Thre
-                Train_Flag = 1;
-            else
-                Train_Flag = 0;
-            end
-        end
         
         % 收集这次的数据，准备后面分析
         TriggerRepeat_ = repmat(Trigger,1,512);
@@ -432,25 +409,8 @@ while(AllTrial <= TrialNum_session)
 %         mu_suppressions_normalized = [mu_suppressions_normalized, mu_suppression_normalized]; 
     end
     
-    % 运动想象的Keep/Adjust引导
-    if ((Timer-2)-7*Train_Seg >= 5) && ((Timer-2)-7*Train_Seg <=6) && Trials(AllTrial_Session)> 0 && Timer <= MI_preFeedBack
-        Trigger = 10;
-        disp(['开始引导']);
-        sendbuf(1,3) = hex2dec('00');
-        sendbuf(1,4) = hex2dec('00');
-        if Train_Flag == 0
-            sendbuf(1,8) = hex2dec('02');
-            disp(['poor performance, adjust, ', 'value: ', num2str(max(MI_Acc(end-2:end)))]);
-        else
-            sendbuf(1,8) = hex2dec('01');
-            disp(['good performance, keep ', 'value: ', num2str(max(MI_Acc(end-2:end)))]);
-        end
-        fwrite(UnityControl,sendbuf);
-
-    end
-    
    %% 静息态训练阶段
-   if Timer > 2 && Timer <= Idle_preBreak && (mod(Timer-2, 4)==2 || mod(Timer-2, 4)==3 || mod(Timer-2, 4)==0) && Trials(AllTrial_Session)==0
+   if ((Timer-2) >1) && (Timer <=Idle_preBreak) && Trials(AllTrial_Session)==0
         Trigger = Trials(AllTrial_Session);
         rawdata = TrialData(:,end-512+1:end);  % 取前一个512的窗口
         rawdata = rawdata(2:end,:);
@@ -604,14 +564,6 @@ while(AllTrial <= TrialNum_session)
     TrialData = [TrialData,data];
     Timer = Timer + 1;
     disp(['时间：', num2str(Timer)]);
-    disp(['轮数：', num2str(Train_Seg)]);
-    % 计算轮数
-    if mod(Timer-2, 7)==0 && Timer > 2 && Timer <= MI_preFeedBack
-        Train_Seg = Train_Seg + 1;
-        if Train_Seg > 3
-            Train_Seg = 0;
-        end
-    end
     
     %% 最后的各个数值复位
     % 空想任务想象18s，到第18s之后开始休息，到第20s就结束任务
@@ -621,7 +573,6 @@ while(AllTrial <= TrialNum_session)
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
         %计时器清0
         Timer = 0;  % 计时器清0
-        Train_Seg = 0;
         % 每一个trial的数值还原
         scores = [];  % 分数值还原
         EI_indices = [];  % EI分数值还原
@@ -647,7 +598,6 @@ while(AllTrial <= TrialNum_session)
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
         % 计时器清0
         Timer = 0;  % 计时器清0
-        Train_Seg = 0;
         % 每一个trial的数值还原
         scores = [];  % 分数值还原
         EI_indices = [];  % EI分数值还原
