@@ -3,8 +3,8 @@ subject_name = 'Jyt_test_0606_online';  % 被试姓名
 foldername_Sessions = 'Jyt_test_0606_online_20240606_201926565_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
 foldername_Engagements = 'Online_Engagements_Jyt_test_0606_online';
 % 定义起始和结束的trial数量
-startTrial = 1; % 起始trial的数字
-endTrial = 24; % 结束trial的数字
+startTrial = 73; % 起始trial的数字
+endTrial = 96; % 结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
