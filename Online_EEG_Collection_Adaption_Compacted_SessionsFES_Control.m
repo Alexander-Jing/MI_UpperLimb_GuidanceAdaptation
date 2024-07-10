@@ -50,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0708_online';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0708_online_control';  % ±»ÊÔĞÕÃû
 sub_offline_collection_folder = 'Jyt_test_0606_offline_20240606_193249561_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_test_0606_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
@@ -111,8 +111,8 @@ MI_MUSup_thre_weight_baseline = 0.714;  % ÓÃÓÚ¼ÆËãMIÊ±ºòµÄmuË¥¼õµÄãĞÖµÈ¨ÖØ³õÊ¼»¯
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % ÓÃÓÚ¼ÆËãMIÊ±ºòµÄmuË¥¼õµÄãĞÖµÈ¨ÖØÊıÖµ£¬Õâ¸öÈ¨ÖØÒ»°ãÊÇºÍ·ÖÀàµÄ¸ÅÂÊÏà¹ØµÄ£¬Ò²»áËæ×ÅÏà¹ØÊı¾İ½øĞĞµ÷Õû
 
 Train_Thre = 0.5;  % ÓÃÓÚºâÁ¿ºóĞøÊÇkeep»¹ÊÇadjustµÄãĞÖµ
-Train_Thre_Global_FeasibleInit = [0, 0.40, 0.40;
-                                  0, 0.45, 0.45;
+Train_Thre_Global_FeasibleInit = [0, 0.45, 0.45;
+                                  0, 0.50, 0.50;
                                   0, 1,    2;];  % ³õÊ¼ÊıÖµ£¬ÓÃÓÚ¿ÉĞĞ²¿·Ö¹ì¼£µÄÉú³É
 traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % ÓÃÓÚÉú³ÉãĞÖµµÄ¹ì¼£µÄº¯Êı
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % ÓÃÓÚ²¢ÇÒµ÷ÕûµÄÕë¶ÔÈ«¾Ö¾ùÖµµÄ¿ÉĞĞ-×îÓÅ²ßÂÔµÄãĞÖµÉè¶¨
@@ -199,6 +199,7 @@ EI_indices = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄÃ¿Ò»¸öwindowµÄEI·ÖÊıÖµ
 EI_index_scores = [];  % ÓÃÓÚ´æ´¢EI_index_Caculation(EI_index, EI_channels)¼ÆËã³öÀ´µÄEI_index_scoreÊıÖµ
 EI_index_scores_normalized = [];  % ÓÃÓÚ´æ´¢¹éÒ»»¯µÄEI_index_scoresÊıÖµ
 resultsMI = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄresults
+resultsMI_voting = [];  % ÓÃÓÚÅĞ¶ÏÒ»¸ötrialÊÇ·ñÏà¶ÔµÄvoting³ÌĞò
 % ¹ØÓÚÑµÁ·Ê±¿ÌµÄ²Ù×÷ºÍflagµÄ´¦Àí
 Train_Flag = 0;  % ÓÃÓÚÅĞ¶ÏÊÇkeep»¹ÊÇadjustµÄflag
 Train_Thre_Global_Flag = 0;  % ÓÃÓÚÅĞ¶ÏÊÇ·ñ´ïµ½ãĞÖµµÄflag
@@ -292,23 +293,6 @@ while(AllTrial <= TrialNum_session)
             TriggerRepeat_ = repmat(6,1,512);
             TrialData_Processed = [TrialData_Processed; [preMIData_processed;TriggerRepeat_]];
             
-            % ¶ÔÓÚãĞÖµµÄÅĞ¶¨
-            % ÏÈ¼ÆËã¿ÉĞĞµÄãĞÖµ
-            Trigger_num_ = count_trigger(Trials, AllTrial_Session);  % ÕâÀïÓÃÓÚ¼ÆËãÔÚAllTrial¶ÔÓ¦µÄTriggerÖ®Ç°ÒÑ¾­³öÏÖÁË¶àÉÙ´Î£¬´Ó¶ø¼ÆËã¹ì¼£
-            Train_Thre_Global_Fes = traj_Feasible{Trigger+1}(Trigger_num_+1);  % ¼ÆËã¿ÉĞĞµÄãĞÖµ
-            % ¶ÁÈ¡ÕâÒ»Àà±ğÉÏÒ»´ÎµÄÅĞ¶ÏÊÇ¿ÉĞĞ»¹ÊÇ×îÓÅ
-            Trial_tasks = Train_Thre_FesOpt(3,:);
-            Train_Thre_FesOpt_ = Train_Thre_FesOpt(:, Trial_tasks==Trials(AllTrial_Session));
-            Flag_FesOptim = Train_Thre_FesOpt_(2, end);  % ÌáÈ¡ÉÏÒ»´ÎµÄÀà±ğµÄ¶ÔÓ¦µÄ¿ÉĞĞ/×îÓÅµÄflagÅĞ¶Ï
-            Train_Thre_Global_Optim = Train_Thre_FesOpt_(1, end);  % ÌáÈ¡ÉÏÒ»´ÎµÄÀà±ğµÄ¶ÔÓ¦µÄ×îÓÅµÄÊıÖµ£¬Èç¹û¶ÔÓ¦µÄÅĞ¶ÏÊÇÑ¡Ôñ×îÓÅµÄ»°
-            % ¸ù¾İTaskAdjustUpgraded_FeasibleOptimalÀ´ÅĞ¶¨ÊÇÑ¡Ôñ¿ÉĞĞ»¹ÊÇ×îÓÅ
-            if Flag_FesOptim == 0
-                Train_Thre_Global = Train_Thre_Global_Fes;  % Ñ¡Ôñ¿ÉĞĞ
-                disp(['¸ù¾İÉÏÒ»ÂÖÇé¿ö£¬ÕâÒ»ÂÖÑ¡Ôñ¿ÉĞĞ']);
-            else
-                Train_Thre_Global = Train_Thre_Global_Optim;  % Ñ¡Ôñ×îÓÅ
-                disp(['¸ù¾İÉÏÒ»ÂÖÇé¿ö£¬ÕâÒ»ÂÖÑ¡Ôñ×îÓÅ']);
-            end
         end
     end
 
@@ -335,15 +319,21 @@ while(AllTrial <= TrialNum_session)
         order = 1.0;
         resultMI = Online_Data2Server_Communicate(order, FilteredDataMI, ip, port, subject_name, config_data, foldername);  % ´«ÊäÊı¾İ¸øÏßÉÏµÄÄ£ĞÍ£¬¿´·ÖÀàÇé¿ö
         disp(['predict cls: ', num2str(resultMI(1,1))]);
-        disp(['cls prob: ', num2str(resultMI(2,1))]);
+        disp(['cls prob: ', num2str(resultMI(1+Trigger,1))]);
         
         % ÊÕ¼¯È«¾ÖµÄ¸ÅÂÊ£¬ÓÃÓÚÏÔÊ¾
-        MI_Acc = [MI_Acc, resultMI(2,1)];
+        MI_Acc = [MI_Acc, resultMI(1+Trigger,1)];
         MI_Acc_GlobalAvg = [MI_Acc_GlobalAvg, mean(MI_Acc)];
+        resultsMI_voting = [resultsMI_voting, resultMI(2:end,1)];
+        
         % µ±´ïµ½È«¾ÖãĞÖµµÄÊ±ºò£¬flagÖÃ1
-        if MI_Acc_GlobalAvg(end) > Train_Thre_Global
-            Train_Thre_Global_Flag = 1;
-            disp(['´ïµ½Ìõ¼ş MI_Acc_GlobalAvg£º', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
+        if Timer == MI_preFeedBack
+            resultsMI_voting_ = mean(resultsMI_voting, 2);
+            [clspro_, cls_] = max(resultsMI_voting_);
+            if cls_ == (Trigger+1)  % Èç¹û×î´óÖµ¶ÔÓ¦µÄÊÇtrigger+1£¬ÄÇÃ´¾ÍÊÇÍ¶Æ±½á¹ûÏÔÊ¾·ÖÀàÕıÈ·
+                Train_Thre_Global_Flag = 1;
+                disp(['Í¶Æ±´ïµ½Ìõ¼ş MI_Acc_GlobalAvg£º', num2str(clspro_)]);
+            end
         end
         
         % ¸ù¾İ¸ÅÂÊÏÔÊ¾¶¯»­£¬ÓÃÓÚ¸øÓëÊµÊ±·´À¡
@@ -423,11 +413,13 @@ while(AllTrial <= TrialNum_session)
         order = 1.0;
         resultMI = Online_Data2Server_Communicate(order, FilteredDataMI, ip, port, subject_name, config_data, foldername);  % ´«ÊäÊı¾İ¸øÏßÉÏµÄÄ£ĞÍ£¬¿´·ÖÀàÇé¿ö
         disp(['predict cls: ', num2str(resultMI(1,1))]);
-        disp(['cls prob: ', num2str(resultMI(2,1))]);
+        disp(['cls prob: ', num2str(resultMI(1+Trigger,1))]);
         
         % ÊÕ¼¯È«¾ÖµÄ¸ÅÂÊ£¬ÓÃÓÚÏÔÊ¾
         MI_Acc = [MI_Acc, resultMI(2,1)];
         MI_Acc_GlobalAvg = [MI_Acc_GlobalAvg, mean(MI_Acc)];
+        resultsMI_voting = [resultsMI_voting, resultMI(2:end,1)];
+        
         % ÊÕ¼¯Õâ´ÎµÄÊı¾İ£¬×¼±¸ºóÃæ·ÖÎö
         TriggerRepeat_ = repmat(Trigger,1,512);
         TrialData_Processed = [TrialData_Processed; [FilteredDataMI;TriggerRepeat_]];
@@ -570,7 +562,7 @@ while(AllTrial <= TrialNum_session)
     if Timer == Idle_preBreak+RestTimeLen_idle && Trials(AllTrial_Session)==0  %½áÊøĞİÏ¢£¬×¼±¸ÏÂÒ»¸ö
         % ´æ´¢Ïà¹ØµÄEIÖ¸±êºÍmu½ÚÂÉÄÜÁ¿µÄÊı¾İ
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
-            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
+            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting);
         %¼ÆÊ±Æ÷Çå0
         Timer = 0;  % ¼ÆÊ±Æ÷Çå0
         % Ã¿Ò»¸ötrialµÄÊıÖµ»¹Ô­
@@ -587,6 +579,7 @@ while(AllTrial <= TrialNum_session)
         MI_Acc = [];  % ÓÃÓÚ´æ´¢Ò»¸ötrialÀïÃæµÄËùÓĞ·ÖÀà¸ÅÂÊ
         MI_Acc_GlobalAvg = [];  % ÓÃÓÚ´æ´¢Ò»¸ötrialÀïÃæµÄÈ«¾ÖµÄÆ½¾ù·ÖÀà¸ÅÂÊ
         TrialData_Processed = [];
+        resultsMI_voting = [];
         
         RestTimeLen = RestTimeLenBaseline;  % ĞİÏ¢Ê±¼ä»¹Ô­
         disp(['Trial: ', num2str(AllTrial_Session), ', Task: ', num2str(Trials(AllTrial_Session))]);  % ÏÔÊ¾Ïà¹ØÊı¾İ
@@ -595,7 +588,7 @@ while(AllTrial <= TrialNum_session)
     if Trials(AllTrial_Session)>0 && Timer == (MI_preFeedBack + MI_AOTime + RestTimeLen)  %½áÊøĞİÏ¢
         % ´æ´¢Ïà¹ØµÄEIÖ¸±êºÍmu½ÚÂÉÄÜÁ¿µÄÊı¾İ
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
-            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
+            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting);
         % ¼ÆÊ±Æ÷Çå0
         Timer = 0;  % ¼ÆÊ±Æ÷Çå0
         % Ã¿Ò»¸ötrialµÄÊıÖµ»¹Ô­
@@ -612,6 +605,7 @@ while(AllTrial <= TrialNum_session)
         MI_Acc = [];  % ÓÃÓÚ´æ´¢Ò»¸ötrialÀïÃæµÄËùÓĞ·ÖÀà¸ÅÂÊ
         MI_Acc_GlobalAvg = [];  % ÓÃÓÚ´æ´¢Ò»¸ötrialÀïÃæµÄÈ«¾ÖµÄÆ½¾ù·ÖÀà¸ÅÂÊ
         TrialData_Processed = [];
+        resultsMI_voting = [];
         
         % ÆäÓàÉèÖÃ»¹Ô­
         RestTimeLen = RestTimeLenBaseline;  % ĞİÏ¢Ê±¼ä»¹Ô­
@@ -650,7 +644,7 @@ end
 
 %% ´æ´¢ÔÚÔË¶¯ÏëÏó¹ı³ÌÖĞµÄ²ÎÓë¶ÈÖ¸±ê
 function SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
-    MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed)
+    MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting)
     
     foldername = [foldername, '\\Online_Engagements_', subject_name]; % ¼ìÑéÎÄ¼ş¼ĞÊÇ·ñ´æÔÚ
     if ~exist(foldername, 'dir')
@@ -660,7 +654,7 @@ function SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name
     save([foldername, '\\', ['Online_EEG_data2Server_', subject_name, '_class_', num2str(config_data(3,1)),  ...
         '_session_', num2str(config_data(4,1)), '_trial_', num2str(config_data(5,1)), ...
         '_window_', num2str(config_data(6,1)), 'EI_mu' ], '.mat' ],'EI_indices','mu_powers','mu_suppressions', 'EI_index_scores','resultsMI',...
-        'MI_Acc','MI_Acc_GlobalAvg','TrialData_Processed');  % ´æ´¢Ïà¹ØµÄÊıÖµ
+        'MI_Acc','MI_Acc_GlobalAvg','TrialData_Processed', 'resultsMI_voting');  % ´æ´¢Ïà¹ØµÄÊıÖµ
 end
 %% ¼ÆËãÏà¹ØmuÆµ´øË¥¼õÖ¸±ê£¬ÕâÀïĞèÒªĞŞ¸Ä
 function mu_suppresion = MI_MuSuperesion(mu_power_, mu_power, mu_channels)

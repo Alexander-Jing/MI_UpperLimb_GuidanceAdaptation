@@ -111,8 +111,8 @@ MI_MUSup_thre_weight_baseline = 0.714;  % 用于计算MI时候的mu衰减的阈值权重初始化
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % 用于计算MI时候的mu衰减的阈值权重数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
 
 Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
-Train_Thre_Global_FeasibleInit = [0, 0.40, 0.40;
-                                  0, 0.45, 0.45;
+Train_Thre_Global_FeasibleInit = [0, 0.45, 0.45;
+                                  0, 0.50, 0.50;
                                   0, 1,    2;];  % 初始数值，用于可行部分轨迹的生成
 traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % 用于生成阈值的轨迹的函数
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全局均值的可行-最优策略的阈值设定
@@ -189,6 +189,7 @@ TrialData = [];  % 用于原始数据的采集
 % 关于精度/分类概率部分的指标存储
 MI_Acc = [];  % 用于存储一个trial里面的所有分类概率
 MI_Acc_GlobalAvg = [];  % 用于存储一个trial里面的全局的平均分类概率
+resultsMI_voting = [];  % 用于存储投票的结果
 % 关于训练时刻的数据的存储
 TrialData_Processed = [];  % 用于存储训练中的实时数据，TrialData_Processed = [TrialData_Processed; [[Data_preprocessed;Trigger],[Data_preprocessed;Trigger],...[Data_preprocessed;Trigger]]]
 % 用于一些可以分析的指标的存储
@@ -303,10 +304,13 @@ while(AllTrial <= TrialNum_session)
             Train_Thre_Global_Optim = Train_Thre_FesOpt_(1, end);  % 提取上一次的类别的对应的最优的数值，如果对应的判断是选择最优的话
             % 根据TaskAdjustUpgraded_FeasibleOptimal来判定是选择可行还是最优
             if Flag_FesOptim == 0
-                Train_Thre_Global = Train_Thre_Global_Fes;  % 选择可行
+                Train_Thre_Global = Train_Thre_Global_Fes;  % 选择可行 
                 disp(['根据上一轮情况，这一轮选择可行']);
             else
                 Train_Thre_Global = Train_Thre_Global_Optim;  % 选择最优
+                if Train_Thre_Global < Train_Thre_Global_Fes
+                    Train_Thre_Global = Train_Thre_Global_Fes;  % 如果出现小于可行解的现象，那就使用可行解
+                end
                 disp(['根据上一轮情况，这一轮选择最优']);
             end
         end
@@ -338,12 +342,33 @@ while(AllTrial <= TrialNum_session)
         disp(['cls prob: ', num2str(resultMI(2,1))]);
         
         % 收集全局的概率，用于显示
-        MI_Acc = [MI_Acc, resultMI(2,1)];
+        MI_Acc = [MI_Acc, resultMI(1+Trigger,1)];
         MI_Acc_GlobalAvg = [MI_Acc_GlobalAvg, mean(MI_Acc)];
+        resultsMI_voting = [resultsMI_voting, resultMI(2:end,1)];
+        
         % 当达到全局阈值的时候，flag置1
-        if MI_Acc_GlobalAvg(end) > Train_Thre_Global
-            Train_Thre_Global_Flag = 1;
-            disp(['达到条件 MI_Acc_GlobalAvg：', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
+        if Timer == MI_preFeedBack
+            if Flag_FesOptim == 1
+                % 最优模式下二选一，只要满足一个就可以
+                resultsMI_voting_ = mean(resultsMI_voting, 2);
+                [clspro_, cls_] = max(resultsMI_voting_);
+                if cls_ == (Trigger+1)  % 如果最大值对应的是trigger+1，那么就是投票结果显示分类正确
+                    Train_Thre_Global_Flag = 1;
+                    disp(['投票达到条件 MI_Acc_GlobalAvg：', num2str(clspro_)]);
+                end
+                if MI_Acc_GlobalAvg(end) > Train_Thre_Global
+                    Train_Thre_Global_Flag = 1;
+                    disp(['阈值达到条件 MI_Acc_GlobalAvg：', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
+                end
+            elseif Flag_FesOptim == 0
+                % 可行模式下，满足投票结果就好
+                resultsMI_voting_ = mean(resultsMI_voting, 2);
+                [clspro_, cls_] = max(resultsMI_voting_);
+                if cls_ == (Trigger+1)  % 如果最大值对应的是trigger+1，那么就是投票结果显示分类正确
+                    Train_Thre_Global_Flag = 1;
+                    disp(['投票达到条件 MI_Acc_GlobalAvg：', num2str(clspro_)]);
+                end
+            end
         end
         
         % 根据概率显示动画，用于给与实时反馈
@@ -426,8 +451,9 @@ while(AllTrial <= TrialNum_session)
         disp(['cls prob: ', num2str(resultMI(2,1))]);
         
         % 收集全局的概率，用于显示
-        MI_Acc = [MI_Acc, resultMI(2,1)];
+        MI_Acc = [MI_Acc, resultMI(1+Trigger,1)];
         MI_Acc_GlobalAvg = [MI_Acc_GlobalAvg, mean(MI_Acc)];
+        resultsMI_voting = [resultsMI_voting, resultMI(2:end,1)];
         % 收集这次的数据，准备后面分析
         TriggerRepeat_ = repmat(Trigger,1,512);
         TrialData_Processed = [TrialData_Processed; [FilteredDataMI;TriggerRepeat_]];
@@ -547,7 +573,7 @@ while(AllTrial <= TrialNum_session)
         Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trials(AllTrial_Session)]];
         
         % 阈值调整部分还需要修改
-        [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial_Session, RestTimeLenBaseline, min_max_value_EI);
+        [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal_1(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial_Session, RestTimeLenBaseline, min_max_value_EI);
         RestTimeLen_ = [RestTimeLen; Trials(AllTrial_Session)];
         RestTimeLens = [RestTimeLens, RestTimeLen_];
     end
@@ -570,7 +596,7 @@ while(AllTrial <= TrialNum_session)
     if Timer == Idle_preBreak+RestTimeLen_idle && Trials(AllTrial_Session)==0  %结束休息，准备下一个
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
-            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
+            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting);
         %计时器清0
         Timer = 0;  % 计时器清0
         % 每一个trial的数值还原
@@ -587,6 +613,7 @@ while(AllTrial <= TrialNum_session)
         MI_Acc = [];  % 用于存储一个trial里面的所有分类概率
         MI_Acc_GlobalAvg = [];  % 用于存储一个trial里面的全局的平均分类概率
         TrialData_Processed = [];
+        resultsMI_voting = [];
         
         RestTimeLen = RestTimeLenBaseline;  % 休息时间还原
         disp(['Trial: ', num2str(AllTrial_Session), ', Task: ', num2str(Trials(AllTrial_Session))]);  % 显示相关数据
@@ -595,7 +622,7 @@ while(AllTrial <= TrialNum_session)
     if Trials(AllTrial_Session)>0 && Timer == (MI_preFeedBack + MI_AOTime + RestTimeLen)  %结束休息
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
-            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
+            MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting);
         % 计时器清0
         Timer = 0;  % 计时器清0
         % 每一个trial的数值还原
@@ -612,6 +639,7 @@ while(AllTrial <= TrialNum_session)
         MI_Acc = [];  % 用于存储一个trial里面的所有分类概率
         MI_Acc_GlobalAvg = [];  % 用于存储一个trial里面的全局的平均分类概率
         TrialData_Processed = [];
+        resultsMI_voting = [];
         
         % 其余设置还原
         RestTimeLen = RestTimeLenBaseline;  % 休息时间还原
@@ -650,7 +678,7 @@ end
 
 %% 存储在运动想象过程中的参与度指标
 function SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
-    MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed)
+    MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting)
     
     foldername = [foldername, '\\Online_Engagements_', subject_name]; % 检验文件夹是否存在
     if ~exist(foldername, 'dir')
@@ -660,7 +688,7 @@ function SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name
     save([foldername, '\\', ['Online_EEG_data2Server_', subject_name, '_class_', num2str(config_data(3,1)),  ...
         '_session_', num2str(config_data(4,1)), '_trial_', num2str(config_data(5,1)), ...
         '_window_', num2str(config_data(6,1)), 'EI_mu' ], '.mat' ],'EI_indices','mu_powers','mu_suppressions', 'EI_index_scores','resultsMI',...
-        'MI_Acc','MI_Acc_GlobalAvg','TrialData_Processed');  % 存储相关的数值
+        'MI_Acc','MI_Acc_GlobalAvg','TrialData_Processed', 'resultsMI_voting');  % 存储相关的数值
 end
 %% 计算相关mu频带衰减指标，这里需要修改
 function mu_suppresion = MI_MuSuperesion(mu_power_, mu_power, mu_channels)
