@@ -1,7 +1,7 @@
 %% 在线实验参数设置部分，用于设置每�?个被试的情况，依据被试情况进行修�?
 
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0530_offline';  % 被试姓名
+subject_name = 'Jyt_test_0710_offline';  % 被试姓名
 TrialNum = 30*3;  % 设置采集的数�?
 %TrialNum = 3*3;
 MotorClasses = 3;  % 运动想象的种类的数量的设置，注意这里是把空想idle状�?�也要放进去的，注意这里的任务是[0,1,2]，和readme.txt里面的对�?
@@ -28,6 +28,7 @@ else
     EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % ���ڼ���EIָ��ļ���channels����Ҫȷ����λ�õ�
 end
 weight_mu = 0.6;  % 用于计算ERD/ERS指标和EI指标的加权和
+seconds_per_trial = 5;
 
 % 通信设置
 %ip = '127.0.0.1';
@@ -36,11 +37,11 @@ ip = '172.18.22.21';
 port = 8880;
 
 % 传输数据的文件夹位置设置
-foldername = 'Jyt_test_0601_offline_20240601_213002613_data';
+foldername = 'Jyt_test_0710_offline_20240710_223915692_data';
 windows_per_session = 90;
 classes = MotorClasses;
 %% 读取待传输的原始数据
-TrialData = load([foldername, '\\', 'Offline_EEGMI_RawData_Jyt_test_0601_offline', '\\', 'Offline_EEGMI_RawData_Jyt_test_0601_offline20240601_220846845.mat' ],'TrialData');
+TrialData = load([foldername, '\\', 'Offline_EEGMI_RawData_Jyt_test_0710_offline', '\\', 'Offline_EEGMI_RawData_Jyt_test_0710_offline20240710_224558848.mat' ],'TrialData');
 
 % 数据预处�?
 % 划窗参数设置
@@ -48,7 +49,7 @@ rawdata = TrialData.TrialData;
 sample_frequency = 256; 
 WindowLength = 512;  % 每个窗口的长�?
 SlideWindowLength = 256;  % 滑窗间隔
-[DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_GuidanceAdaption(rawdata, classes, sample_frequency, WindowLength, SlideWindowLength, channels, subject_name, foldername);
+[DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_GuidanceAdaption(rawdata, classes, sample_frequency, WindowLength, SlideWindowLength, channels, subject_name, foldername, seconds_per_trial);
 
 %% 读取待传输的数据
 %DataX = load([foldername, '\\', 'Offline_EEGMI_Jyt_test_0513_offline', '\\', 'Offline_EEG_data_Jyt_test_0513_offline20240513_173441993.mat' ],'DataX');

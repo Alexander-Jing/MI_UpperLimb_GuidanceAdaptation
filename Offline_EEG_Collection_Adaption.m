@@ -47,9 +47,9 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0606_offline';  % ±»ÊÔĞÕÃû
-TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
-%TrialNum = 3*3;
+subject_name = 'Jyt_test_0710_offline';  % ±»ÊÔĞÕÃû
+%TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+TrialNum = 3*10;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
 % µ±Ç°ÉèÖÃµÄÈÎÎñ
 % Idle 0   -> SceneIdle 
@@ -60,6 +60,7 @@ task_keys = {0, 1, 2};
 task_values = {'SceneIdle', 'SceneMI_Drinking', 'Scene_Milk'};
 task_dict = containers.Map(task_keys, task_values);
 RestTimeLenBaseline = 5;  % ĞİÏ¢Ê±³¤È·¶¨
+seconds_per_trial  = 5;  % Ã¿Ò»¸ötrialµÄÊ±¼ä³¤¶È£¬¸ù¾İÊµ¼ÊÇé¿öÉèÖÃ
 
 % ÄÔµçÉè±¸µÄÊı¾İ²É¼¯
 sample_frequency = 256; 
@@ -305,7 +306,7 @@ rawdata = TrialData;
 sample_frequency = 256; 
 WindowLength = 512;  % Ã¿¸ö´°¿ÚµÄ³¤¶È
 SlideWindowLength = 256;  % »¬´°¼ä¸ô
-[DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_GuidanceAdaption(rawdata, classes, sample_frequency, WindowLength, SlideWindowLength, channels, subject_name, foldername);
+[DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_GuidanceAdaption(rawdata, classes, sample_frequency, WindowLength, SlideWindowLength, channels, subject_name, foldername, seconds_per_trial);
 
 %% Ã¿Ò»ÖÖÈÎÎñ¶ÔÓ¦µÄ¸÷ÏîÖ¸±êµÄÆ½¾ù·ÖÊıÒÔ¼°4·ÖÎ»ÊıÈ·¶¨£¬²¢ÇÒ´æ´¢Ïà¹ØÖ¸±ê
 foldername_Scores = [foldername, '\\Offline_EEGMI_Scores_', subject_name]; % Ö¸¶¨ÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
