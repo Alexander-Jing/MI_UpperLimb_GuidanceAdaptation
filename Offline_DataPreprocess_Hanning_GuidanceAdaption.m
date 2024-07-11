@@ -14,7 +14,8 @@ function [DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_Gu
     
     for class_index = 0:(classes-1)
         RawDataMI = double(rawdata(1:end-1, Trigger == class_index));  % 提取这一类的运动想象数据
-        FilteredDataMI = DataFilter(RawDataMI, sample_frequency);  % 滤波去噪
+        RawDataMI_CAR = ref_CAR(RawDataMI);  % CAR 处理
+        FilteredDataMI = DataFilter(RawDataMI_CAR, sample_frequency);  % 滤波去噪
         [windows_per_session, winodws_num, SampleDataPre] = WindowsDataPre(FilteredDataMI, WindowLength, SlideWindowLength, sample_frequency, seconds_per_trial);
         [DataSample, LabelWindows] = DataWindows(SampleDataPre, FilteredDataMI, channels, class_index, windows_per_session, SlideWindowLength, WindowLength, sample_frequency, winodws_num, seconds_per_trial);
         DataX = [DataX; DataSample];
@@ -30,12 +31,22 @@ function [DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_Gu
     save([foldername, '\\', FunctionNowFilename(['Offline_EEG_data_', subject_name], '.mat' )],'DataX');
     save([foldername, '\\', FunctionNowFilename(['Offline_EEG_label_', subject_name], '.mat' )],'DataY');
     
+    %% Common Average Reference函数
+    function DataRef = ref_CAR(RawData)
+        % 参考了https://github.com/sccn/eeglab/blob/develop/functions/sigprocfunc/reref.m里面的写法
+        nchan = size(RawData, 1);
+        refmatrix = eye(nchan)-ones(nchan)*1/nchan;
+        DataRef = refmatrix * RawData;
+    end
     
     %% 滤波函数
     function FilteredData = DataFilter(RawData, sample_frequency) 
         FilterOrder = 4;  % 设置带通滤波器的阶数
         NotchFilterOrder = 2;  % 设置陷波滤波器的阶数（这里使用巴特沃斯带阻滤波器）
-        Wband = [3,50];  % 滤波器这边需要参考相关的文献进行修改，这里参考佳星师姐的论文中的滤波器设置
+        % 这里的滤波器参数参考的是何晖光组里的几篇文献：
+        % Ma X, Qiu S, He H. Multi-channel EEG recording during motor imagery of different joints from the same limb[J]. Scientific data, 2020, 7(1): 191.
+        % Ma X, Qiu S, Wei W, et al. Deep channel-correlation network for motor imagery decoding from the same limb[J]. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 2019, 28(1): 297-306.
+        Wband = [0.1, 40];  % 滤波器这边需要参考相关的文献进行修改，这里参考佳星师姐的论文中的滤波器设置
         Wband_notch = [49,51];
         FilterType = 'bandpass';
         FilterTypeNotch = 'stop';  % matlab的butter函数里面，设置'stop'会自动设置成2阶滤波器
