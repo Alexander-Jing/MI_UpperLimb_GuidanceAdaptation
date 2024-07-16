@@ -39,7 +39,8 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
         end
         
         % 计算表现中的完成情况 max(MI_Acc_GlobalAvg)./Train_Thre_Global
-        Train_Performance_ref = ones(size(Train_Performance(2,:))) * 0.6;  % 以0.6作为一个参考的超参数
+        %Train_Performance_ref = ones(size(Train_Performance(2,:))) * 0.6;  % 以0.6作为一个参考的超参数
+        Train_Performance_ref = Train_Performance(2, :);  % 这里选择的是之前的目标阈值作为参考计算ratio
         ratio_ = Train_Performance(1, :) ./ Train_Performance_ref;
         % 将计算出的比率和第三行合并
         Train_Performance_ = vertcat(ratio_, Train_Performance(1, :), Train_Performance(3, :));

@@ -111,8 +111,8 @@ MI_MUSup_thre_weight_baseline = 0.714;  % 用于计算MI时候的mu衰减的阈值权重初始化
 MI_MUSup_thre_weight = MI_MUSup_thre_weight_baseline;  % 用于计算MI时候的mu衰减的阈值权重数值，这个权重一般是和分类的概率相关的，也会随着相关数据进行调整
 
 Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值
-Train_Thre_Global_FeasibleInit = [0, 0.45, 0.45;
-                                  0, 0.50, 0.50;
+Train_Thre_Global_FeasibleInit = [0, 0.40, 0.40;
+                                  0, 0.45, 0.45;
                                   0, 1,    2;];  % 初始数值，用于可行部分轨迹的生成
 traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum);  % 用于生成阈值的轨迹的函数
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 用于并且调整的针对全局均值的可行-最优策略的阈值设定
@@ -213,7 +213,7 @@ if session_idx==1
     MI_Acc_Trials = [];  % 用于存储全部训练中的所有trial的分类概率，MI_Acc_Trials = [MI_Acc_Trials; [MI_Acc; Trigger]]
     MI_Acc_GlobalAvg_Trials = [];  % 用于存储全部训练中的所有trial里面的全局的平均分类概率，MI_Acc_GlobalAvg_Trials = [MI_Acc_GlobalAvg_Trials; [MI_Acc_GlobalAvg; Trigger]]
     RestTimeLens = [];  % 用于存储休息时间长度
-    Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trigger]];
+    Train_Performance = [];  % 用于存储每一个trial的训练表现， Train_Performance = [Train_Performance, [MI_Acc_GlobalAvg(end); Train_Thre_Global; Trigger]];
     Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;1]];
     Train_Thre_FesOpt = [Train_Thre_FesOpt, [0;0;2]];  % 初始化Train_Thre_FesOpt，一开始都是选择可行
     muSups_trial = [];  % 用于存储一个trial的mu衰减
@@ -358,7 +358,7 @@ while(AllTrial <= TrialNum_session)
                 end
                 if MI_Acc_GlobalAvg(end) > Train_Thre_Global
                     Train_Thre_Global_Flag = 1;
-                    disp(['阈值达到条件 MI_Acc_GlobalAvg：', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
+                    disp(['阈值达到最优情况下条件 MI_Acc_GlobalAvg：', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
                 end
             elseif Flag_FesOptim == 0
                 % 可行模式下，满足投票结果就好
@@ -367,6 +367,10 @@ while(AllTrial <= TrialNum_session)
                 if cls_ == (Trigger+1)  % 如果最大值对应的是trigger+1，那么就是投票结果显示分类正确
                     Train_Thre_Global_Flag = 1;
                     disp(['投票达到条件 MI_Acc_GlobalAvg：', num2str(clspro_)]);
+                end
+                if MI_Acc_GlobalAvg(end) > Train_Thre_Global
+                    Train_Thre_Global_Flag = 1;
+                    disp(['阈值达到可行情况下条件 MI_Acc_GlobalAvg：', num2str(MI_Acc_GlobalAvg(end)), ', Train_Thre_Global: ',num2str(Train_Thre_Global)]);
                 end
             end
         end
@@ -570,7 +574,7 @@ while(AllTrial <= TrialNum_session)
         %visual_feedbacks_trial = [visual_feedbacks_trial, [mean(visual_feedbacks(1,:)); Trials(AllTrial_Session)]];  % 存储相关视觉反馈情况
         MI_Acc_Trials = [MI_Acc_Trials, [MI_Acc; repmat(Trials(AllTrial_Session),1,length(MI_Acc));]];  % 存储精度
         MI_Acc_GlobalAvg_Trials = [MI_Acc_GlobalAvg_Trials, [MI_Acc_GlobalAvg(end); Trials(AllTrial_Session)]];
-        Train_Performance = [Train_Performance, [max(MI_Acc_GlobalAvg); Train_Thre_Global; Trials(AllTrial_Session)]];
+        Train_Performance = [Train_Performance, [MI_Acc_GlobalAvg(end); Train_Thre_Global; Trials(AllTrial_Session)]];
         
         % 阈值调整部分还需要修改
         [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal_1(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial_Session, RestTimeLenBaseline, min_max_value_EI);
