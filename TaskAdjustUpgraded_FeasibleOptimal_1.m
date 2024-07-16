@@ -42,13 +42,13 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
         Train_Performance_ref = ones(size(Train_Performance(2,:))) * 0.6;  % 以0.6作为一个参考的超参数
         ratio_ = Train_Performance(1, :) ./ Train_Performance_ref;
         % 将计算出的比率和第三行合并
-        Train_Performance_ = vertcat(ratio_, Train_Performance(3, :));
+        Train_Performance_ = vertcat(ratio_, Train_Performance(1, :), Train_Performance(3, :));
         Trigger = Trials(AllTrial);  % 确定当前的类别
-        tasks = Train_Performance_(2,:);
-        task_performance = Train_Performance_(1,tasks==Trigger);  % 提取同类别的数据
+        tasks = Train_Performance_(3,:);
+        task_performance = Train_Performance_(1:2,tasks==Trigger);  % 提取同类别的数据
         
-        if size(task_performance, 1) < 3
-            performance_eval = task_performance;  % 如果不满3次的话，直接提取所有的
+        if size(task_performance, 2) < 3
+            performance_eval = task_performance(1,:);  % 如果不满3次的话，直接提取所有的
         else
             performance_eval = task_performance(1,end-2+1:end);  % 提取之前2次实验的表现，使用这2次的实验表现来规划接下来的实验难度
         end
@@ -58,7 +58,7 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
         if rand() < performance_pro
             % 选取Train_Performance(1, :)里面的0.75分位数来作为新的最优的阈值
             %Train_Thre_Global_Optim = quantile(Train_Performance(1, :), 0.75)*1.25;
-            Train_Thre_Global_Optim = quantile(Train_Performance(1, :), 0.95);
+            Train_Thre_Global_Optim = quantile(task_performance(2, :), 0.75);
             Flag_FesOptim = 1;
         else
             % 使用可行解

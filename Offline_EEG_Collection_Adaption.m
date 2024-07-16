@@ -47,9 +47,9 @@ status = CheckNetStreamingVersion(con);                                    % ÅÐ¶
 %% ÀëÏßÊµÑé²ÎÊýÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾Ý±»ÊÔÇé¿ö½øÐÐÐÞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊýÉèÖÃ
-subject_name = 'Jyt_test_0710_offline';  % ±»ÊÔÐÕÃû
-%TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊýÁ¿
-TrialNum = 3*10;
+subject_name = 'Jyt_test_0712_offline';  % ±»ÊÔÐÕÃû
+TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊýÁ¿
+%TrialNum = 3*10;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊýÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
 % µ±Ç°ÉèÖÃµÄÈÎÎñ
 % Idle 0   -> SceneIdle 
