@@ -50,12 +50,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0712_online';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0720_online';  % ±»ÊÔĞÕÃû
 sub_offline_collection_folder = 'Jyt_test_0712_offline_20240711_211007892_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_test_0712_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
-session_idx = 4;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_test_0712_online_20240711_223119889_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+% ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
+session_idx = 5;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_test_0720_online_20240718_162009922_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -80,11 +81,11 @@ end
 TrialNum_session = 12;  % Ò»¸ösessionÀïÃæµÄtrialÊıÁ¿
 
 % ÔË¶¯ÏëÏóÊ±¼ä½ÚµãÉè¶¨
-MI_preFeedBack = 9;  % ÔË¶¯ÏëÏóÌá¹©ÊÓ¾õµç´Ì¼¤·´À¡µÄÊ±¼ä½Úµã
+MI_preFeedBack = 12;  % ÔË¶¯ÏëÏóÌá¹©ÊÓ¾õµç´Ì¼¤·´À¡µÄÊ±¼ä½Úµã
 MI_AOTime = 5;  % AO+FESµÄÊ±¼ä³¤¶È
 RestTimeLenBaseline = 2;  % ĞİÏ¢Ê±¼ä£¨ÔË¶¯ÏëÏó£©
 RestTimeLen = RestTimeLenBaseline;  % ³õÊ¼»¯ĞİÏ¢Ê±¼ä£¨ÔË¶¯ÏëÏó£©
-Idle_preBreak = 9;  % ¾²Ï¢Ì¬Ìá¹©ĞİÏ¢µÄÊ±¼äµã
+Idle_preBreak = 12;  % ¾²Ï¢Ì¬Ìá¹©ĞİÏ¢µÄÊ±¼äµã
 RestTimeLen_idleBasline = 5;  % ³õÊ¼»¯ĞİÏ¢Ê±¼ä£¨¾²Ï¢Ì¬£©
 
 % ÆäÓàÖ¸±êºÍ²ÎÊı
@@ -596,7 +597,7 @@ while(AllTrial <= TrialNum_session)
     disp(['Ê±¼ä£º', num2str(Timer)]);
     
     %% ×îºóµÄ¸÷¸öÊıÖµ¸´Î»
-    % ¿ÕÏëÈÎÎñÏëÏó18s£¬µ½µÚ18sÖ®ºó¿ªÊ¼ĞİÏ¢£¬µ½µÚ20s¾Í½áÊøÈÎÎñ
+    % ¿ÕÏëÈÎÎñÏëÏó12s£¬µ½µÚ12sÖ®ºó¿ªÊ¼ĞİÏ¢£¬µ½µÚ17s¾Í½áÊøÈÎÎñ
     if Timer == Idle_preBreak+RestTimeLen_idle && Trials(AllTrial_Session)==0  %½áÊøĞİÏ¢£¬×¼±¸ÏÂÒ»¸ö
         % ´æ´¢Ïà¹ØµÄEIÖ¸±êºÍmu½ÚÂÉÄÜÁ¿µÄÊı¾İ
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
@@ -666,7 +667,7 @@ else
     foldername_rawdata = [foldername_Sessions, '\\Online_EEGMI_RawData_', subject_name]; % Ö¸¶¨ÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
     save([foldername_rawdata, '\\', ['Online_EEGMI_RawData_', 'session_', num2str(session_idx), '_', subject_name], '.mat' ],'TrialData','Trials','ChanLabel');
 end
-%% ´æ´¢¹ì¼£×·×ÙÓëµ÷ÕûµÄÏà¹ØÖ¸±ê
+%% ´æ´¢¹ì¼£×·×ÙÓëµ÷ÕûµÄÏà¹ØÖ¸±ê£¬Õâ²¿·ÖÔÚÒ»¸ösession½áÊøÖ®ºó²Å»á´æ´¢£¬·ÀÖ¹Ò»¸ösessionÀïÃæÖĞ¶Ïµ¼ÖÂµÄ¶à´æ´¢
 if session_idx==1
     foldername_trajectory = [foldername, '\\Online_EEGMI_trajectory_', subject_name]; % Ö¸¶¨ÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
     if ~exist(foldername_trajectory, 'dir')
