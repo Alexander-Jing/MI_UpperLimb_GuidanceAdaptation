@@ -1,30 +1,30 @@
-% è¿åŠ¨æƒ³è±¡åŸºæœ¬å‚æ•°è®¾ç½®
-subject_name = 'Jyt_test_0606_online';  % è¢«è¯•å§“å
-foldername_Sessions = 'Jyt_test_0606_online_20240606_201926565_data';  % å½“sessionå¤§äº1çš„æ—¶å€™ï¼Œéœ€è¦æ‰‹å·¥ä¿®æ­£foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0606_online';
+% ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
+subject_name = 'Jyt_test_0719_online';  % ±»ÊÔĞÕÃû
+foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Engagements = 'Online_Engagements_Jyt_test_0719_online';
 foldername_trajectory = fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name]);
 
-% é¢‘åŸŸæ»¤æ³¢ç”¨çš„æ•°æ®
-sample_frequency  = 256; % é‡‡æ ·é¢‘ç‡
-nfft = 512; % FFT çš„ç‚¹æ•°
-window = hamming(128); % ä½¿ç”¨æ±‰æ˜çª—
-overlap = 64; % é‡å çš„æ ·æœ¬æ•°
+% ÆµÓòÂË²¨ÓÃµÄÊı¾İ
+sample_frequency  = 256; % ²ÉÑùÆµÂÊ
+nfft = 512; % FFT µÄµãÊı
+window = hamming(128); % Ê¹ÓÃººÃ÷´°
+overlap = 64; % ÖØµşµÄÑù±¾Êı
 
-% pcaé™ç»´è®¾å®š
+% pca½µÎ¬Éè¶¨
 pca_dim = 47;
 
-% å®šä¹‰èµ·å§‹å’Œç»“æŸçš„trialæ•°é‡
-startTrial = 1; % èµ·å§‹trialçš„æ•°å­—
-endTrial = 72; % ç»“æŸtrialçš„æ•°å­—
+% ¶¨ÒåÆğÊ¼ºÍ½áÊøµÄtrialÊıÁ¿
+startTrial = 1; % ÆğÊ¼trialµÄÊı×Ö
+endTrial = 96; % ½áÊøtrialµÄÊı×Ö
 
-% åˆå§‹åŒ–å­˜å‚¨é¢„æµ‹å€¼å’Œæ ‡ç­¾çš„æ•°ç»„
+% ³õÊ¼»¯´æ´¢Ô¤²âÖµºÍ±êÇ©µÄÊı×é
 allData_AccTrial = [];
 allData_ThreTrial = [];
 
-% å®šä¹‰æ„Ÿå…´è¶£çš„é€šé“
+% ¶¨Òå¸ĞĞËÈ¤µÄÍ¨µÀ
 channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];
 
-% è¯»å–æ¯ä¸€ä¸ªç±»åˆ«çš„æ¯ä¸€ä¸ªtrialçš„é˜ˆå€¼
+% ¶ÁÈ¡Ã¿Ò»¸öÀà±ğµÄÃ¿Ò»¸ötrialµÄãĞÖµ
 data_thre = load(fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name], ['Online_EEGMI_trajectory_', subject_name, '.mat']), 'Train_Performance');
 data_thres = data_thre.Train_Performance;
 trials_category = (endTrial-startTrial+1)/3;
@@ -32,61 +32,55 @@ for category = 1:2
     %data_thres_visual = [];
     labels = data_thres(3,:);
     data_thres_ = data_thres(2,labels==category);
-    % éå†æ•°ç»„ï¼Œå°†å¤§äº0.4çš„æ•°å€¼é™¤ä»¥1.25
-    for i = 1:length(data_thres_)
-        if data_thres_(i) > 0.4
-            data_thres_(i) = data_thres_(i) / 1.25;
-        end
-    end
     data_thres_repeated = repmat(data_thres_(1:trials_category), 1, 1);
-    % å°†çŸ©é˜µè½¬æ¢ä¸ºè¡Œå‘é‡
+    % ½«¾ØÕó×ª»»ÎªĞĞÏòÁ¿
     data_thres_repeated = data_thres_repeated(:)';
     allData_ThreTrial{category+1} = data_thres_repeated;
 end
 
-% è¯»å–æ¯ä¸€ä¸ªç±»åˆ«çš„æ¯ä¸€ä¸ªtrialçš„å¹³å‡æ¦‚ç‡
-% éå†æŒ‡å®šèŒƒå›´å†…çš„trial
+% ¶ÁÈ¡Ã¿Ò»¸öÀà±ğµÄÃ¿Ò»¸ötrialµÄÆ½¾ù¸ÅÂÊ
+% ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
 for category = 0:2
-    % åˆå§‹åŒ–å­˜å‚¨æ¯ä¸ªç±»åˆ«æ•°æ®çš„æ•°ç»„
+    % ³õÊ¼»¯´æ´¢Ã¿¸öÀà±ğÊı¾İµÄÊı×é
     categoryDataAccTrial = [];
     
     for trial = startTrial:endTrial
-        % æ„å»ºæ–‡ä»¶åæ¨¡å¼
-        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_6EI_mu.mat', subject_name, category, trial);
+        % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
         
-        % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
+        % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
         fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
         
-        % éå†æ‰¾åˆ°çš„æ–‡ä»¶
+        % ±éÀúÕÒµ½µÄÎÄ¼ş
         for fileIdx = 1:length(fileList)
-            % åŠ è½½æ–‡ä»¶ä¸­çš„TrialData_Processedå˜é‡
+            % ¼ÓÔØÎÄ¼şÖĞµÄTrialData_Processed±äÁ¿
             data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name));
             
-            % è·å–æ•°æ®
+            % »ñÈ¡Êı¾İ
            categoryDataAccTrial = [categoryDataAccTrial, max(data.MI_Acc_GlobalAvg)];
             
         end
     end
     
-    % å­˜å‚¨æ‰€æœ‰ç±»åˆ«çš„æ•°æ®
+    % ´æ´¢ËùÓĞÀà±ğµÄÊı¾İ
     allData_AccTrial{category+1} = categoryDataAccTrial;
 end
 
-% ä¸ºæ¯ä¸ªç±»åˆ«ç»˜åˆ¶å›¾å½¢
+% ÎªÃ¿¸öÀà±ğ»æÖÆÍ¼ĞÎ
 for i = 3:length(allData_AccTrial)
-    figure; % åˆ›å»ºæ–°å›¾å½¢çª—å£
-    % ä½¿ç”¨smoothdataå‡½æ•°å¯¹æ•°æ®è¿›è¡Œå¹³æ»‘å¤„ç†
+    figure; % ´´½¨ĞÂÍ¼ĞÎ´°¿Ú
+    % Ê¹ÓÃsmoothdataº¯Êı¶ÔÊı¾İ½øĞĞÆ½»¬´¦Àí
     smoothedData = movmean(allData_AccTrial{i}, 4);
-    plot(smoothedData, 'LineWidth', 2); % ç»˜åˆ¶çº¿å›¾
+    plot(smoothedData, 'LineWidth', 2); % »æÖÆÏßÍ¼
     hold on;
     if i>1
         smoothedData_Thre = movmean(allData_ThreTrial{i}, 1);
         plot(smoothedData_Thre, 'LineWidth', 2);
     end
     hold off;
-    title(sprintf('Category %d Accuracy', i-1)); % è®¾ç½®æ ‡é¢˜
-    xlabel('Trial Number'); % xè½´æ ‡ç­¾
-    ylabel('Accuracy'); % yè½´æ ‡ç­¾
-    grid on; % æ˜¾ç¤ºç½‘æ ¼
-    ylim([0.3 0.6]); % è®¾ç½®yè½´èŒƒå›´
+    title(sprintf('Category %d Accuracy', i-1)); % ÉèÖÃ±êÌâ
+    xlabel('Trial Number'); % xÖá±êÇ©
+    ylabel('Accuracy'); % yÖá±êÇ©
+    grid on; % ÏÔÊ¾Íø¸ñ
+    ylim([0.3 0.6]); % ÉèÖÃyÖá·¶Î§
 end

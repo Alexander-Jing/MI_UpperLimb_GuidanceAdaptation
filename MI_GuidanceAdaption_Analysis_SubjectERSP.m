@@ -1,60 +1,60 @@
-newtimef% è¿åŠ¨æƒ³è±¡åŸºæœ¬å‚æ•°è®¾ç½®
-subject_name = 'Jyt_test_0606_online';  % è¢«è¯•å§“å
-foldername_Sessions = 'Jyt_test_0606_online_20240606_201926565_data';  % å½“sessionå¤§äº1çš„æ—¶å€™ï¼Œéœ€è¦æ‰‹å·¥ä¿®æ­£foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0606_online';
-% å®šä¹‰èµ·å§‹å’Œç»“æŸçš„trialæ•°é‡
-startTrial = 73; % èµ·å§‹trialçš„æ•°å­—
-endTrial = 96; % ç»“æŸtrialçš„æ•°å­—
+newtimef% ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
+subject_name = 'Jyt_test_0719_online';  % ±»ÊÔĞÕÃû
+foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Engagements = 'Online_Engagements_Jyt_test_0719_online';
+% ¶¨ÒåÆğÊ¼ºÍ½áÊøµÄtrialÊıÁ¿
+startTrial = 61; % ÆğÊ¼trialµÄÊı×Ö
+endTrial = 73; % ½áÊøtrialµÄÊı×Ö
 
-% åˆå§‹åŒ–å­˜å‚¨é¢„æµ‹å€¼å’Œæ ‡ç­¾çš„æ•°ç»„
+% ³õÊ¼»¯´æ´¢Ô¤²âÖµºÍ±êÇ©µÄÊı×é
 allPredictions = [];
 allLabels = [];
 allData = [];
 
-% å®šä¹‰æ„Ÿå…´è¶£çš„é€šé“
+% ¶¨Òå¸ĞĞËÈ¤µÄÍ¨µÀ
 channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];
-channel_selected = 24;  % é€‰æ‹©C3ä½œä¸ºåˆ†æçš„é€šé“
+channel_selected = 24;  % Ñ¡ÔñC3×÷Îª·ÖÎöµÄÍ¨µÀ
 
-% åˆå§‹åŒ–t-SNEæ•°æ®å’Œæ ‡ç­¾
+% ³õÊ¼»¯t-SNEÊı¾İºÍ±êÇ©
 tsneDataAll = [];
 tsneLabelsAll = [];
 
-% éå†æŒ‡å®šèŒƒå›´å†…çš„trial
+% ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
 for category = 1:2
-    % åˆå§‹åŒ–å­˜å‚¨æ¯ä¸ªç±»åˆ«æ•°æ®çš„æ•°ç»„
+    % ³õÊ¼»¯´æ´¢Ã¿¸öÀà±ğÊı¾İµÄÊı×é
     categoryData = [];
     
     for trial = startTrial:endTrial
-        % æ„å»ºæ–‡ä»¶åæ¨¡å¼
-        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_6EI_mu.mat', subject_name, category, trial);
+        % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
         
-        % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
+        % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
         fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
         
-        % éå†æ‰¾åˆ°çš„æ–‡ä»¶
+        % ±éÀúÕÒµ½µÄÎÄ¼ş
         for fileIdx = 1:length(fileList)
-            % åŠ è½½æ–‡ä»¶ä¸­çš„TrialData_Processedå˜é‡
+            % ¼ÓÔØÎÄ¼şÖĞµÄTrialData_Processed±äÁ¿
             data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'TrialData_Processed');
             
-            % è·å–æ•°æ®å¤§å°
+            % »ñÈ¡Êı¾İ´óĞ¡
             [numRows, ~] = size(data.TrialData_Processed);
             
-            % ç¡®ä¿æ•°æ®è¡Œæ•°å¯ä»¥è¢«33æ•´é™¤
+            % È·±£Êı¾İĞĞÊı¿ÉÒÔ±»33Õû³ı
             if mod(numRows, 33) == 0
-                % è®¡ç®—æ ·æœ¬æ•°é‡
+                % ¼ÆËãÑù±¾ÊıÁ¿
                 numSamples = numRows / 33;
                 sampleFrames = [];
-                % é€‰å–æ ·æœ¬
+                % Ñ¡È¡Ñù±¾
                 for sampleIdx = 1:numSamples
-                    % åªé€‰å–ä¸‹é¢ çš„æ•°æ®ï¼Œä»è€Œæ„æˆä¸€ä¸ªå®Œæ•´çš„trialçš„æ•°æ®
-                    if sampleIdx==1 || sampleIdx==2 || sampleIdx==4 || sampleIdx==5 || sampleIdx==7
-                        % è®¡ç®—å½“å‰æ ·æœ¬çš„èµ·å§‹è¡Œ
+                    % Ö»Ñ¡È¡ÏÂÃæ µÄÊı¾İ£¬´Ó¶ø¹¹³ÉÒ»¸öÍêÕûµÄtrialµÄÊı¾İ
+                    if sampleIdx==1 || sampleIdx==2 || sampleIdx==4 || sampleIdx==6 || sampleIdx==8 || sampleIdx==10
+                        % ¼ÆËãµ±Ç°Ñù±¾µÄÆğÊ¼ĞĞ
                         startRow = (sampleIdx-1)*33 + 1;
-                        % æå–æ ·æœ¬
+                        % ÌáÈ¡Ñù±¾
                         sampleData = data.TrialData_Processed(startRow:startRow+32, :);
-                        % é€‰æ‹©æŒ‡å®šçš„é€šé“
+                        % Ñ¡ÔñÖ¸¶¨µÄÍ¨µÀ
                         sampleData = sampleData(channel_selected, :);
-                        % å­˜å‚¨æ ·æœ¬æ•°æ®
+                        % ´æ´¢Ñù±¾Êı¾İ
                         sampleFrames = [sampleFrames; sampleData']; 
                     end
                 end
@@ -63,44 +63,44 @@ for category = 1:2
         end
     end
     
-    % å­˜å‚¨æ‰€æœ‰ç±»åˆ«çš„æ•°æ®
+    % ´æ´¢ËùÓĞÀà±ğµÄÊı¾İ
     allData{category+1} = categoryData;
 end
 
-% å‡è®¾ allData{2} å’Œ allData{3} åˆ†åˆ«å­˜å‚¨äº†ç±»åˆ«1å’Œç±»åˆ«2çš„æ•°æ®
-% æå–ä¸¤ä¸ªç±»åˆ«çš„æ•°æ®
+% ¼ÙÉè allData{2} ºÍ allData{3} ·Ö±ğ´æ´¢ÁËÀà±ğ1ºÍÀà±ğ2µÄÊı¾İ
+% ÌáÈ¡Á½¸öÀà±ğµÄÊı¾İ
 dataClass1 = allData{2};
 dataClass2 = allData{3};
 %dataClass_all = [dataClass1, dataClass2];
 
-% ç»˜åˆ¶ERSPå›¾
-[ersp,itc,powbase,times,freqs]=newtimef(dataClass2,256*10,[-3*1000 8*1000],256, 0,'plotitc','off',...
+% »æÖÆERSPÍ¼
+[ersp,itc,powbase,times,freqs]=newtimef(dataClass1,256*10,[-3*1000 11*1000],256, 0,'plotitc','off',...
     'freqs',[1 35],  'erspmax', 10, 'scale', 'log', 'plotmean', 'off');
 
-% åˆ›å»ºä¸€ä¸ªæ–°çš„å›¾å½¢çª—å£
+% ´´½¨Ò»¸öĞÂµÄÍ¼ĞÎ´°¿Ú
 figure;
 
-% ä½¿ç”¨ imagesc å‡½æ•°æ˜¾ç¤ºERSP
+% Ê¹ÓÃ imagesc º¯ÊıÏÔÊ¾ERSP
 imagesc(times, freqs, ersp);
 
-% è®¾ç½®åæ ‡è½´æ–¹å‘ - é€šå¸¸æ—¶é—´æ˜¯xè½´ï¼Œé¢‘ç‡æ˜¯yè½´
+% ÉèÖÃ×ø±êÖá·½Ïò - Í¨³£Ê±¼äÊÇxÖá£¬ÆµÂÊÊÇyÖá
 axis xy;
 
-% æ·»åŠ é¢œè‰²æ¡ä»¥è¡¨ç¤ºä¸åŒåŠŸç‡çš„é¢œè‰²ç¼–ç 
+% Ìí¼ÓÑÕÉ«ÌõÒÔ±íÊ¾²»Í¬¹¦ÂÊµÄÑÕÉ«±àÂë
 hColorbar = colorbar;
-hColorbar.Label.String = 'dB';  % è®¾ç½®é¢œè‰²æ¡çš„æ ‡ç­¾ä¸º 'dB'
+hColorbar.Label.String = 'dB';  % ÉèÖÃÑÕÉ«ÌõµÄ±êÇ©Îª 'dB'
 
-% å¢å¼ºé¢œè‰²æ¡çš„äº®åº¦
-hColorbar.Limits = [-10 10]; % è®¾ç½®é¢œè‰²æ¡çš„èŒƒå›´
-colormap jet; % ä½¿ç”¨ 'jet' é¢œè‰²å›¾ï¼Œå®ƒå…·æœ‰é²œè‰³çš„é¢œè‰²
+% ÔöÇ¿ÑÕÉ«ÌõµÄÁÁ¶È
+hColorbar.Limits = [-10 10]; % ÉèÖÃÑÕÉ«ÌõµÄ·¶Î§
+colormap jet; % Ê¹ÓÃ 'jet' ÑÕÉ«Í¼£¬Ëü¾ßÓĞÏÊÑŞµÄÑÕÉ«
 
-% æ·»åŠ æ ‡é¢˜å’Œè½´æ ‡ç­¾
+% Ìí¼Ó±êÌâºÍÖá±êÇ©
 title('C3');
 xlabel('Times (ms)');
 ylabel('Frequency (Hz)');
 
-% åœ¨xè½´çš„0åˆ»åº¦å¤„æ·»åŠ ä¸€æ¡é»‘è‰²è™šçº¿
+% ÔÚxÖáµÄ0¿Ì¶È´¦Ìí¼ÓÒ»ÌõºÚÉ«ĞéÏß
 line([0 0], ylim, 'Color', 'k', 'LineStyle', '--', 'LineWidth', 2);
 
-% è®¾ç½®åˆé€‚çš„é¢œè‰²èŒƒå›´
+% ÉèÖÃºÏÊÊµÄÑÕÉ«·¶Î§
 caxis([-10 10]);

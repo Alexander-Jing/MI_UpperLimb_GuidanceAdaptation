@@ -1,35 +1,35 @@
-% è¿åŠ¨æƒ³è±¡åŸºæœ¬å‚æ•°è®¾ç½®
-subject_name = 'Jyt_test_0606_online';  % è¢«è¯•å§“å
-foldername_Sessions = 'Jyt_test_0606_online_20240606_201926565_data';  % å½“sessionå¤§äº1çš„æ—¶å€™ï¼Œéœ€è¦æ‰‹å·¥ä¿®æ­£foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0606_online';
-% å®šä¹‰èµ·å§‹å’Œç»“æŸçš„trialæ•°é‡
-startTrial = 61; % èµ·å§‹trialçš„æ•°å­—
-endTrial = 84; % ç»“æŸtrialçš„æ•°å­—
+% ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
+subject_name = 'Jyt_test_0719_online';  % ±»ÊÔĞÕÃû
+foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Engagements = 'Online_Engagements_Jyt_test_0719_online';
+% ¶¨ÒåÆğÊ¼ºÍ½áÊøµÄtrialÊıÁ¿
+startTrial = 73; % ÆğÊ¼trialµÄÊı×Ö
+endTrial = 96; % ½áÊøtrialµÄÊı×Ö
 
-% åˆå§‹åŒ–å­˜å‚¨é¢„æµ‹å€¼å’Œæ ‡ç­¾çš„æ•°ç»„
+% ³õÊ¼»¯´æ´¢Ô¤²âÖµºÍ±êÇ©µÄÊı×é
 allPredictions = [];
 allLabels = [];
 
-% éå†æŒ‡å®šèŒƒå›´å†…çš„trial
+% ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
 for category = 0:2
-    % éå†æŒ‡å®šèŒƒå›´å†…çš„trial
+    % ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
     for trial = startTrial:endTrial
-        % æ„å»ºæ–‡ä»¶åæ¨¡å¼
-        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_6EI_mu.mat', subject_name, category, trial);
+        % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
         
-        % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
+        % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
         fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
         
-        % éå†æ‰¾åˆ°çš„æ–‡ä»¶
+        % ±éÀúÕÒµ½µÄÎÄ¼ş
         for fileIdx = 1:length(fileList)
-            % åŠ è½½æ–‡ä»¶ä¸­çš„resultsMIå˜é‡
+            % ¼ÓÔØÎÄ¼şÖĞµÄresultsMI±äÁ¿
             data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'resultsMI');
             
-            % æå–é¢„æµ‹å€¼å’Œæ ‡ç­¾
+            % ÌáÈ¡Ô¤²âÖµºÍ±êÇ©
             predictions = data.resultsMI(1, :);
-            labels = data.resultsMI(3, :);
+            labels = data.resultsMI(end, :);
             
-            % å­˜å‚¨ç»“æœ
+            % ´æ´¢½á¹û
             allPredictions = [allPredictions, predictions];
             allLabels = [allLabels, labels];
         end
@@ -37,34 +37,34 @@ for category = 0:2
 end
 
 
-% è®¡ç®—æ€»ä½“ç²¾åº¦
+% ¼ÆËã×ÜÌå¾«¶È
 %totalAccuracy = sum(allLabels == allPredictions) / length(allLabels);
 
-% è®¡ç®—æ··æ·†çŸ©é˜µ
+% ¼ÆËã»ìÏı¾ØÕó
 [C,~] = confusionmat(allLabels, allPredictions);
 totalAccuracy = sum(diag(C))/sum(C(:));
 
-% åˆå§‹åŒ–F1åˆ†æ•°æ•°ç»„
+% ³õÊ¼»¯F1·ÖÊıÊı×é
 recall = zeros(1,3);
 precision = zeros(1,3);
 F1scores = zeros(1,3);
 
-% è®¡ç®—æ¯ä¸ªç±»åˆ«çš„F1åˆ†æ•°
+% ¼ÆËãÃ¿¸öÀà±ğµÄF1·ÖÊı
 for class = 1:3
     precision(class) = C(class,class) / sum(C(:,class));
     recall(class) = C(class,class) / sum(C(class,:));
     F1scores(class) = 2 * precision(class) * recall(class) / (precision(class) + recall(class));
 end
 
-% è®¡ç®—å¹³å‡F1åˆ†æ•°
+% ¼ÆËãÆ½¾ùF1·ÖÊı
 averageF1score = mean(F1scores);
 
-% æ˜¾ç¤ºç»“æœ
-fprintf('Trial: %d åˆ° %d \n', startTrial, endTrial);
-fprintf('æ€»ä½“ç²¾åº¦: %.2f\n', totalAccuracy);
-fprintf('å¹³å‡F1åˆ†æ•°: %.2f\n', averageF1score);
+% ÏÔÊ¾½á¹û
+fprintf('Trial: %d µ½ %d \n', startTrial, endTrial);
+fprintf('×ÜÌå¾«¶È: %.2f\n', totalAccuracy);
+fprintf('Æ½¾ùF1·ÖÊı: %.2f\n', averageF1score);
 for category = 1:3
-    fprintf('ç±»åˆ« %d çš„å¬å›ç‡: %.2f\n', category-1, recall(category));
-    %fprintf('ç±»åˆ« %d çš„ç²¾ç¡®ç‡: %.2f\n', category-1, precision(category));
-    fprintf('ç±»åˆ« %d çš„F1åˆ†æ•°: %.2f\n', category-1, F1scores(category));
+    fprintf('Àà±ğ %d µÄÕÙ»ØÂÊ: %.2f\n', category-1, recall(category));
+    %fprintf('Àà±ğ %d µÄ¾«È·ÂÊ: %.2f\n', category-1, precision(category));
+    fprintf('Àà±ğ %d µÄF1·ÖÊı: %.2f\n', category-1, F1scores(category));
 end

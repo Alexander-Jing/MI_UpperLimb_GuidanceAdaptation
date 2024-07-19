@@ -22,7 +22,8 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation_modified_DoubleThreshold\unity_test.exe&');
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
-system('E:\UpperLimb_AO_NewModel_MI_1\unity_test.exe&');
+%system('E:\UpperLimb_AO_NewModel_MI_1\unity_test.exe&');
+system('E:\UpperLimb_AO_NewModel_MI_ReachGrasp_2\unity_test.exe&');
 %system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
@@ -50,13 +51,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0720_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0712_offline_20240711_211007892_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0712_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0719_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0719_offline_20240719_155017684_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0719_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 5;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_test_0720_online_20240718_162009922_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -124,7 +125,7 @@ ip = '172.18.22.21';
 port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
-StimAmplitude_1 = 7;
+StimAmplitude_1 = 5;
 StimAmplitude_2 = 7;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó

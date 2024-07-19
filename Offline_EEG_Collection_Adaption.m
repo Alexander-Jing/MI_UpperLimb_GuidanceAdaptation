@@ -19,7 +19,8 @@ close all;
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_Animation\unity_test.exe&');
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
-system('E:\UpperLimb_AO_NewModel_MI_1\unity_test.exe&');
+%system('E:\UpperLimb_AO_NewModel_MI_1\unity_test.exe&');
+system('E:\UpperLimb_AO_NewModel_MI_ReachGrasp_2\unity_test.exe&');
 %system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
 
 pause(3)
@@ -47,7 +48,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0712_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0719_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 %TrialNum = 3*10;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
