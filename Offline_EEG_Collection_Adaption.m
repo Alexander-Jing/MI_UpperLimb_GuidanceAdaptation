@@ -163,7 +163,13 @@ while(AllTrial <= TrialNum)
         Trigger = RandomTrial(AllTrial);  % 播放动作的AO动画（Idle, MI1, MI2）
         mat2unity = ['0', num2str(Trigger + 3)];
         sendbuf(1,1) = hex2dec(mat2unity) ;
-        sendbuf(1,2) = hex2dec('04') ;  % 播放速度是原来动画的2倍，保证在4s内放完
+        if Trigger==1
+            % MI 1使用肩关节的动画播放
+            sendbuf(1,2) = hex2dec('04') ;  % 0x04: 4倍速播放, 0x02: 2倍速播放, 0x01: 1倍速播放, 指定播放帧
+        elseif Trigger==2
+            % MI 2手部使用特别设置的02号2倍速动画来设置，这一部分不会出现举起杯子的部分，仅仅是抓握
+            sendbuf(1,2) = hex2dec('02') ;  % 0x04: 4倍速播放, 0x02: 2倍速播放, 0x01: 1倍速播放, 指定播放帧
+        end
         sendbuf(1,3) = hex2dec('00') ;
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);

@@ -381,6 +381,12 @@ while(AllTrial <= TrialNum_session)
         sendbuf(1,2) = hex2dec('01');
         sendbuf(1,3) = hex2dec('00');
         sendbuf(1,4) = hex2dec('00');
+        if Trigger==2
+            MI_AO_Len = 150;
+        else
+            MI_AO_Len = 200;
+        end
+
         if size(MI_Acc_GlobalAvg,2) > 1
             % 将均值归一化到全局的阈值Train_Thre_Global范围内
             VisualFB_Rate_0 = MI_Acc_GlobalAvg(end-1)/Train_Thre_Global;
@@ -494,7 +500,7 @@ while(AllTrial <= TrialNum_session)
                 % 播放动作的AO动画（Idle, MI1, MI2）
                 mat2unity = ['0', num2str(Trials(AllTrial_Session) + 3)];
                 sendbuf(1,1) = hex2dec(mat2unity);
-                sendbuf(1,2) = hex2dec('04') ;
+                sendbuf(1,2) = hex2dec('04') ;  % 0x04: 4倍速播放, 0x02: 2倍速播放, 0x01: 1倍速播放, 指定播放帧 
                 sendbuf(1,3) = hex2dec('01') ;  % 给与反馈，显示文字
                 sendbuf(1,4) = hex2dec('00') ;
                 sendbuf(1,8) = hex2dec('00') ;
