@@ -1,10 +1,13 @@
 % 运动想象基本参数设置
 subject_name = 'Jyt_test_0719_online';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % folder data
 foldername_Engagements = 'Online_Engagements_Jyt_test_0719_online';
 % 定义起始和结束的trial数量
-startTrial = 73; % 起始trial的数字
-endTrial = 96; % 结束trial的数字
+startTrial_1 = 13; % 第一组起始trial的数字
+endTrial_1 = 24; % 第一组结束trial的数字
+
+startTrial_2 = 25; % 第二组起始trial的数字
+endTrial_2 = 36; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
@@ -13,7 +16,28 @@ allLabels = [];
 % 遍历指定范围内的trial
 for category = 0:2
     % 遍历指定范围内的trial
-    for trial = startTrial:endTrial
+    for trial = startTrial_1:endTrial_1
+        % 构建文件名模式
+        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
+        
+        % 获取文件夹中匹配的文件列表
+        fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
+        
+        % 遍历找到的文件
+        for fileIdx = 1:length(fileList)
+            % 加载文件中的resultsMI变量
+            data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'resultsMI');
+            
+            % 提取预测值和标签
+            predictions = data.resultsMI(1, :);
+            labels = data.resultsMI(end, :);
+            
+            % 存储结果
+            allPredictions = [allPredictions, predictions];
+            allLabels = [allLabels, labels];
+        end
+    end
+    for trial = startTrial_2:endTrial_2
         % 构建文件名模式
         filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
         
@@ -60,7 +84,8 @@ end
 averageF1score = mean(F1scores);
 
 % 显示结果
-fprintf('Trial: %d 到 %d \n', startTrial, endTrial);
+fprintf('Trial 1: %d 到 %d \n', startTrial_1, endTrial_1);
+fprintf('Trial 2: %d 到 %d \n', startTrial_2, endTrial_2);
 fprintf('总体精度: %.2f\n', totalAccuracy);
 fprintf('平均F1分数: %.2f\n', averageF1score);
 for category = 1:3

@@ -1,17 +1,17 @@
-%% ¸ù¾İÖ®Ç°µÄ±íÏÖ½øĞĞµ÷ÕûÈÎÎñÄÑ¶È
+%% æ ¹æ®ä¹‹å‰çš„è¡¨ç°è¿›è¡Œè°ƒæ•´ä»»åŠ¡éš¾åº¦
 function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt] = TaskAdjustUpgraded_FeasibleOptimal_1(scores_trial, Train_Performance, Train_Thre_FesOpt, Trials, AllTrial, RestTimeLenBaseline, min_max_value_EI)
     EI_max = max(min_max_value_EI(1,:));
     EI_min = min(min_max_value_EI(2,:));
     RestTimeLenBaseline_add = 5;
-    % Ò»¿ªÊ¼ÔİÊ±²»½øĞĞĞŞ¸ÄÈÎÎñãĞÖµ£¬Ö»ÊÇÊ¹ÓÃ¿ÉĞĞ²¿·Ö
+    % ä¸€å¼€å§‹æš‚æ—¶ä¸è¿›è¡Œä¿®æ”¹ä»»åŠ¡é˜ˆå€¼ï¼Œåªæ˜¯ä½¿ç”¨å¯è¡Œéƒ¨åˆ†
     if AllTrial < 4  
-        Trigger = Trials(AllTrial);  % È·¶¨µ±Ç°µÄÀà±ğ
-        Flag_FesOptim = 0;  % Ê¹ÓÃ¿ÉĞĞ½â
+        Trigger = Trials(AllTrial);  % ç¡®å®šå½“å‰çš„ç±»åˆ«
+        Flag_FesOptim = 0;  % ä½¿ç”¨å¯è¡Œè§£
         Train_Thre_Global_Optim = 0.0;
         RestTimeLen = RestTimeLenBaseline;
         Train_Thre_FesOpt = [Train_Thre_FesOpt, [Train_Thre_Global_Optim; Flag_FesOptim; Trigger]];
     else
-        %ÌáÈ¡Ö®Ç°3¸öÈÎÎñµÄEIÖ¸±êµÄ±ä»¯Çé¿ö£¨Î¢·ÖµÄĞÎÊ½£©
+        %æå–ä¹‹å‰3ä¸ªä»»åŠ¡çš„EIæŒ‡æ ‡çš„å˜åŒ–æƒ…å†µï¼ˆå¾®åˆ†çš„å½¢å¼ï¼‰
         delta_score = scores_trial(end-2:end) - scores_trial(end-3:end-1);  
         delta_score(delta_score<=0) = -1;
         delta_score(delta_score>0) = 1;  
@@ -19,51 +19,51 @@ function [Flag_FesOptim, Train_Thre_Global_Optim, RestTimeLen, Train_Thre_FesOpt
         deltaSum_ = sum(delta_score);
         switch deltaSum_
             case 3
-                % ÑÓ³¤ĞİÏ¢Ê±¼ä
+                % å»¶é•¿ä¼‘æ¯æ—¶é—´
                 RestTimeLen = RestTimeLenBaseline + RestTimeLenBaseline_add;
-                disp(["ĞİÏ¢Ê±¼äÑÓ³¤ÖÁ", num2str(RestTimeLen)]);
+                disp(["ä¼‘æ¯æ—¶é—´å»¶é•¿è‡³", num2str(RestTimeLen)]);
             case 1
-                % ¼õÉÙĞİÏ¢Ê±¼ä
+                % å‡å°‘ä¼‘æ¯æ—¶é—´
                 RestTimeLen = RestTimeLenBaseline;
             case -1
-                % ¼õÉÙĞİÏ¢Ê±¼ä
+                % å‡å°‘ä¼‘æ¯æ—¶é—´
                 RestTimeLen = RestTimeLenBaseline ;
             case -3
-                % ÑÓ³¤ĞİÏ¢Ê±¼ä
+                % å»¶é•¿ä¼‘æ¯æ—¶é—´
                 RestTimeLen = RestTimeLenBaseline + RestTimeLenBaseline_add;
-                disp(["ĞİÏ¢Ê±¼äÑÓ³¤ÖÁ", num2str(RestTimeLen)]);
+                disp(["ä¼‘æ¯æ—¶é—´å»¶é•¿è‡³", num2str(RestTimeLen)]);
         end
-        % Èç¹ûµ±Ç°µÄEIÊıÖµÊÇ´óÓÚ×î´óÖµµÄ»°£¬Í¬Ñù²ÎÓëĞİÏ¢
+        % å¦‚æœå½“å‰çš„EIæ•°å€¼æ˜¯å¤§äºæœ€å¤§å€¼çš„è¯ï¼ŒåŒæ ·å‚ä¸ä¼‘æ¯
         if scores_trial(end) > EI_max
             RestTimeLen = RestTimeLenBaseline + RestTimeLenBaseline_add;
-            disp(["ĞİÏ¢Ê±¼äÑÓ³¤ÖÁ", num2str(RestTimeLen)]);
+            disp(["ä¼‘æ¯æ—¶é—´å»¶é•¿è‡³", num2str(RestTimeLen)]);
         end
         
-        % ¼ÆËã±íÏÖÖĞµÄÍê³ÉÇé¿ö max(MI_Acc_GlobalAvg)./Train_Thre_Global
-        %Train_Performance_ref = ones(size(Train_Performance(2,:))) * 0.6;  % ÒÔ0.6×÷ÎªÒ»¸ö²Î¿¼µÄ³¬²ÎÊı
-        Train_Performance_ref = Train_Performance(2, :);  % ÕâÀïÑ¡ÔñµÄÊÇÖ®Ç°µÄÄ¿±êãĞÖµ×÷Îª²Î¿¼¼ÆËãratio
+        % è®¡ç®—è¡¨ç°ä¸­çš„å®Œæˆæƒ…å†µ max(MI_Acc_GlobalAvg)./Train_Thre_Global
+        %Train_Performance_ref = ones(size(Train_Performance(2,:))) * 0.6;  % ä»¥0.6ä½œä¸ºä¸€ä¸ªå‚è€ƒçš„è¶…å‚æ•°
+        Train_Performance_ref = Train_Performance(2, :);  % è¿™é‡Œé€‰æ‹©çš„æ˜¯ä¹‹å‰çš„ç›®æ ‡é˜ˆå€¼ä½œä¸ºå‚è€ƒè®¡ç®—ratio
         ratio_ = Train_Performance(1, :) ./ Train_Performance_ref;
-        % ½«¼ÆËã³öµÄ±ÈÂÊºÍµÚÈıĞĞºÏ²¢
+        % å°†è®¡ç®—å‡ºçš„æ¯”ç‡å’Œç¬¬ä¸‰è¡Œåˆå¹¶
         Train_Performance_ = vertcat(ratio_, Train_Performance(1, :), Train_Performance(3, :));
-        Trigger = Trials(AllTrial);  % È·¶¨µ±Ç°µÄÀà±ğ
+        Trigger = Trials(AllTrial);  % ç¡®å®šå½“å‰çš„ç±»åˆ«
         tasks = Train_Performance_(3,:);
-        task_performance = Train_Performance_(1:2,tasks==Trigger);  % ÌáÈ¡Í¬Àà±ğµÄÊı¾İ
+        task_performance = Train_Performance_(1:2,tasks==Trigger);  % æå–åŒç±»åˆ«çš„æ•°æ®
         
         if size(task_performance, 2) < 3
-            performance_eval = task_performance(1,:);  % Èç¹û²»Âú3´ÎµÄ»°£¬Ö±½ÓÌáÈ¡ËùÓĞµÄ
+            performance_eval = task_performance(1,:);  % å¦‚æœä¸æ»¡3æ¬¡çš„è¯ï¼Œç›´æ¥æå–æ‰€æœ‰çš„
         else
-            performance_eval = task_performance(1,end-2+1:end);  % ÌáÈ¡Ö®Ç°2´ÎÊµÑéµÄ±íÏÖ£¬Ê¹ÓÃÕâ2´ÎµÄÊµÑé±íÏÖÀ´¹æ»®½ÓÏÂÀ´µÄÊµÑéÄÑ¶È
+            performance_eval = task_performance(1,end-2+1:end);  % æå–ä¹‹å‰2æ¬¡å®éªŒçš„è¡¨ç°ï¼Œä½¿ç”¨è¿™2æ¬¡çš„å®éªŒè¡¨ç°æ¥è§„åˆ’æ¥ä¸‹æ¥çš„å®éªŒéš¾åº¦
         end
-        % Ê¹ÓÃ»ùÓÚ¦Î-greedyµÄ·½·¨À´½øĞĞÈÎÎñÈ¨ÖØµÄµ÷Õû
-        performance_pro = mean(performance_eval(1,:));  % ¼ÆËãÇ°2¸öµÄÆ½¾ù¸ÅÂÊ×÷ÎªÕâ¸ö¦ÎµÄÊıÖµ
-        % »ùÓÚ¸ÅÂÊ½øĞĞÑ¡Ôñ¿ÉĞĞ»¹ÊÇ×îÓÅ£¬performance_proÔ½¸ßÔòÔ½ÓĞ¿ÉÄÜÌáÉıÄÑ¶È
+        % ä½¿ç”¨åŸºäºÎ¾-greedyçš„æ–¹æ³•æ¥è¿›è¡Œä»»åŠ¡æƒé‡çš„è°ƒæ•´
+        performance_pro = mean(performance_eval(1,:));  % è®¡ç®—å‰2ä¸ªçš„å¹³å‡æ¦‚ç‡ä½œä¸ºè¿™ä¸ªÎ¾çš„æ•°å€¼
+        % åŸºäºæ¦‚ç‡è¿›è¡Œé€‰æ‹©å¯è¡Œè¿˜æ˜¯æœ€ä¼˜ï¼Œperformance_proè¶Šé«˜åˆ™è¶Šæœ‰å¯èƒ½æå‡éš¾åº¦
         if rand() < performance_pro
-            % Ñ¡È¡Train_Performance(1, :)ÀïÃæµÄ0.75·ÖÎ»ÊıÀ´×÷ÎªĞÂµÄ×îÓÅµÄãĞÖµ
+            % é€‰å–Train_Performance(1, :)é‡Œé¢çš„0.75åˆ†ä½æ•°æ¥ä½œä¸ºæ–°çš„æœ€ä¼˜çš„é˜ˆå€¼
             %Train_Thre_Global_Optim = quantile(Train_Performance(1, :), 0.75)*1.25;
             Train_Thre_Global_Optim = quantile(task_performance(2, :), 0.75);
             Flag_FesOptim = 1;
         else
-            % Ê¹ÓÃ¿ÉĞĞ½â
+            % ä½¿ç”¨å¯è¡Œè§£
             Flag_FesOptim = 0;
             Train_Thre_Global_Optim = 0.0;
         end
