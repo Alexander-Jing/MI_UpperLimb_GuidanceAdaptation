@@ -120,7 +120,6 @@ if Trial_setAll==0
         index_i = ones(TrialNum/MotorClasses,1)*i;                             % size TrialNum/MotorClasses*1£¬¸÷ÖÖÈÎÎñ
         randomindex = [randomindex; index_i];                                  % ¸÷¸öÈÎÎñÕûºÏ£¬×îÖÕsize TrialNum*1
     end
-    
     RandomTrial = randomindex(TrialIndex);                                     % Ëæ»úÉú³É¸÷¸öTrial¶ÔÓ¦µÄÈÎÎñ
 
 elseif Trial_setAll==1
@@ -148,11 +147,11 @@ if ~exist(foldername, 'dir')
 end
 % ÉèÖÃ´æ´¢scoreµÄÊı×é
 scores = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄÃ¿Ò»¸öwindowµÄ·ÖÊıÖµ
-EI_indices = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄÃ¿Ò»¸öwindowµÄEI·ÖÊıÖµ
-EI_index_scores = [];  % ÓÃÓÚ´æ´¢EI_index_Caculation(EI_index, EI_channels)¼ÆËã³öÀ´µÄEI_index_scoreÊıÖµ
-mu_powers = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄÃ¿Ò»¸öwindowµÄmuÆµ´øµÄÄÜÁ¿ÊıÖµ
-scores_task = [];  % ÓÃÓÚ´æ´¢scoreºÍtask
-mu_suppressions = [];  % ÓÃÓÚ´æ´¢mu_suppression
+EI_indices = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄÃ¿Ò»¸öwindowµÄEI·ÖÊıÖµ,´æ´¢·½Ê½ EI_indices = [EI_indices, EI_index]; Ò»¸ötrialÀïÃæ´æ´¢4¸öwindowµÄÊıÖµ
+EI_index_scores = [];  % ÓÃÓÚ´æ´¢EI_index_Caculation(EI_index, EI_channels)¼ÆËã³öÀ´µÄEI_index_scoreÊıÖµ£¬´æ´¢·½Ê½ EI_index_score = [EI_index_score; Trigger]; EI_index_scores = [EI_index_scores, EI_index_score];  Ò»¸ötrialÀïÃæ´æ´¢4¸öwindowµÄÊıÖµ
+mu_powers = [];  % ÓÃÓÚ´æ´¢Ã¿Ò»¸ötrialÀïÃæµÄÃ¿Ò»¸öwindowµÄmuÆµ´øµÄÄÜÁ¿ÊıÖµ£¬ ´æ´¢·½Ê½ mu_powers = [mu_powers, mu_power_MI];  Ò»¸ötrialÀïÃæ´æ´¢5¸öwindowµÄÊıÖµ
+scores_task = [];  % ÓÃÓÚ´æ´¢scoreºÍtask£¬´æ´¢·½Ê½ scores_task = [scores_task, scores_task_]; Ò»¸ötrialÀïÃæ´æ´¢4¸öwindowµÄÊıÖµ
+mu_suppressions = [];  % ÓÃÓÚ´æ´¢MI_MuSuperesion(mu_power_, mu_power_MI, mu_channels)¼ÆËã³öÀ´µÄmu_suppression£¬´æ´¢·½Ê½mu_suppression = [mu_suppression; Trigger]; mu_suppressions = [mu_suppressions, mu_suppression]; Ò»¸ötrialÀïÃæ´æ´¢4¸öwindowµÄÊıÖµ
 
 %% ¿ªÊ¼ÊµÑé£¬ÀëÏß²É¼¯
 Timer = 0;
@@ -252,7 +251,7 @@ while(AllTrial <= TrialNum)
         fwrite(UnityControl,sendbuf);  
     end
     
-    % µÚ4s¿ªÊ¼È¡512µÄTrigger==6µÄMIµÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö
+    % µÚ4s¿ªÊ¼È¡512µÄTrigger~=6µÄRestµÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö
     if Timer > (2+1) && Timer <= (2+5) && RandomTrial(AllTrial)==0
         rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
         rawdata = rawdata(2:end,:);
@@ -338,8 +337,7 @@ foldername_Scores = [foldername, '\\Offline_EEGMI_Scores_', subject_name]; % Ö¸¶
 if ~exist(foldername_Scores, 'dir')
    mkdir(foldername_Scores);
 end
-% ¼ÆËã¸÷¸ö±äÁ¿Ö¸±êµÄ¾ùÖµºÍ·½²î
-%mean_std_EI = compute_mean_std(EI_indices);  
+% ¼ÆËã¸÷¸ö±äÁ¿Ö¸±êµÄ¾ùÖµºÍ·½²î  
 mean_std_muSup = compute_mean_std(mu_suppressions, 'mu_suppressions');  
 mean_std_EI_score = compute_mean_std(EI_index_scores, 'EI_index_scores');
 % ¼ÆËãËÄ·ÖÎ»Êı
