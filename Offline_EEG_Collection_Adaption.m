@@ -49,7 +49,9 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
 subject_name = 'Jyt_test_0719_offline';  % ±»ÊÔĞÕÃû
-TrialNum = 3*40;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+Trial_setAll = 0;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
+Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
 %TrialNum = 3*10;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
 % µ±Ç°ÉèÖÃµÄÈÎÎñ
@@ -107,19 +109,35 @@ StimCommand_1 = uint8([0,StimAmplitude_1,tStim,1]); % left calf
 StimCommand_2 = uint8([0,StimAmplitude_2,tStim,2]); % left thigh
 
 %% ÔË¶¯ÏëÏóÄÚÈİ°²ÅÅ
-TrialIndex = randperm(TrialNum);                                           % ¸ù¾İ²É¼¯µÄÊıÁ¿Éú³ÉËæ»úË³ĞòµÄÊı×é
-%All_data = [];
 Trigger = 0;                                                               % ³õÊ¼»¯Trigger£¬ÓÃÓÚºóĞøµÄÊı¾İ´æ´¢
 AllTrial = 0;
 
-randomindex = [];                                                          % ³õÊ¼»¯trialsµÄ¼¯ºÏ
-for i= 0:(MotorClasses-1)
-    index_i = ones(TrialNum/MotorClasses,1)*i;                             % size TrialNum/MotorClasses*1£¬¸÷ÖÖÈÎÎñ
-    randomindex = [randomindex; index_i];                                  % ¸÷¸öÈÎÎñÕûºÏ£¬×îÖÕsize TrialNum*1
+if Trial_setAll==0
+    TrialIndex = randperm(TrialNum);                                           % ¸ù¾İ²É¼¯µÄÊıÁ¿Éú³ÉËæ»úË³ĞòµÄÊı×é
+    %All_data = [];
+    randomindex = [];                                                          % ³õÊ¼»¯trialsµÄ¼¯ºÏ
+    for i= 0:(MotorClasses-1)
+        index_i = ones(TrialNum/MotorClasses,1)*i;                             % size TrialNum/MotorClasses*1£¬¸÷ÖÖÈÎÎñ
+        randomindex = [randomindex; index_i];                                  % ¸÷¸öÈÎÎñÕûºÏ£¬×îÖÕsize TrialNum*1
+    end
+    
+    RandomTrial = randomindex(TrialIndex);                                     % Ëæ»úÉú³É¸÷¸öTrial¶ÔÓ¦µÄÈÎÎñ
+
+elseif Trial_setAll==1
+    RandomTrial = [];
+    % Èç¹û¿ªÆôÒÔsessionĞÎÊ½½øĞĞÊı¾İÊÕ¼¯µÄ»°£¬Ã¿Ò»¸ösessionÉèÖÃTrialNum/Trial_Session¸ötrial
+    trials_perSession = TrialNum/Trial_Session;  % Ò»¸ösessionÀïÃæµÄtrialÊıÁ¿
+    % Ò»¸ösessionÀïÃæµÄÅÅ²¼
+    for session_idx = 1:Trial_Session
+        TrialIndex_session = randperm(trials_perSession);                          % ¸ù¾İ²É¼¯µÄÊıÁ¿Éú³ÉËæ»úË³ĞòµÄÊı×é
+        randomindex_session = [];                                                  % ³õÊ¼»¯trialsµÄ¼¯ºÏ
+        for i= 0:(MotorClasses-1)
+            index_i = ones(trials_perSession/MotorClasses,1)*i;                    % size trials_perSession/MotorClasses*1£¬¸÷ÖÖÈÎÎñ
+            randomindex_session = [randomindex_session; index_i];                  % ¸÷¸öÈÎÎñÕûºÏ£¬×îÖÕsize trials_perSession*1
+        end
+        RandomTrial = [RandomTrial; randomindex_session(TrialIndex_session)];      % Ëæ»úÉú³ÉÃ¿Ò»¸ösessionÀïÃæ¸÷¸öTrial¶ÔÓ¦µÄÈÎÎñ£¬²¢ÇÒ½øĞĞºÏ²¢
+    end
 end
-
-RandomTrial = randomindex(TrialIndex);                                     % Ëæ»úÉú³É¸÷¸öTrial¶ÔÓ¦µÄÈÎÎñ
-
 %% ÊµÑéÊı¾İ²É¼¯´æ´¢ÉèÖÃ
 % ÉèÖÃÏà¹Ø²ÎÊı
 classes = MotorClasses;
@@ -149,9 +167,9 @@ while(AllTrial <= TrialNum)
         fwrite(UnityControl,sendbuf);       
         AllTrial = AllTrial + 1;
         % È·¶¨ÏÂĞİÏ¢Ê±¼äµÄ³¤¶È£¬ÖĞ¼ä¸ôÁË40¸ötrial£¨10·ÖÖÓ£©×îºÃĞİÏ¢ÏÂ£¬ĞİÏ¢Ò»¶¨Ê±¼ä
-        if mod(AllTrial,40)==0
+        if mod(AllTrial,30)==0 && AllTrial<TrialNum
             RestTimeLenBaseline = 60*3;
-            disp(["40¸ötrialÁË£¬ĞİÏ¢3·ÖÖÓ"])
+            disp(["30¸ötrialÁË£¬ĞİÏ¢3·ÖÖÓ"])
         else
             RestTimeLenBaseline = 5;
         end
@@ -234,7 +252,7 @@ while(AllTrial <= TrialNum)
         fwrite(UnityControl,sendbuf);  
     end
     
-    % µÚ8s¿ªÊ¼È¡512µÄTrigger==6µÄMIµÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö
+    % µÚ4s¿ªÊ¼È¡512µÄTrigger==6µÄMIµÄ´°¿Ú£¬Êı¾İ´¦Àí²¢ÇÒ½øĞĞ·ÖÎö
     if Timer > (2+1) && Timer <= (2+5) && RandomTrial(AllTrial)==0
         rawdata = TrialData(:,end-512+1:end);  % È¡Ç°Ò»¸ö512µÄ´°¿Ú
         rawdata = rawdata(2:end,:);
