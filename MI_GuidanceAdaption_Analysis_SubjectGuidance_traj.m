@@ -1,12 +1,12 @@
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0719_online';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0719_online';
+subject_name = 'Jyt_test_0725_online';  % 被试姓名
+foldername_Sessions = 'Jyt_test_0725_online_20240725_205338594_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Jyt_test_0725_online';
 foldername_trajectory = fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name]);
 
 % 定义起始和结束的trial数量
 startTrial = 1; % 起始trial的数字
-endTrial = 96; % 结束trial的数字
+endTrial = 108; % 结束trial的数字
 allData_ThreTrial = [];
 allData_AccTrial = [];
 
@@ -35,15 +35,15 @@ end
 for i = 1:size(allData_AccTrial, 1)
     figure; % 创建新图形窗口
     % 使用smoothdata函数对数据进行平滑处理
-    smoothedData = movmean(allData_AccTrial(i,:), 4);
+    smoothedData = movmean(allData_AccTrial(i,:), 32)*1.2;
     plot(smoothedData, 'LineWidth', 2); % 绘制线图
     hold on;
-    smoothedData_Thre = movmean(allData_ThreTrial(i,:), 4)./1.2;
+    smoothedData_Thre = movmean(allData_ThreTrial(i,:), 8)/1.0;
     plot(smoothedData_Thre, 'LineWidth', 2);
     hold off;
     title(sprintf('Category %d Accuracy', i)); % 设置标题
     xlabel('Trial Number'); % x轴标签
     ylabel('Accuracy'); % y轴标签
     grid on; % 显示网格
-    ylim([0.2 0.45]); % 设置y轴范围
+    ylim([0.2 0.60]); % 设置y轴范围
 end

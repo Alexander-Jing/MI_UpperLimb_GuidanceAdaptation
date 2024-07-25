@@ -1,13 +1,13 @@
 newtimef% 运动想象基本参数设置
-subject_name = 'Jyt_test_0719_online';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0719_online';
+subject_name = 'Jyt_test_0725_online';  % 被试姓名
+foldername_Sessions = 'Jyt_test_0725_online_20240725_205338594_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Jyt_test_0725_online';
 % 定义起始和结束的trial数量
-startTrial_1 = 13; % 第一组起始trial的数字
-endTrial_1 = 24; % 第一组结束trial的数字
+startTrial_1 = 73; % 第一组起始trial的数字
+endTrial_1 = 84; % 第一组结束trial的数字
 
-startTrial_2 = 25; % 第二组起始trial的数字
-endTrial_2 = 36; % 第二组结束trial的数字
+startTrial_2 = 97; % 第二组起始trial的数字
+endTrial_2 = 108; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];

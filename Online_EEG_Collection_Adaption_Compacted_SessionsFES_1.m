@@ -51,13 +51,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0719_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0719_offline_20240719_155017684_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0719_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0725_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0725_offline_20240725_194842721_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0725_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_test_0719_online_20240719_164242159_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 9;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_test_0725_online_20240725_205338594_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -338,7 +338,7 @@ while(AllTrial <= TrialNum_session)
         % resultMIµÄÊı¾İ½á¹¹ÊÇ[Ô¤²âµÄÀà±ğ; Èı¸öÀà±ğ·Ö±ğµÄsoftmax¸ÅÂÊ; Êµ¼ÊµÄÀà±ğ]
         disp(['predict cls: ', num2str(resultMI(1,1))]);
         disp(['cls prob: ', num2str(resultMI(1+(1+Trigger),1))]);  % ×¢ÒâÕâ¸ö¶ÔÓ¦µÄ¹ØÏµ£¬ÕâÀïÓ¦¸ÃÊÇTrigger+2²ÅÄÜ¶ÔÓ¦ÉÏ¸ÅÂÊ
-        dsip(['probs: ', num2str(resultMI(2,1)), ', ', num2str(resultMI(3,1)), ',', num2str(resultMI(4,1))]);
+        disp(['probs: ', num2str(resultMI(2,1)), ', ', num2str(resultMI(3,1)), ',', num2str(resultMI(4,1))]);
         disp(['Trigger: ', num2str(Trigger)]);
         
         % ÊÕ¼¯È«¾ÖµÄ¸ÅÂÊ£¬ÓÃÓÚÏÔÊ¾
@@ -461,7 +461,7 @@ while(AllTrial <= TrialNum_session)
         resultMI = Online_Data2Server_Communicate(order, FilteredDataMI, ip, port, subject_name, config_data, foldername);  % ´«ÊäÊı¾İ¸øÏßÉÏµÄÄ£ĞÍ£¬¿´·ÖÀàÇé¿ö
         disp(['predict cls: ', num2str(resultMI(1,1))]);
         disp(['cls prob: ', num2str(resultMI(1+(1+Trigger),1))]); % ×¢ÒâÕâ¸ö¶ÔÓ¦µÄ¹ØÏµ£¬ÕâÀïÓ¦¸ÃÊÇTrigger+2²ÅÄÜ¶ÔÓ¦ÉÏ¸ÅÂÊ
-        dsip(['probs: ', num2str(resultMI(2,1)), ', ', num2str(resultMI(3,1)), ',', num2str(resultMI(4,1))]);
+        disp(['probs: ', num2str(resultMI(2,1)), ', ', num2str(resultMI(3,1)), ',', num2str(resultMI(4,1))]);
         disp(['Trigger: ', num2str(Trigger)]);
         
         % ÊÕ¼¯È«¾ÖµÄ¸ÅÂÊ£¬ÓÃÓÚÏÔÊ¾

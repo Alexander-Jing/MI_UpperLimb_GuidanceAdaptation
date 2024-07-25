@@ -48,9 +48,9 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0719_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0725_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
-Trial_setAll = 0;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
+Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
 %TrialNum = 3*10;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
@@ -112,7 +112,7 @@ StimCommand_2 = uint8([0,StimAmplitude_2,tStim,2]); % left thigh
 Trigger = 0;                                                               % ³õÊ¼»¯Trigger£¬ÓÃÓÚºóĞøµÄÊı¾İ´æ´¢
 AllTrial = 0;
 
-if Trial_setAll==0
+if Trial_setSession==0
     TrialIndex = randperm(TrialNum);                                           % ¸ù¾İ²É¼¯µÄÊıÁ¿Éú³ÉËæ»úË³ĞòµÄÊı×é
     %All_data = [];
     randomindex = [];                                                          % ³õÊ¼»¯trialsµÄ¼¯ºÏ
@@ -122,7 +122,7 @@ if Trial_setAll==0
     end
     RandomTrial = randomindex(TrialIndex);                                     % Ëæ»úÉú³É¸÷¸öTrial¶ÔÓ¦µÄÈÎÎñ
 
-elseif Trial_setAll==1
+elseif Trial_setSession==1
     RandomTrial = [];
     % Èç¹û¿ªÆôÒÔsessionĞÎÊ½½øĞĞÊı¾İÊÕ¼¯µÄ»°£¬Ã¿Ò»¸ösessionÉèÖÃTrialNum/Trial_Session¸ötrial
     trials_perSession = TrialNum/Trial_Session;  % Ò»¸ösessionÀïÃæµÄtrialÊıÁ¿
@@ -165,7 +165,8 @@ while(AllTrial <= TrialNum)
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);       
         AllTrial = AllTrial + 1;
-        % È·¶¨ÏÂĞİÏ¢Ê±¼äµÄ³¤¶È£¬ÖĞ¼ä¸ôÁË40¸ötrial£¨10·ÖÖÓ£©×îºÃĞİÏ¢ÏÂ£¬ĞİÏ¢Ò»¶¨Ê±¼ä
+        % È·¶¨ÏÂĞİÏ¢Ê±¼äµÄ³¤¶È£¬ÖĞ¼ä¸ôÁË30¸ötrial£¨6·ÖÖÓ£©×îºÃĞİÏ¢ÏÂ£¬ĞİÏ¢Ò»¶¨Ê±¼ä
+        % Èç¹ûTrial_setSession = 1;Ò²¾ÍÊÇÉèÖÃÁËSessionµÄ»°£¬ÄÇÃ´Ò»¸öSessionÕıºÃÊÇ30¸ötrial£¬Í¬ÑùÒ²ÊÇ30¸ötrialµÄÊ±ºòĞİÏ¢ÏÂ
         if mod(AllTrial,30)==0 && AllTrial<TrialNum
             RestTimeLenBaseline = 60*3;
             disp(["30¸ötrialÁË£¬ĞİÏ¢3·ÖÖÓ"])
