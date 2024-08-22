@@ -35,7 +35,7 @@ end
 for i = 1:size(allData_AccTrial, 1)
     figure; % 创建新图形窗口
     % 使用smoothdata函数对数据进行平滑处理
-    smoothedData = movmean(allData_AccTrial(i,:), 32)*1.2;
+    smoothedData = movmean(allData_AccTrial(i,:), 20);
     plot(smoothedData, 'LineWidth', 2); % 绘制线图
     hold on;
     smoothedData_Thre = movmean(allData_ThreTrial(i,:), 8)/1.0;
@@ -46,4 +46,5 @@ for i = 1:size(allData_AccTrial, 1)
     ylabel('Accuracy'); % y轴标签
     grid on; % 显示网格
     ylim([0.2 0.60]); % 设置y轴范围
+    legend('Average Accuracy', 'Target Accuracy'); % 添加图例
 end

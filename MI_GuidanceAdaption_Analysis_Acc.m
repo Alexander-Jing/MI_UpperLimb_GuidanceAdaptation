@@ -3,11 +3,12 @@ subject_name = 'Jyt_test_0725_online';  % 被试姓名
 foldername_Sessions = 'Jyt_test_0725_online_20240725_205338594_data';  % folder data
 foldername_Engagements = 'Online_Engagements_Jyt_test_0725_online';
 % 定义起始和结束的trial数量
-startTrial_1 = 73; % 第一组起始trial的数字
-endTrial_1 = 84; % 第一组结束trial的数字
+startTrial_1 = 97; % 第一组起始trial的数字
+endTrial_1 = 108; % 第一组结束trial的数字
 
-startTrial_2 = 97; % 第二组起始trial的数字
-endTrial_2 = 108; % 第二组结束trial的数字
+session2 = 0; % 是否使用第二个session
+startTrial_2 = 1; % 第二组起始trial的数字
+endTrial_2 = 12; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
@@ -37,25 +38,27 @@ for category = 0:2
             allLabels = [allLabels, labels];
         end
     end
-    for trial = startTrial_2:endTrial_2
-        % 构建文件名模式
-        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
-        
-        % 获取文件夹中匹配的文件列表
-        fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
-        
-        % 遍历找到的文件
-        for fileIdx = 1:length(fileList)
-            % 加载文件中的resultsMI变量
-            data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'resultsMI');
+    if session2 == 1  % 如果还要导入别的session
+        for trial = startTrial_2:endTrial_2
+            % 构建文件名模式
+            filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
             
-            % 提取预测值和标签
-            predictions = data.resultsMI(1, :);
-            labels = data.resultsMI(end, :);
+            % 获取文件夹中匹配的文件列表
+            fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
             
-            % 存储结果
-            allPredictions = [allPredictions, predictions];
-            allLabels = [allLabels, labels];
+            % 遍历找到的文件
+            for fileIdx = 1:length(fileList)
+                % 加载文件中的resultsMI变量
+                data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'resultsMI');
+                
+                % 提取预测值和标签
+                predictions = data.resultsMI(1, :);
+                labels = data.resultsMI(end, :);
+                
+                % 存储结果
+                allPredictions = [allPredictions, predictions];
+                allLabels = [allLabels, labels];
+            end
         end
     end
 end
@@ -84,8 +87,10 @@ end
 averageF1score = mean(F1scores);
 
 % 显示结果
-fprintf('Trial 1: %d 到 %d \n', startTrial_1, endTrial_1);
-fprintf('Trial 2: %d 到 %d \n', startTrial_2, endTrial_2);
+fprintf('Trial: %d 到 %d \n', startTrial_1, endTrial_1);
+if session2==1
+    fprintf('Trial: %d 到 %d \n', startTrial_2, endTrial_2);
+end
 fprintf('总体精度: %.2f\n', totalAccuracy);
 fprintf('平均F1分数: %.2f\n', averageF1score);
 for category = 1:3
