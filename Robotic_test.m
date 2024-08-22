@@ -4,7 +4,6 @@ clc;
 clear;
 close all;
 %% Establish RobotControl comm.
-global RobotControl 
 RobotControl = tcpip('localhost', 5288, 'NetworkRole','client');
 fopen(RobotControl);
 
