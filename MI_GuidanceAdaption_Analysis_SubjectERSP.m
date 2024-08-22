@@ -116,7 +116,7 @@ dataClass2 = allData{3};
 %dataClass_all = [dataClass1, dataClass2];
 
 % 绘制ERSP图
-[ersp,itc,powbase,times,freqs]=newtimef(dataClass1,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
+[ersp,itc,powbase,times,freqs]=newtimef(dataClass0,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
     'freqs',[1 35],  'erspmax', 10, 'scale', 'log', 'plotmean', 'off');
 
 % 创建一个新的图形窗口
