@@ -54,7 +54,7 @@ status = CheckNetStreamingVersion(con);                                    % 判
 %% 在线实验参数设置部分，用于设置每一个被试的情况，依据被试情况进行修改
 
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0822_online';  % 被试姓名
+subject_name = 'Jyt_test_0824_online';  % 被试姓名
 sub_offline_collection_folder = 'Jyt_test_0725_offline_20240725_194842721_data';  % 被试的离线采集数据
 subject_name_offline =  'Jyt_test_0725_offline';  % 离线收集数据时候的被试名称
 % session 大于1时候要改动的部分
@@ -118,8 +118,8 @@ traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum)
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % 全局阈值Train_Thre_Global，用于并且调整的针对全局均值的可行-最优策略的阈值设定
 
 % 服务器通信设置
-ip = '172.18.22.21';
-%ip = '127.0.0.1';
+%ip = '172.18.22.21';
+ip = '127.0.0.1';
 port = 8880;  % 和后端服务器连接的两个参数
 
 % 机械臂通信设置
@@ -585,10 +585,23 @@ while(AllTrial <= TrialNum_session)
         % 静息态的数据采集不做阈值调整
         RestTimeLen_ = [RestTimeLen_idle; Trials(AllTrial_Session)];  % 静息态休息5s
         RestTimeLens = [RestTimeLens, RestTimeLen_];
+
+        % 确定机械臂的辅助
+       [MI_AOTime_Moving, MI_AOTime_Preparing, MovingCommand, PreparingCommand] = RobotCommand(Train_Thre_Global_Flag, Trials(AllTrial_Session), Trials(AllTrial_Session+1));
+       % 当前的机械臂助力，在静息态的时候，这部分直接就是不动的
+       textSend = MovingCommand;
+       fwrite(RobotControl, textSend);
+    end
+    % 机械臂在提供结束当前任务的助力之后，会运行到下一动作的助力部分
+    if Timer == Idle_preBreak+MI_AOTime_Moving && Trials(AllTrial_Session)==0
+       % 为下一任务的机械臂助力提前做好准备
+       textSend = PreparingCommand;
+       fwrite(RobotControl, textSend);
     end
     
+
     % 运动想象之后，AO和文字结束了之后让人休息
-    if Trials(AllTrial_Session)>0 && Timer == (MI_preFeedBack+MI_AOTime_Moving+MI_A) %开始休息
+    if Trials(AllTrial_Session)>0 && Timer == (MI_preFeedBack+MI_AOTime_Moving+MI_AOTime_Preparing)   %开始休息
         Trigger = 7;
         sendbuf(1,1) = hex2dec('02') ;
         sendbuf(1,2) = hex2dec('00') ;
@@ -626,7 +639,7 @@ while(AllTrial <= TrialNum_session)
     
     %% 最后的各个数值复位
     % 空想任务想象12s，到第12s之后开始休息，到第17s就结束任务
-    if Timer == Idle_preBreak+RestTimeLen_idle && Trials(AllTrial_Session)==0  %结束休息，准备下一个
+    if Timer == Idle_preBreak+MI_AOTime_Moving+MI_AOTime_Preparing && Trials(AllTrial_Session)==0  %结束休息，准备下一个
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting);
@@ -651,7 +664,7 @@ while(AllTrial <= TrialNum_session)
         disp(['Trial: ', num2str(AllTrial_Session), ', Task: ', num2str(Trials(AllTrial_Session))]);  % 显示相关数据
     end
     % 想对了之后，AO之后，休息3s之后，结束休息，准备下一个
-    if Trials(AllTrial_Session)>0 && Timer == (MI_preFeedBack + MI_AOTime + RestTimeLen)  %结束休息
+    if Trials(AllTrial_Session)>0 && Timer == (MI_preFeedBack+MI_AOTime_Moving+MI_AOTime_Preparing + RestTimeLen)  %结束休息
         % 存储相关的EI指标和mu节律能量的数据
         SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed, resultsMI_voting);

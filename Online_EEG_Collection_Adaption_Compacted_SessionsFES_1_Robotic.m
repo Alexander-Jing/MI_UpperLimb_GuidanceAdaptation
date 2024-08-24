@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0822_online';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0824_online';  % ±»ÊÔĞÕÃû
 sub_offline_collection_folder = 'Jyt_test_0725_offline_20240725_194842721_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_test_0725_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 3;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_test_0822_online_20240822_113357877_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 4;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_test_0824_online_20240824_222248538_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -92,6 +92,8 @@ RestTimeLenBaseline = 2;  % ĞİÏ¢Ê±¼ä£¨ÔË¶¯ÏëÏó£©
 RestTimeLen = RestTimeLenBaseline;  % ³õÊ¼»¯ĞİÏ¢Ê±¼ä£¨ÔË¶¯ÏëÏó£©
 Idle_preBreak = 12;  % ¾²Ï¢Ì¬Ìá¹©ĞİÏ¢µÄÊ±¼äµã
 RestTimeLen_idleBasline = 5;  % ³õÊ¼»¯ĞİÏ¢Ê±¼ä£¨¾²Ï¢Ì¬£©
+MI_AOTime_Moving = 3;  % ³õÊ¼»¯»úĞµ±Ûµ±Ç°MI·´À¡µÄÊ±³¤
+MI_AOTime_Preparing = 2;  % ³õÊ¼»¯»úĞµ±Û×¼±¸ÏÂÒ»¸öMIµÄ·´À¡µÄÊ±³¤
 
 % ÆäÓàÖ¸±êºÍ²ÎÊı
 MI_AO_Len = 200;  % ¶¯»­Êµ¼ÊÓĞ¶àÉÙÖ¡
@@ -118,8 +120,8 @@ traj_Feasible = generate_traj_feasible(Train_Thre_Global_FeasibleInit, TrialNum)
 Train_Thre_Global = Train_Thre_Global_FeasibleInit(1,1);  % È«¾ÖãĞÖµTrain_Thre_Global£¬ÓÃÓÚ²¢ÇÒµ÷ÕûµÄÕë¶ÔÈ«¾Ö¾ùÖµµÄ¿ÉĞĞ-×îÓÅ²ßÂÔµÄãĞÖµÉè¶¨
 
 % ·şÎñÆ÷Í¨ĞÅÉèÖÃ
-ip = '172.18.22.21';
-%ip = '127.0.0.1';
+%ip = '172.18.22.21';
+ip = '127.0.0.1';
 port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % »úĞµ±ÛÍ¨ĞÅÉèÖÃ
@@ -133,7 +135,8 @@ StimAmplitude_2 = 7;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
-system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
+%system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
+system('D:\workspace\fes\x64\Debug\fes.exe&');
 pause(1);
 StimControl = tcpip('localhost', 8888, 'NetworkRole', 'client','Timeout',1000);
 StimControl.InputBuffersize = 1000;
@@ -559,6 +562,7 @@ while(AllTrial <= TrialNum_session)
        % ÎªÏÂÒ»ÈÎÎñµÄ»úĞµ±ÛÖúÁ¦ÌáÇ°×öºÃ×¼±¸
        textSend = PreparingCommand;
        fwrite(RobotControl, textSend);
+       disp(['µ±Ç°ÈÎÎñ: ', num2str(Trials(AllTrial_Session)), "ÏÂÒ»ÈÎÎñ: ", num2str(Trials(AllTrial_Session+1)), "»úĞµ±ÛÎªÏÂÒ»ÈÎÎñÆô¶¯"]);
    end
    %% ĞİÏ¢½×¶Î£¬È·¶¨ÏÂÒ»¸ö¶¯×÷
     % ¿ÕÏëÖ»¸ø5s¾ÍĞİÏ¢
@@ -597,6 +601,7 @@ while(AllTrial <= TrialNum_session)
        % ÎªÏÂÒ»ÈÎÎñµÄ»úĞµ±ÛÖúÁ¦ÌáÇ°×öºÃ×¼±¸
        textSend = PreparingCommand;
        fwrite(RobotControl, textSend);
+       disp(['µ±Ç°ÈÎÎñ: ', num2str(Trials(AllTrial_Session)), "ÏÂÒ»ÈÎÎñ: ", num2str(Trials(AllTrial_Session+1)), "»úĞµ±ÛÎªÏÂÒ»ÈÎÎñÆô¶¯"]);
     end
     
 
