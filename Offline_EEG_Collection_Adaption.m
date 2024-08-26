@@ -20,8 +20,10 @@ close all;
 
 %system('F:\MI_UpperLimb_AO\UpperLimb_AO\UpperLimb_AO_NewModel\unity_test.exe&');
 %system('E:\UpperLimb_AO_NewModel_MI_1\unity_test.exe&');
-system('E:\UpperLimb_AO_NewModel_MI_ReachGrasp_2\unity_test.exe&');
+%system('E:\UpperLimb_AO_NewModel_MI_ReachGrasp_2\unity_test.exe&');
 %system('D:\workspace\UpperLimb_AO_NewModel_MI\unity_test.exe&');
+
+system('D:\workspace\UpperLimb_AO_NewModel_MI_ReachGrasp_2\unity_test.exe&');
 
 pause(3)
 UnityControl = tcpip('localhost', 8881, 'NetworkRole', 'client');          % ĞÂµÄ¶Ë¿Ú¸ÄÎª8881
@@ -48,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0725_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0826_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
@@ -81,8 +83,8 @@ end
 weight_mu = 0.6;  % ÓÃÓÚ¼ÆËãERD/ERSÖ¸±êºÍEIÖ¸±êµÄ¼ÓÈ¨ºÍ
 
 % Í¨ĞÅÉèÖÃ
-ip = '172.18.22.21';
-%ip = '127.0.0.1';
+%ip = '172.18.22.21';
+ip = '127.0.0.1';
 port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
@@ -96,7 +98,8 @@ StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 %ÉèÖÃÁ¬½Ó
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
-system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
+%system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
+system('D:\workspace\fes\x64\Debug\fes.exe&');
 pause(1);
 StimControl = tcpip('localhost', 8888, 'NetworkRole', 'client','Timeout',1000);
 StimControl.InputBuffersize = 1000;
@@ -124,6 +127,7 @@ if Trial_setSession==0
 
 elseif Trial_setSession==1
     RandomTrial = [];
+    TrialIndex = [];
     % Èç¹û¿ªÆôÒÔsessionĞÎÊ½½øĞĞÊı¾İÊÕ¼¯µÄ»°£¬Ã¿Ò»¸ösessionÉèÖÃTrialNum/Trial_Session¸ötrial
     trials_perSession = TrialNum/Trial_Session;  % Ò»¸ösessionÀïÃæµÄtrialÊıÁ¿
     % Ò»¸ösessionÀïÃæµÄÅÅ²¼
@@ -135,6 +139,7 @@ elseif Trial_setSession==1
             randomindex_session = [randomindex_session; index_i];                  % ¸÷¸öÈÎÎñÕûºÏ£¬×îÖÕsize trials_perSession*1
         end
         RandomTrial = [RandomTrial; randomindex_session(TrialIndex_session)];      % Ëæ»úÉú³ÉÃ¿Ò»¸ösessionÀïÃæ¸÷¸öTrial¶ÔÓ¦µÄÈÎÎñ£¬²¢ÇÒ½øĞĞºÏ²¢
+        TrialIndex = [TrialIndex; TrialIndex_session];                             % ÊÕ¼¯ËùÓĞµÄtrialIndexÓÃÓÚºóĞøµÄ´æ´¢
     end
 end
 %% ÊµÑéÊı¾İ²É¼¯´æ´¢ÉèÖÃ

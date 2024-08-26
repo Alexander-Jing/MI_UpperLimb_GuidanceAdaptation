@@ -59,7 +59,7 @@ sub_offline_collection_folder = 'Jyt_test_0725_offline_20240725_194842721_data';
 subject_name_offline =  'Jyt_test_0725_offline';  % 离线收集数据时候的被试名称
 % session 大于1时候要改动的部分
 % 注意，由于设备问题，建议在session_idx为4之前重启下matlab，防止出现后面的中断
-session_idx = 4;  % session index数量，如果是1的话，会自动生成相关排布
+session_idx = 8;  % session index数量，如果是1的话，会自动生成相关排布
 foldername_Sessions = 'Jyt_test_0824_online_20240824_222248538_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
 
 MotorClass = 2; % 运动想象动作数量，注意这里是纯设计的运动想象动作的数量，不包括空想idle状态
@@ -544,9 +544,12 @@ while(AllTrial <= TrialNum_session)
        end
        % 确定机械臂的辅助
        [MI_AOTime_Moving, MI_AOTime_Preparing, MovingCommand, PreparingCommand] = RobotCommand(Train_Thre_Global_Flag, Trials(AllTrial_Session), Trials(AllTrial_Session+1));
-       % 当前的机械臂助力
+       % 当前的机械臂助力，直接在MI结束之后进行助力
        textSend = MovingCommand;
        fwrite(RobotControl, textSend);
+       disp(['任务完成: ', num2str(Train_Thre_Global_Flag)]);
+       disp(['当前任务机械臂移动时间：', num2str(MI_AOTime_Moving), ';', '当前指令： ', MovingCommand]);
+       disp(['下一任务机械臂准备时间：', num2str(MI_AOTime_Preparing), ';', '下一任务指令： ', PreparingCommand]);
 
        % 传输数据和更新模型
        config_data = [WindowLength;size(channels, 2);Trials(AllTrial_Session);session_idx;AllTrial_Session;size(MI_Acc, 2);0; 0;0;0;0 ];
@@ -558,12 +561,14 @@ while(AllTrial <= TrialNum_session)
    end
    
    % 机械臂在提供结束当前任务的助力之后，会运行到下一动作的助力部分
+   % 当前是MI任务的时候，结束助力之后，会运行到下一个动作的准备部分，MI_preFeedBack+MI_AOTime_Moving是直接启动运行到下一个MI任务的位置的时间点
    if Timer == MI_preFeedBack+MI_AOTime_Moving && Trials(AllTrial_Session) > 0
        % 为下一任务的机械臂助力提前做好准备
        textSend = PreparingCommand;
        fwrite(RobotControl, textSend);
        disp(['当前任务: ', num2str(Trials(AllTrial_Session)), "下一任务: ", num2str(Trials(AllTrial_Session+1)), "机械臂为下一任务启动"]);
    end
+
    %% 休息阶段，确定下一个动作
     % 空想只给5s就休息
     if Timer==Idle_preBreak && Trials(AllTrial_Session)==0  %开始休息
@@ -595,8 +600,12 @@ while(AllTrial <= TrialNum_session)
        % 当前的机械臂助力，在静息态的时候，这部分直接就是不动的
        textSend = MovingCommand;
        fwrite(RobotControl, textSend);
+       disp(['当前任务机械臂移动时间：', num2str(MI_AOTime_Moving), ';', '当前指令： ', MovingCommand]);
+       disp(['下一任务机械臂准备时间：', num2str(MI_AOTime_Preparing), ';', '下一任务指令： ', PreparingCommand]);
     end
+    
     % 机械臂在提供结束当前任务的助力之后，会运行到下一动作的助力部分
+    % 在静息态的时候，直接准备运行到下一个MI任务的位置，MI_preFeedBack+MI_AOTime_Moving是直接启动运行到下一个MI任务的位置的时间点
     if Timer == Idle_preBreak+MI_AOTime_Moving && Trials(AllTrial_Session)==0
        % 为下一任务的机械臂助力提前做好准备
        textSend = PreparingCommand;
