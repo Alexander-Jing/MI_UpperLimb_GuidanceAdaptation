@@ -16,7 +16,7 @@ sendbuf(1,2) = hex2dec('ff') ;
 fwrite(GloveControl, sendbuf);
 
 for i=1:length(RandomScene)
-    pause(10);
+    pause(5);
     disp(['Send message: ', num2str(RandomScene(i))]);
     switch RandomScene(i) 
         case 0
@@ -25,7 +25,7 @@ for i=1:length(RandomScene)
             sendbuf(1,1) = hex2dec('bf') ;
             sendbuf(1,2) = hex2dec('bf') ;
             fwrite(GloveControl, sendbuf);
-            pause(3);
+            pause(5);
             sendbuf(1,1) = hex2dec('ff') ;
             sendbuf(1,2) = hex2dec('ff') ;
             fwrite(GloveControl, sendbuf);
@@ -43,7 +43,7 @@ for i=1:length(RandomScene)
             sendbuf(1,1) = hex2dec('c0') ;
             sendbuf(1,2) = hex2dec('c0') ;
             fwrite(GloveControl, sendbuf);
-            pause(3);
+            pause(5);
             sendbuf(1,1) = hex2dec('ff') ;
             sendbuf(1,2) = hex2dec('ff') ;
             fwrite(GloveControl, sendbuf);
