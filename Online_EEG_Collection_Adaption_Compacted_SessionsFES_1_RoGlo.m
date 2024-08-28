@@ -39,7 +39,7 @@ sendbuf(1,2) = hex2dec('00') ;
 sendbuf(1,3) = hex2dec('00') ;
 sendbuf(1,4) = hex2dec('00') ;
 sendbuf(1,5) = hex2dec('00') ;
-fwrite(UnityControl,sendbuf);
+fwrite(UnityControl,sendbuf); 
 pause(3)
 
 %% 设置脑电采集参数
@@ -144,7 +144,7 @@ StimAmplitude_2 = 7;  % MI2 手部分的幅值设置（mA）
 % 设置连接
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
 %system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
-system('D:\workspace\fes\x64\Debug\fes.exe&');
+system('D:\workspace\fes\x64\Release\fes.exe&');
 pause(1);
 StimControl = tcpip('localhost', 8888, 'NetworkRole', 'client','Timeout',1000);
 StimControl.InputBuffersize = 1000;
