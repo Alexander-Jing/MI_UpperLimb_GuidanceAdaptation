@@ -50,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0826_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0901_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
@@ -99,7 +99,7 @@ StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 %ÉèÖÃÁ¬½Ó
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
 %system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&');
-system('D:\workspace\fes\x64\Debug\fes.exe&');
+system('D:\workspace\fes\x64\Release\fes.exe&');
 pause(1);
 StimControl = tcpip('localhost', 8888, 'NetworkRole', 'client','Timeout',1000);
 StimControl.InputBuffersize = 1000;

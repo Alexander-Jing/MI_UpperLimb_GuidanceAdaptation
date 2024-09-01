@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0828_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0725_offline_20240725_194842721_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0725_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0901_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0901_offline_20240901_193737949_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0901_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 2;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_test_0828_online_20240828_153851455_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 9;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_test_0901_online_20240901_204911380_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË

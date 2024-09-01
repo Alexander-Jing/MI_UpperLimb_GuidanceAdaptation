@@ -1,8 +1,8 @@
 %% 在线实验参数设置部分，用于设置每�?个被试的情况，依据被试情况进行修�?
 
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0710_offline';  % 被试姓名
-TrialNum = 30*3;  % 设置采集的数�?
+subject_name = 'Jyt_test_0901_offline';  % 被试姓名
+TrialNum = 30*4;  % 设置采集的数�?
 %TrialNum = 3*3;
 MotorClasses = 3;  % 运动想象的种类的数量的设置，注意这里是把空想idle状�?�也要放进去的，注意这里的任务是[0,1,2]，和readme.txt里面的对�?
 % 当前设置的任�?
