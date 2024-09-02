@@ -1,22 +1,18 @@
 function [FilteredDataMI, EI_index, mu_power] = Online_DataPreprocess_Hanning(rawdata, class, sample_frequency, WindowLength, channels)    
     %% 采集参数
-    %sample_frequency = 256; 
-    
-    %WindowLength = 512;  % 每个窗口的长度
-    %SlideWindowLength = 256;  % 滑窗间隔
-    
     Trigger = double(rawdata(end,:)); %rawdata最后一行
-    %RawData = double(rawdata(1:32, :));
-    %Labels = double(rawdata(33, Trigger~=6));  % 收集rawdata和label
-    %channels = [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 选择的通道
-    
-    RawDataMI = double(rawdata(1:end-1, Trigger==class));  % 提取这一类的状态的数据（运动想象，空想，运动想象之前的状态）
+    % 关于channels，由于脑电帽子的部分电极的阻抗很不稳定，所以这里直接做channels的选择，注意目前设备的channels通道是1-32是通道数据，33是trigger的数据
+    % 目前设置的channel选择为：
+    % channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  
+    % 选择的通道，这里去掉了OZ，M1,M2，Fp1，Fp2这几个channel
+
+    RawDataMI = double(rawdata(channels, Trigger==class));  % 提取这一类的状态的数据（运动想象，空想，运动想象之前的状态），这里提前开始通道选择，防止部分channel的数据因为阻抗问题影响实验
     RawDataMI_CAR = ref_CAR(RawDataMI);  % CAR 处理
     % 这里的滤波器参数参考的是何晖光组里的几篇文献：
     % Ma X, Qiu S, He H. Multi-channel EEG recording during motor imagery of different joints from the same limb[J]. Scientific data, 2020, 7(1): 191.
     % Ma X, Qiu S, Wei W, et al. Deep channel-correlation network for motor imagery decoding from the same limb[J]. IEEE Transactions on Neural Systems and Rehabilitation Engineering, 2019, 28(1): 297-306.
     FilteredDataMI = DataFilter(RawDataMI_CAR, sample_frequency, [0.1,40], [49,51]);  % 滤波去噪
-    FilteredDataMI = FilteredDataMI(channels, :);  % 提取指定的channels
+    %FilteredDataMI = FilteredDataMI(channels, :);  % 提取指定的channels
     %[EI_index, mu_power] = DataIndex(FilteredDataMI, WindowLength, sample_frequency, channels); 
     [EI_index, mu_power] = DataIndex_Hanning(FilteredDataMI, WindowLength, sample_frequency, channels);  % 使用pwelch和汉明窗的版本
     

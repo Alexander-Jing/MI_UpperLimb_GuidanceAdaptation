@@ -6,18 +6,20 @@ function [DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_Gu
     %SlideWindowLength = 256;  % 滑窗间隔
     
     Trigger = double(rawdata(end,:)); %rawdata最后一行
-    % RawData = double(rawdata(:, Trigger~=6));
-    %channels = [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 选择的通道
+    % 关于channels，由于脑电帽子的部分电极的阻抗很不稳定，所以这里直接做channels的选择，注意目前设备的channels通道是1-32是通道数据，33是trigger的数据
+    % 目前设置的channel选择为：
+    % channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  
+    % 选择的通道，这里去掉了OZ，M1,M2，Fp1，Fp2这几个channel
     
     DataX = [];
     DataY = [];  % 初始化整理的X和Y的数据
-    
+     
     for class_index = 0:(classes-1)
-        RawDataMI = double(rawdata(1:end-1, Trigger == class_index));  % 提取这一类的运动想象数据
+        RawDataMI = double(rawdata(channels, Trigger == class_index));  % 提取这一类的运动想象数据，并且提前做通道的选择，防止部分阻抗非常高的channel影响后面的CAR
         RawDataMI_CAR = ref_CAR(RawDataMI);  % CAR 处理
         FilteredDataMI = DataFilter(RawDataMI_CAR, sample_frequency);  % 滤波去噪
         [windows_per_session, winodws_num, SampleDataPre] = WindowsDataPre(FilteredDataMI, WindowLength, SlideWindowLength, sample_frequency, seconds_per_trial);
-        [DataSample, LabelWindows] = DataWindows(SampleDataPre, FilteredDataMI, channels, class_index, windows_per_session, SlideWindowLength, WindowLength, sample_frequency, winodws_num, seconds_per_trial);
+        [DataSample, LabelWindows] = DataWindows(SampleDataPre, FilteredDataMI, [], class_index, windows_per_session, SlideWindowLength, WindowLength, sample_frequency, winodws_num, seconds_per_trial);  % 划窗处理，注意这里不再做通道选择了
         DataX = [DataX; DataSample];
         DataY = [DataY, LabelWindows];
     end
@@ -81,7 +83,8 @@ function [DataX, DataY, windows_per_session] = Offline_DataPreprocess_Hanning_Gu
         for j = 1:(windows_per_session/winodws_num)
             for i = 1:winodws_num
                 PointStart =(j-1)*sample_frequency*seconds_per_trial + (i-1)*SlideWindowLength;  % 在数据中确定起始点
-                DataSamplePre{1, winodws_num*(j-1)+i} = FilteredData(channels, PointStart + 1:PointStart + WindowLength );  % 生成划窗的元祖
+                %DataSamplePre{1, winodws_num*(j-1)+i} = FilteredData(channels, PointStart + 1:PointStart + WindowLength );  % 生成划窗的元祖
+                DataSamplePre{1, winodws_num*(j-1)+i} = FilteredData(1:end, PointStart + 1:PointStart + WindowLength );  % 生成划窗的元祖, 这里不再进行channel的选择，将提前进行channel的选择
                 LabelWindows = [LabelWindows; class_index];  % 生成装label的数据
             end
         end
