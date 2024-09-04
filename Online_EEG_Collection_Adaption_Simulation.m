@@ -57,7 +57,7 @@ foldername = ['.\\', FunctionNowFilename([subject_name_simu, '_'], '_SimuData')]
 if ~exist(foldername, 'dir')
    mkdir(foldername);
 end
-for session_idx=8:8
+for session_idx=1:8
     % session级别的数据采集
     disp(["session: ", num2str(session_idx)]);
     session_rawdata = RawDataTrial(session_idx, subject_name, foldername_Sessions, foldername_RawData);

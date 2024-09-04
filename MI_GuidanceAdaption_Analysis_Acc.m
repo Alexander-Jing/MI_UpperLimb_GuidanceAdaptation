@@ -1,6 +1,6 @@
 % 运动想象基本参数设置
 subject_name = 'Jyt_test_0901_online_simu';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0901_online_simu_20240902_213531052_SimuData';  % folder data
+foldername_Sessions = 'Jyt_test_0901_online_simu_20240904_222014204_SimuData';  % folder data
 foldername_Engagements = 'Online_Engagements_Jyt_test_0901_online_simu';
 % 定义起始和结束的trial数量
 startTrial_1 = 1; % 第一组起始trial的数字
