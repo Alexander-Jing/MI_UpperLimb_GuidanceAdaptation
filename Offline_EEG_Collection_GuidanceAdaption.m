@@ -276,6 +276,18 @@ while(AllTrial <= TrialNum)
         sendbuf(1,4) = hex2dec('00') ;
         fwrite(UnityControl,sendbuf);  
     end
+
+    if mod(AllTrial,40)==0 && Timer==6+10
+        StimCommand = StimCommand_1;
+        fwrite(StimControl,StimCommand);
+        disp(['休息时间，MI辅助电刺激']);
+    end    
+
+    if mod(AllTrial,40)==0 && Timer==6+20
+        StimCommand = StimCommand_2;
+        fwrite(StimControl,StimCommand);
+        disp(['休息时间，MI辅助电刺激']);
+    end 
     
     % 生成标签
     TriggerRepeat = repmat(Trigger,1,256);  % 生成标签

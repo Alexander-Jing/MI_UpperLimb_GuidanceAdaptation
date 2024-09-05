@@ -50,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0901_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_test_0905_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
@@ -89,7 +89,7 @@ port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 Fes_flag = 0;  % ÊÇ·ñ¿ªÆôFes¸¨Öú£¬1ÊÇ¿ªÆô£¬0ÊÇ¹Ø±Õ
-StimAmplitude_1 = 9;
+StimAmplitude_1 = 7;
 StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % ÄÑ¶È¼ÆËãÓë»®·ÖÉèÖÃ
@@ -294,6 +294,18 @@ while(AllTrial <= TrialNum)
         fwrite(UnityControl,sendbuf);  
     end
     
+    if mod(AllTrial,40)==0 && Timer==7+5
+        StimCommand = StimCommand_1;
+        fwrite(StimControl,StimCommand);
+        disp(['ĞİÏ¢Ê±¼ä£¬MI¸¨Öúµç´Ì¼¤']);
+    end    
+
+    if mod(AllTrial,40)==0 && Timer==7+15
+        StimCommand = StimCommand_2;
+        fwrite(StimControl,StimCommand);
+        disp(['ĞİÏ¢Ê±¼ä£¬MI¸¨Öúµç´Ì¼¤']);
+    end 
+
     % Éú³É±êÇ©
     TriggerRepeat = repmat(Trigger,1,256);  % Éú³É±êÇ©
     % ÄÔµçĞÅºÅ²É¼¯

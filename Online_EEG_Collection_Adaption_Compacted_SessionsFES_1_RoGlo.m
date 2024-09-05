@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0901_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_test_0901_offline_20240901_193737949_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_test_0901_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Jyt_test_0905_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Jyt_test_0905_offline_20240905_200349806_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Jyt_test_0905_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
 session_idx = 9;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_test_0901_online_20240901_204911380_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Sessions = 'Jyt_test_0905_online_20240905_205326173_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -137,8 +137,8 @@ fwrite(GloveControl, sendbuf_glo);
 
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
-StimAmplitude_1 = 5;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
-StimAmplitude_2 = 7;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_1 = 7;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
+StimAmplitude_2 = 9;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
@@ -801,7 +801,7 @@ end
 
 %% ¼ÆËãÏà¹ØµÄEIÖ¸±êµÄº¯Êı
 function EI_index_score = EI_index_Caculation(EI_index, EI_channels)
-    channels_ = [EI_channels.Fp1,EI_channels.Fp2, EI_channels.F7, EI_channels.F3, EI_channels.Fz, EI_channels.F4, EI_channels.F8'];
+    channels_ = [EI_channels.F3, EI_channels.Fz, EI_channels.F4];
     EI_index_score = mean(EI_index(channels_, 1));
 end
 
