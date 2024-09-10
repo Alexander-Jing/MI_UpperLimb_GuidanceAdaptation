@@ -1,7 +1,7 @@
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0905_online';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0905_online_20240905_205326173_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0905_online';
+subject_name = 'Jyt_test_0725_online';  % 被试姓名
+foldername_Sessions = 'Jyt_test_0725_online_20240725_205338594_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Jyt_test_0725_online';
 foldername_trajectory = fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name]);
 
 % 定义起始和结束的trial数量
@@ -35,10 +35,10 @@ end
 for i = 1:size(allData_AccTrial, 1)
     figure; % 创建新图形窗口
     % 使用smoothdata函数对数据进行平滑处理
-    smoothedData = movmean(allData_AccTrial(i,:), 1);
+    smoothedData = movmean(allData_AccTrial(i,:), 8);
     plot(smoothedData, 'LineWidth', 2); % 绘制线图
     hold on;
-    smoothedData_Thre = movmean(allData_ThreTrial(i,:), 1)/1.0;
+    smoothedData_Thre = movmean(allData_ThreTrial(i,:), 4)/1.0;
     plot(smoothedData_Thre, 'LineWidth', 2);
     hold off;
     title(sprintf('Category %d Accuracy', i)); % 设置标题

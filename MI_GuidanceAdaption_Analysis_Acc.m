@@ -1,14 +1,14 @@
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0905_online';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0905_online_20240905_205326173_data';  % folder data
-foldername_Engagements = 'Online_Engagements_Jyt_test_0905_online';
+subject_name = 'Jyt_test_0905_online_control';  % 被试姓名
+foldername_Sessions = 'Jyt_test_0905_online_control_20240910_204542130_data';  % folder data
+foldername_Engagements = 'Online_Engagements_Jyt_test_0905_online_control';
 % 定义起始和结束的trial数量
 startTrial_1 = 73; % 第一组起始trial的数字
 endTrial_1 = 84; % 第一组结束trial的数字
 
-session2 = 0; % 是否使用第二个session
-startTrial_2 = 13; % 第二组起始trial的数字
-endTrial_2 = 24; % 第二组结束trial的数字
+session2 = 1; % 是否使用第二个session
+startTrial_2 = 85; % 第二组起始trial的数字
+endTrial_2 = 96; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
@@ -19,7 +19,13 @@ for category = 0:2
     % 遍历指定范围内的trial
     for trial = startTrial_1:endTrial_1
         % 构建文件名模式
-        filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
+        split_name = strsplit(subject_name, '_');
+        if strcmp(split_name(end), 'control')
+            % 在对照实验中，由于是没有进行在线的更新，所以windows的数量没有更新，从而导致最后存储的时候是这样的
+            filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_8EI_mu.mat', subject_name, category, trial);
+        else
+            filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
+        end
         
         % 获取文件夹中匹配的文件列表
         fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
@@ -41,8 +47,13 @@ for category = 0:2
     if session2 == 1  % 如果还要导入别的session
         for trial = startTrial_2:endTrial_2
             % 构建文件名模式
-            filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
-            
+            split_name = strsplit(subject_name, '_');
+            if strcmp(split_name(end), 'control')
+                % 在对照实验中，由于是没有进行在线的更新，所以windows的数量没有更新，从而导致最后存储的时候是这样的
+                filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_8EI_mu.mat', subject_name, category, trial);
+            else
+                filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
+            end
             % 获取文件夹中匹配的文件列表
             fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
             
