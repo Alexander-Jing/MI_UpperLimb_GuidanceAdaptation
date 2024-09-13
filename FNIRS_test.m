@@ -22,7 +22,7 @@ for trial_idx=1:3
             name = 'Rest';
         end
 
-        pause(1.0);
+        pause(1.0); 
         oxy.WriteEvent(label, name);
         disp([label, ' ', name]);
     end
