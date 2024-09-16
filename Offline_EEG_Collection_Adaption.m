@@ -310,7 +310,7 @@ while(AllTrial <= TrialNum)
 
     % 在长时间的休息中，给点电刺激，作为休息的结束
     if mod(AllTrial,30)==0 && Timer==7+180-20
-        StimCommand = StimCommand_2;
+        StimCommand = StimCommand_1;
         fwrite(StimControl,StimCommand);
         disp(['休息时间，MI辅助电刺激，此时距离休息结束还有20s']);
     end
