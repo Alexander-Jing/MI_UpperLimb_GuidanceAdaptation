@@ -309,17 +309,33 @@ while(AllTrial <= TrialNum)
         FnirsLabelTask(RandomTrial, AllTrial, oxy);
     end
     
-    if mod(AllTrial,40)==0 && Timer==7+5
+    % 在长时间的休息中，给点电刺激，作为休息的开始
+    if mod(AllTrial,30)==0 && Timer==7+5
         StimCommand = StimCommand_1;
         fwrite(StimControl,StimCommand);
-        disp(['休息时间，MI辅助电刺激']);
+        disp(['休息时间，MI辅助电刺激，此时已经休息5s']);
     end    
-
-    if mod(AllTrial,40)==0 && Timer==7+15
+    
+    % 在长时间的休息中，给点电刺激，作为休息的开始
+    if mod(AllTrial,30)==0 && Timer==7+15
         StimCommand = StimCommand_2;
         fwrite(StimControl,StimCommand);
-        disp(['休息时间，MI辅助电刺激']);
+        disp(['休息时间，MI辅助电刺激，此时已经休息15s']);
     end 
+
+    % 在长时间的休息中，给点电刺激，作为休息的结束
+    if mod(AllTrial,30)==0 && Timer==7+180-20
+        StimCommand = StimCommand_2;
+        fwrite(StimControl,StimCommand);
+        disp(['休息时间，MI辅助电刺激，此时距离休息结束还有20s']);
+    end
+
+    % 在长时间的休息中，给点电刺激，作为休息的结束
+    if mod(AllTrial,30)==0 && Timer==7+180-15
+        StimCommand = StimCommand_2;
+        fwrite(StimControl,StimCommand);
+        disp(['休息时间，MI辅助电刺激，此时距离休息结束还有15s']);
+    end
 
     % 生成标签
     TriggerRepeat = repmat(Trigger,1,256);  % 生成标签
