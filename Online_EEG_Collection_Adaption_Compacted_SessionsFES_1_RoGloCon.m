@@ -101,15 +101,28 @@ MI_AO_Len = 200;  % 动画实际有多少帧
 % 运动想象任务调整设置
 sample_frequency = 256; 
 WindowLength = 512;  % 每个窗口的长度
-channel_selection = 1;  % 判断是否要进行通道选择，初始值设置为0，保留所有数据，但是在后面服务器上可以开启选择
-if channel_selection==0
-    channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 选择的通道,
-    mu_channels = struct('C3',24, 'C4',22);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
-    EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % 用于计算EI指标的几个channels，需要确定下位置的
-else
-    channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  % 选择的通道，这里去掉了OZ，M1,M2，Fp1，Fp2这几个channel
-    mu_channels = struct('C3',24-3, 'C4',22-3);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
-    EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % 用于计算EI指标的几个channels，需要确定下位置的
+EEG_Cap = 1;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
+channel_selection=1; % 判断是否要进行通道选择，目前设置为0，保留所有数据，但是在后面服务器上可以开启选择
+if EEG_Cap==0  % 选择老的帽子(Jyt-20240824-GraelEEG.xml)
+    if channel_selection==0
+        channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 选择的通道,
+        mu_channels = struct('C3',24, 'C4',22);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
+        EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % 用于计算EI指标的几个channels，需要确定下位置的
+    else
+        channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  % 选择的通道，这里去掉了OZ，M1,M2，Fp1，Fp2这几个channel
+        mu_channels = struct('C3',24-3, 'C4',22-3);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
+        EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % 用于计算EI指标的几个channels，需要确定下位置的
+    end 
+elseif EEG_Cap==1  % 选择新的帽子(Jyt-20240918-GraelEEG.xml)
+    if channel_selection==0
+        channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % 选择的通道,
+        mu_channels = struct('C3',17, 'C4',15);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
+        EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 29, 'F3', 28, 'Fz', 27, 'F4', 26, 'F8', 25);  % 用于计算EI指标的几个channels，需要确定下位置的
+    else
+        channels = [1, 3,4,5,6,7,8, 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];  % 选择的通道，这里去掉了OZ，M1,M2，Fp1，Fp2这几个channel
+        mu_channels = struct('C3',17-3, 'C4',15-3);  % 用于计算ERD/ERS的几个channels，是C3和C4两个通道,需要设定位置
+        EI_channels = struct('F3', 28-3, 'Fz', 27-3, 'F4', 26-3);  % 用于计算EI指标的几个channels，需要确定下位置的
+    end 
 end
 
 Train_Thre = 0.5;  % 用于衡量后续是keep还是adjust的阈值

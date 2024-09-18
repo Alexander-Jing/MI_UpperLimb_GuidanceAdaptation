@@ -50,10 +50,16 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_test_0905_offline';  % ±»ÊÔĞÕÃû
-TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
-Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
-Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
+subject_name = 'Jyt_test_0918_offline';  % ±»ÊÔĞÕÃû
+%TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+%Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
+%Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
+
+TrialNum = 3;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
+Trial_setSession = 0;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
+Trial_Session = 1;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
+
+
 %TrialNum = 3*10;
 MotorClasses = 3;  % ÔË¶¯ÏëÏóµÄÖÖÀàµÄÊıÁ¿µÄÉèÖÃ£¬×¢ÒâÕâÀïÊÇ°Ñ¿ÕÏëidle×´Ì¬Ò²Òª·Å½øÈ¥µÄ£¬×¢ÒâÕâÀïµÄÈÎÎñÊÇ[0,1,2]£¬ºÍreadme.txtÀïÃæµÄ¶ÔÓ¦
 % µ±Ç°ÉèÖÃµÄÈÎÎñ
@@ -70,16 +76,29 @@ seconds_per_trial  = 5;  % Ã¿Ò»¸ötrialµÄÊ±¼ä³¤¶È£¬¸ù¾İÊµ¼ÊÇé¿öÉèÖÃ
 % ÄÔµçÉè±¸µÄÊı¾İ²É¼¯
 sample_frequency = 256; 
 WindowLength = 512;  % Ã¿¸ö´°¿ÚµÄ³¤¶È
-channel_selection=0; % ÅĞ¶ÏÊÇ·ñÒª½øĞĞÍ¨µÀÑ¡Ôñ£¬Ä¿Ç°ÉèÖÃÎª0£¬±£ÁôËùÓĞÊı¾İ£¬µ«ÊÇÔÚºóÃæ·şÎñÆ÷ÉÏ¿ÉÒÔ¿ªÆôÑ¡Ôñ
-if channel_selection==0
-    channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % Ñ¡ÔñµÄÍ¨µÀ,
-    mu_channels = struct('C3',24, 'C4',22);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
-    EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
-else
-    channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  % Ñ¡ÔñµÄÍ¨µÀ£¬ÕâÀïÈ¥µôÁËOZ£¬M1,M2£¬Fp1£¬Fp2Õâ¼¸¸öchannel
-    mu_channels = struct('C3',24-3, 'C4',22-3);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
-    EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
-end 
+EEG_Cap = 1;  % ÅĞ¶ÏÊ¹ÓÃµÄÄÔµçÃ±×ÓÉè±¸£¬0ÎªÔ­À´µÄÀÏÃ±×Ó(Jyt-20240824-GraelEEG.xml)£¬1ÎªĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
+channel_selection=1; % ÅĞ¶ÏÊÇ·ñÒª½øĞĞÍ¨µÀÑ¡Ôñ£¬Ä¿Ç°ÉèÖÃÎª0£¬±£ÁôËùÓĞÊı¾İ£¬µ«ÊÇÔÚºóÃæ·şÎñÆ÷ÉÏ¿ÉÒÔ¿ªÆôÑ¡Ôñ
+if EEG_Cap==0  % Ñ¡ÔñÀÏµÄÃ±×Ó(Jyt-20240824-GraelEEG.xml)
+    if channel_selection==0
+        channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % Ñ¡ÔñµÄÍ¨µÀ,
+        mu_channels = struct('C3',24, 'C4',22);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
+        EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 30, 'F3', 29, 'Fz', 28, 'F4', 27, 'F8', 26);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+    else
+        channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];  % Ñ¡ÔñµÄÍ¨µÀ£¬ÕâÀïÈ¥µôÁËOZ£¬M1,M2£¬Fp1£¬Fp2Õâ¼¸¸öchannel
+        mu_channels = struct('C3',24-3, 'C4',22-3);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
+        EI_channels = struct('F3', 29-3, 'Fz', 28-3, 'F4', 27-3);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+    end 
+elseif EEG_Cap==1  % Ñ¡ÔñĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
+    if channel_selection==0
+        channels = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32];  % Ñ¡ÔñµÄÍ¨µÀ,
+        mu_channels = struct('C3',17, 'C4',15);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
+        EI_channels = struct('Fp1', 32, 'Fp2', 31, 'F7', 29, 'F3', 28, 'Fz', 27, 'F4', 26, 'F8', 25);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+    else
+        channels = [1, 3,4,5,6,7,8, 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];  % Ñ¡ÔñµÄÍ¨µÀ£¬ÕâÀïÈ¥µôÁËOZ£¬M1,M2£¬Fp1£¬Fp2Õâ¼¸¸öchannel
+        mu_channels = struct('C3',17-3, 'C4',15-3);  % ÓÃÓÚ¼ÆËãERD/ERSµÄ¼¸¸öchannels£¬ÊÇC3ºÍC4Á½¸öÍ¨µÀ,ĞèÒªÉè¶¨Î»ÖÃ
+        EI_channels = struct('F3', 28-3, 'Fz', 27-3, 'F4', 26-3);  % ÓÃÓÚ¼ÆËãEIÖ¸±êµÄ¼¸¸öchannels£¬ĞèÒªÈ·¶¨ÏÂÎ»ÖÃµÄ
+    end 
+end
 weight_mu = 0.6;  % ÓÃÓÚ¼ÆËãERD/ERSÖ¸±êºÍEIÖ¸±êµÄ¼ÓÈ¨ºÍ
 
 % Í¨ĞÅÉèÖÃ
@@ -432,7 +451,7 @@ end
     
     %% ¼ÆËãÏà¹ØµÄEIÖ¸±êµÄº¯Êı
 function EI_index_score = EI_index_Caculation(EI_index, EI_channels)
-    channels_ = [EI_channels.Fp1,EI_channels.Fp2, EI_channels.F7, EI_channels.F3, EI_channels.Fz, EI_channels.F4, EI_channels.F8'];
+    channels_ = [ EI_channels.F3, EI_channels.Fz, EI_channels.F4];
     EI_index_score = mean(EI_index(channels_, 1));
 
 end
