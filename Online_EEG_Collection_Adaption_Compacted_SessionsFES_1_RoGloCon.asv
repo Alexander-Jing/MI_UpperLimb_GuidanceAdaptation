@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % 判
 %% 在线实验参数设置部分，用于设置每一个被试的情况，依据被试情况进行修改
 
 % 运动想象基本参数设置
-subject_name = 'Jyt_0923_compare_online';  % 被试姓名
+subject_name = 'Jyt_0923_compare_online_simu';  % 被试姓名
 sub_offline_collection_folder = 'Jyt_0923_compare_offline_20240923_203150110_data';  % 被试的离线采集数据
 subject_name_offline =  'Jyt_0923_compare_offline';  % 离线收集数据时候的被试名称
 % session 大于1时候要改动的部分
 % 注意，由于设备问题，建议在session_idx为4之前重启下matlab，防止出现后面的中断
-session_idx = 5;  % session index数量，如果是1的话，会自动生成相关排布
-foldername_Sessions = 'Jyt_0923_compare_online_20240923_214309726_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+session_idx = ;  % session index数量，如果是1的话，会自动生成相关排布
+foldername_Sessions = 'Jyt_0923_compare_online_simu_20240924_165229462_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
 
 MotorClass = 2; % 运动想象动作数量，注意这里是纯设计的运动想象动作的数量，不包括空想idle状态
 %MotorClassMI = 2;  % 如果是单运动想象任务的话，那就直接指定任务就好了

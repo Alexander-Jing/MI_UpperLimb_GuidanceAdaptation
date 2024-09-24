@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_0923_compare_online';  % ±»ÊÔĞÕÃû
+subject_name = 'Jyt_0923_compare_online_simu';  % ±»ÊÔĞÕÃû
 sub_offline_collection_folder = 'Jyt_0923_compare_offline_20240923_203150110_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
 subject_name_offline =  'Jyt_0923_compare_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 9;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_0923_compare_online_20240923_214309726_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 3;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Jyt_0923_compare_online_simu_20240924_194255773_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -739,6 +739,13 @@ else
     foldername_rawdata = [foldername_Sessions, '\\Online_EEGMI_RawData_', subject_name]; % Ö¸¶¨ÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
     save([foldername_rawdata, '\\', ['Online_EEGMI_RawData_', 'session_', num2str(session_idx), '_', subject_name], '.mat' ],'TrialData','Trials','ChanLabel');
 end
+
+%% µ¯´°ÌáÊ¾Ïà¹Ø²Ù×÷
+% ´´½¨ÏûÏ¢ÄÚÈİ
+message = ['µ±Ç°ÊÇsession: ', num2str(session_idx), ', ×¢ÒâÖØÆôµ¥Æ¬»úºÍÖØĞÂÁ¬½Ó»úĞµ±Û'];
+% ÏÔÊ¾µ¯´°
+h = msgbox(message, 'Session Alert');
+
 %% ´æ´¢¹ì¼£×·×ÙÓëµ÷ÕûµÄÏà¹ØÖ¸±ê£¬Õâ²¿·ÖÔÚÒ»¸ösession½áÊøÖ®ºó²Å»á´æ´¢£¬·ÀÖ¹Ò»¸ösessionÀïÃæÖĞ¶Ïµ¼ÖÂµÄ¶à´æ´¢
 if session_idx==1
     foldername_trajectory = [foldername, '\\Online_EEGMI_trajectory_', subject_name]; % Ö¸¶¨ÎÄ¼ş¼ĞÂ·¾¶ºÍÃû³Æ
