@@ -1,5 +1,5 @@
 % for fes testing
-
+%% 连接fes
 %system('F:\CASIA\MI_engagement\fes\fes\x64\Debug\fes.exe&'); 
 system('D:\workspace\fes\x64\Release\fes.exe&');
 %system('F:\MI_engagement\fes\fes\x64\Debug\fes.exe&');
@@ -18,10 +18,17 @@ fopen(StimControl);
 % StimCommand(1,6) = 3; % 1 left calf 2 left thigh 3 right thigh  实验通道，总共8个
 % fwrite(StimControl,StimCommand);%刺激开始
 
+%% 设置fes强度
+
+% 设置电刺激强度
+Fes_stimu1 = 7;
+Fes_stimu2 = 9;
+Fes_stimu3 = 5;
+
 tStim = [3,14,2]; % [t_up,t_flat,t_down] * 100ms
-StimCommand_1 = uint8([0,7,tStim,1]); % left calf
-StimCommand_2 = uint8([0,9,tStim,2]); % left thigh
-StimCommand_3 = uint8([0,5,tStim,3]); % right thigh 
+StimCommand_1 = uint8([0,Fes_stimu1,tStim,1]); % left calf
+StimCommand_2 = uint8([0,Fes_stimu2,tStim,2]); % left thigh
+StimCommand_3 = uint8([0,Fes_stimu3,tStim,3]); % right thigh 
 
 
 StimCommand = StimCommand_1;
@@ -54,6 +61,12 @@ pause(3);
 
 StimCommand(1,1) = 100;
 fwrite(StimControl,StimCommand);
+
+%% 弹窗提示相关操作
+% 创建消息内容
+message = ['当前的电刺激强度为: ', num2str(Fes_stimu1), ', ', num2str(Fes_stimu2), ', ',num2str(Fes_stimu3)];
+% 显示弹窗
+h = msgbox(message, 'Session Alert');
 
 
 system('taskkill /F /IM fes.exe');
