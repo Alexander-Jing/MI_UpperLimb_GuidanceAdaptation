@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_0923_compare_online_simu';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_0923_compare_offline_20240923_203150110_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_0923_compare_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Wyx_0923_compare_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Wyx_0923_compare_offline_20240929_203055611_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Wyx_0923_compare_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 3;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_0923_compare_online_simu_20240924_194255773_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 9;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -101,7 +101,7 @@ MI_AO_Len = 200;  % ¶¯»­Êµ¼ÊÓĞ¶àÉÙÖ¡
 % ÔË¶¯ÏëÏóÈÎÎñµ÷ÕûÉèÖÃ
 sample_frequency = 256; 
 WindowLength = 512;  % Ã¿¸ö´°¿ÚµÄ³¤¶È
-EEG_Cap = 1;  % ÅĞ¶ÏÊ¹ÓÃµÄÄÔµçÃ±×ÓÉè±¸£¬0ÎªÔ­À´µÄÀÏÃ±×Ó(Jyt-20240824-GraelEEG.xml)£¬1ÎªĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
+EEG_Cap = 0;  % ÅĞ¶ÏÊ¹ÓÃµÄÄÔµçÃ±×ÓÉè±¸£¬0ÎªÔ­À´µÄÀÏÃ±×Ó(Jyt-20240824-GraelEEG.xml)£¬1ÎªĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
 channel_selection=1; % ÅĞ¶ÏÊÇ·ñÒª½øĞĞÍ¨µÀÑ¡Ôñ£¬Ä¿Ç°ÉèÖÃÎª0£¬±£ÁôËùÓĞÊı¾İ£¬µ«ÊÇÔÚºóÃæ·şÎñÆ÷ÉÏ¿ÉÒÔ¿ªÆôÑ¡Ôñ
 if EEG_Cap==0  % Ñ¡ÔñÀÏµÄÃ±×Ó(Jyt-20240824-GraelEEG.xml)
     if channel_selection==0

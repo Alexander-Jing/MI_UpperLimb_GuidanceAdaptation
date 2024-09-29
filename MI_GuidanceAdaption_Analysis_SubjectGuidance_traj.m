@@ -1,7 +1,7 @@
 % 运动想象基本参数设置
-subject_name = 'Jyt_test_0905_online';  % 被试姓名
-foldername_Sessions = 'Jyt_test_0905_online_20240905_205326173_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_test_0905_online';
+subject_name = 'Wyx_0923_compare_online';  % 被试姓名
+foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Wyx_0923_compare_online';
 foldername_trajectory = fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name]);
 
 % 定义起始和结束的trial数量

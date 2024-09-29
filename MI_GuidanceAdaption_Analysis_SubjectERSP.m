@@ -1,18 +1,18 @@
 newtimef% 运动想象基本参数设置
-subject_name = 'Jyt_0923_compare_online';  % 被试姓名
-foldername_Sessions = 'Jyt_0923_compare_online_20240923_214309726_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Jyt_0923_compare_online';
+subject_name = 'Wyx_0923_compare_online';  % 被试姓名
+foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Wyx_0923_compare_online';
 
-EEG_Cap = 1;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
+EEG_Cap = 0;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
 channel_selection=1; % 判断是否要进行通道选择，目前设置为0，保留所有数据，但是在后面服务器上可以开启选择
 
 % 定义起始和结束的trial数量
-startTrial_1 = 85; % 第一组起始trial的数字
-endTrial_1 = 96; % 第一组结束trial的数字
+startTrial_1 = 1; % 第一组起始trial的数字
+endTrial_1 = 12; % 第一组结束trial的数字
 
-session2 = 0; % 是否使用第二个session
-startTrial_2 = 97; % 第二组起始trial的数字
-endTrial_2 = 108; % 第二组结束trial的数字
+session2 = 1; % 是否使用第二个session
+startTrial_2 = 13; % 第二组起始trial的数字
+endTrial_2 = 36; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
@@ -145,7 +145,7 @@ dataClass2 = allData{3};
 %dataClass_all = [dataClass1, dataClass2];
 
 % 绘制ERSP图
-[ersp,itc,powbase,times,freqs]=newtimef(dataClass2,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
+[ersp,itc,powbase,times,freqs]=newtimef(dataClass1,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
     'freqs',[1 35],  'erspmax', 10, 'scale', 'log', 'plotmean', 'off');
 
 % 创建一个新的图形窗口

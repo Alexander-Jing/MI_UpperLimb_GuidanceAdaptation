@@ -50,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_0923_compare_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Wyx_0923_compare_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
@@ -76,7 +76,7 @@ seconds_per_trial  = 5;  % Ã¿Ò»¸ötrialµÄÊ±¼ä³¤¶È£¬¸ù¾İÊµ¼ÊÇé¿öÉèÖÃ
 % ÄÔµçÉè±¸µÄÊı¾İ²É¼¯
 sample_frequency = 256; 
 WindowLength = 512;  % Ã¿¸ö´°¿ÚµÄ³¤¶È
-EEG_Cap = 1;  % ÅĞ¶ÏÊ¹ÓÃµÄÄÔµçÃ±×ÓÉè±¸£¬0ÎªÔ­À´µÄÀÏÃ±×Ó(Jyt-20240824-GraelEEG.xml)£¬1ÎªĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
+EEG_Cap = 0;  % ÅĞ¶ÏÊ¹ÓÃµÄÄÔµçÃ±×ÓÉè±¸£¬0ÎªÔ­À´µÄÀÏÃ±×Ó(Jyt-20240824-GraelEEG.xml)£¬1ÎªĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
 channel_selection=1; % ÅĞ¶ÏÊÇ·ñÒª½øĞĞÍ¨µÀÑ¡Ôñ£¬Ä¿Ç°ÉèÖÃÎª0£¬±£ÁôËùÓĞÊı¾İ£¬µ«ÊÇÔÚºóÃæ·şÎñÆ÷ÉÏ¿ÉÒÔ¿ªÆôÑ¡Ôñ
 if EEG_Cap==0  % Ñ¡ÔñÀÏµÄÃ±×Ó(Jyt-20240824-GraelEEG.xml)
     if channel_selection==0
@@ -108,8 +108,8 @@ port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 Fes_flag = 0;  % ÊÇ·ñ¿ªÆôFes¸¨Öú£¬1ÊÇ¿ªÆô£¬0ÊÇ¹Ø±Õ
-StimAmplitude_1 = 7;
-StimAmplitude_2 = 9;  % ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_1 = 5;
+StimAmplitude_2 = 7;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % ÄÑ¶È¼ÆËãÓë»®·ÖÉèÖÃ
 %task_weights = [3,5,2];
