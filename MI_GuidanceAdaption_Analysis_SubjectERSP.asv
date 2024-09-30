@@ -1,85 +1,85 @@
-newtimef% ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Wyx_0923_compare_online';  % ±»ÊÔĞÕÃû
-foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+newtimef% è¿åŠ¨æƒ³è±¡åŸºæœ¬å‚æ•°è®¾ç½®
+subject_name = 'Wyx_0923_compare_online';  % è¢«è¯•å§“å
+foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % å½“sessionå¤§äº1çš„æ—¶å€™ï¼Œéœ€è¦æ‰‹å·¥ä¿®æ­£foldername_Sessions
 foldername_Engagements = 'Online_Engagements_Wyx_0923_compare_online';
 
-EEG_Cap = 0;  % ÅĞ¶ÏÊ¹ÓÃµÄÄÔµçÃ±×ÓÉè±¸£¬0ÎªÔ­À´µÄÀÏÃ±×Ó(Jyt-20240824-GraelEEG.xml)£¬1ÎªĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
-channel_selection=1; % ÅĞ¶ÏÊÇ·ñÒª½øĞĞÍ¨µÀÑ¡Ôñ£¬Ä¿Ç°ÉèÖÃÎª0£¬±£ÁôËùÓĞÊı¾İ£¬µ«ÊÇÔÚºóÃæ·şÎñÆ÷ÉÏ¿ÉÒÔ¿ªÆôÑ¡Ôñ
+EEG_Cap = 0;  % åˆ¤æ–­ä½¿ç”¨çš„è„‘ç”µå¸½å­è®¾å¤‡ï¼Œ0ä¸ºåŸæ¥çš„è€å¸½å­(Jyt-20240824-GraelEEG.xml)ï¼Œ1ä¸ºæ–°çš„å¸½å­(Jyt-20240918-GraelEEG.xml)
+channel_selection=1; % åˆ¤æ–­æ˜¯å¦è¦è¿›è¡Œé€šé“é€‰æ‹©ï¼Œç›®å‰è®¾ç½®ä¸º0ï¼Œä¿ç•™æ‰€æœ‰æ•°æ®ï¼Œä½†æ˜¯åœ¨åé¢æœåŠ¡å™¨ä¸Šå¯ä»¥å¼€å¯é€‰æ‹©
 
-% ¶¨ÒåÆğÊ¼ºÍ½áÊøµÄtrialÊıÁ¿
-startTrial_1 = 73; % µÚÒ»×éÆğÊ¼trialµÄÊı×Ö
-endTrial_1 = 84; % µÚÒ»×é½áÊøtrialµÄÊı×Ö
+% å®šä¹‰èµ·å§‹å’Œç»“æŸçš„trialæ•°é‡
+startTrial_1 = 73; % ç¬¬ä¸€ç»„èµ·å§‹trialçš„æ•°å­—
+endTrial_1 = 108; % ç¬¬ä¸€ç»„ç»“æŸtrialçš„æ•°å­—
 
-session2 = 1; % ÊÇ·ñÊ¹ÓÃµÚ¶ş¸ösession
-startTrial_2 = 97; % µÚ¶ş×éÆğÊ¼trialµÄÊı×Ö
-endTrial_2 = 108; % µÚ¶ş×é½áÊøtrialµÄÊı×Ö
+session2 = 0; % æ˜¯å¦ä½¿ç”¨ç¬¬äºŒä¸ªsession
+startTrial_2 = 97; % ç¬¬äºŒç»„èµ·å§‹trialçš„æ•°å­—
+endTrial_2 = 108; % ç¬¬äºŒç»„ç»“æŸtrialçš„æ•°å­—
 
-% ³õÊ¼»¯´æ´¢Ô¤²âÖµºÍ±êÇ©µÄÊı×é
+% åˆå§‹åŒ–å­˜å‚¨é¢„æµ‹å€¼å’Œæ ‡ç­¾çš„æ•°ç»„
 allPredictions = [];
 allLabels = [];
 allData = [];
 
-% ¶¨Òå¸ĞĞËÈ¤µÄÍ¨µÀ
-if EEG_Cap==0  % Ñ¡ÔñÀÏµÄÃ±×Ó(Jyt-20240824-GraelEEG.xml)
+% å®šä¹‰æ„Ÿå…´è¶£çš„é€šé“
+if EEG_Cap==0  % é€‰æ‹©è€çš„å¸½å­(Jyt-20240824-GraelEEG.xml)
     if channel_selection==0
-        channel_selected = 24;  % Ñ¡ÔñC3×÷Îª·ÖÎöµÄÍ¨µÀ
+        channel_selected = 24;  % é€‰æ‹©C3ä½œä¸ºåˆ†æçš„é€šé“
     else
-        channel_selected = 21;  % Ñ¡ÔñC3×÷Îª·ÖÎöµÄÍ¨µÀ
+        channel_selected = 21;  % é€‰æ‹©C3ä½œä¸ºåˆ†æçš„é€šé“
     end
-elseif EEG_Cap==1  % Ñ¡ÔñĞÂµÄÃ±×Ó(Jyt-20240918-GraelEEG.xml)
+elseif EEG_Cap==1  % é€‰æ‹©æ–°çš„å¸½å­(Jyt-20240918-GraelEEG.xml)
     if channel_selection==0
-        channel_selected = 17;  % Ñ¡ÔñC3×÷Îª·ÖÎöµÄÍ¨µÀ
+        channel_selected = 17;  % é€‰æ‹©C3ä½œä¸ºåˆ†æçš„é€šé“
     else
-        channel_selected = 14;  % Ñ¡ÔñC3×÷Îª·ÖÎöµÄÍ¨µÀ
+        channel_selected = 14;  % é€‰æ‹©C3ä½œä¸ºåˆ†æçš„é€šé“
     end
 end
 
-% ³õÊ¼»¯t-SNEÊı¾İºÍ±êÇ©
+% åˆå§‹åŒ–t-SNEæ•°æ®å’Œæ ‡ç­¾
 tsneDataAll = [];
 tsneLabelsAll = [];
 
-% ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
+% éå†æŒ‡å®šèŒƒå›´å†…çš„trial
 for category = 0:2
-    % ³õÊ¼»¯´æ´¢Ã¿¸öÀà±ğÊı¾İµÄÊı×é
+    % åˆå§‹åŒ–å­˜å‚¨æ¯ä¸ªç±»åˆ«æ•°æ®çš„æ•°ç»„
     categoryData = [];
     
     for trial = startTrial_1:endTrial_1
-        % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+        % æ„å»ºæ–‡ä»¶åæ¨¡å¼
         split_name = strsplit(subject_name, '_');
         if strcmp(split_name(end), 'control') || strcmp(split_name(end-1), 'compare')
-            % ÔÚ¶ÔÕÕÊµÑéÖĞ£¬ÓÉÓÚÊÇÃ»ÓĞ½øĞĞÔÚÏßµÄ¸üĞÂ£¬ËùÒÔwindowsµÄÊıÁ¿Ã»ÓĞ¸üĞÂ£¬´Ó¶øµ¼ÖÂ×îºó´æ´¢µÄÊ±ºòÊÇÕâÑùµÄ
+            % åœ¨å¯¹ç…§å®éªŒä¸­ï¼Œç”±äºæ˜¯æ²¡æœ‰è¿›è¡Œåœ¨çº¿çš„æ›´æ–°ï¼Œæ‰€ä»¥windowsçš„æ•°é‡æ²¡æœ‰æ›´æ–°ï¼Œä»è€Œå¯¼è‡´æœ€åå­˜å‚¨çš„æ—¶å€™æ˜¯è¿™æ ·çš„
             filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_8EI_mu.mat', subject_name, category, trial);
         else
             filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
         end
 
-        % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
+        % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
         fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
         
-        % ±éÀúÕÒµ½µÄÎÄ¼ş
+        % éå†æ‰¾åˆ°çš„æ–‡ä»¶
         for fileIdx = 1:length(fileList)
-            % ¼ÓÔØÎÄ¼şÖĞµÄTrialData_Processed±äÁ¿
+            % åŠ è½½æ–‡ä»¶ä¸­çš„TrialData_Processedå˜é‡
             data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'TrialData_Processed');
             
-            % »ñÈ¡Êı¾İ´óĞ¡
+            % è·å–æ•°æ®å¤§å°
             [numRows, ~] = size(data.TrialData_Processed);
             
-            % È·±£Êı¾İĞĞÊı¿ÉÒÔ±»33Õû³ı
+            % ç¡®ä¿æ•°æ®è¡Œæ•°å¯ä»¥è¢«33æ•´é™¤
             if mod(numRows, 28) == 0
-                % ¼ÆËãÑù±¾ÊıÁ¿
+                % è®¡ç®—æ ·æœ¬æ•°é‡
                 numSamples = numRows / 28;
                 sampleFrames = [];
-                % Ñ¡È¡Ñù±¾
+                % é€‰å–æ ·æœ¬
                 for sampleIdx = 1:numSamples
-                    % Ö»Ñ¡È¡ÏÂÃæ µÄÊı¾İ£¬´Ó¶ø¹¹³ÉÒ»¸öÍêÕûµÄtrialµÄÊı¾İ
+                    % åªé€‰å–ä¸‹é¢ çš„æ•°æ®ï¼Œä»è€Œæ„æˆä¸€ä¸ªå®Œæ•´çš„trialçš„æ•°æ®
                     if sampleIdx==1 || sampleIdx==2 || sampleIdx==4 || sampleIdx==6 || sampleIdx==8 || sampleIdx==10
-                        % ¼ÆËãµ±Ç°Ñù±¾µÄÆğÊ¼ĞĞ
+                        % è®¡ç®—å½“å‰æ ·æœ¬çš„èµ·å§‹è¡Œ
                         startRow = (sampleIdx-1)*28 + 1;
-                        % ÌáÈ¡Ñù±¾
+                        % æå–æ ·æœ¬
                         sampleData = data.TrialData_Processed(startRow:startRow+27, :);
-                        % Ñ¡ÔñÖ¸¶¨µÄÍ¨µÀ
+                        % é€‰æ‹©æŒ‡å®šçš„é€šé“
                         sampleData = sampleData(channel_selected, :);
-                        % ´æ´¢Ñù±¾Êı¾İ
+                        % å­˜å‚¨æ ·æœ¬æ•°æ®
                         sampleFrames = [sampleFrames; sampleData']; 
                     end
                 end
@@ -87,44 +87,44 @@ for category = 0:2
             end
         end
     end
-    if session2 == 1 % ÊÇ·ñÊ¹ÓÃµÚ¶ş¸ösession
+    if session2 == 1 % æ˜¯å¦ä½¿ç”¨ç¬¬äºŒä¸ªsession
         for trial = startTrial_2:endTrial_2
-            % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+            % æ„å»ºæ–‡ä»¶åæ¨¡å¼
             split_name = strsplit(subject_name, '_');
             if strcmp(split_name(end), 'control') || strcmp(split_name(end-1), 'compare')
-                % ÔÚ¶ÔÕÕÊµÑéÖĞ£¬ÓÉÓÚÊÇÃ»ÓĞ½øĞĞÔÚÏßµÄ¸üĞÂ£¬ËùÒÔwindowsµÄÊıÁ¿Ã»ÓĞ¸üĞÂ£¬´Ó¶øµ¼ÖÂ×îºó´æ´¢µÄÊ±ºòÊÇÕâÑùµÄ
+                % åœ¨å¯¹ç…§å®éªŒä¸­ï¼Œç”±äºæ˜¯æ²¡æœ‰è¿›è¡Œåœ¨çº¿çš„æ›´æ–°ï¼Œæ‰€ä»¥windowsçš„æ•°é‡æ²¡æœ‰æ›´æ–°ï¼Œä»è€Œå¯¼è‡´æœ€åå­˜å‚¨çš„æ—¶å€™æ˜¯è¿™æ ·çš„
                 filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_8EI_mu.mat', subject_name, category, trial);
             else
                 filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
             end
     
-            % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
+            % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
             fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
             
-            % ±éÀúÕÒµ½µÄÎÄ¼ş
+            % éå†æ‰¾åˆ°çš„æ–‡ä»¶
             for fileIdx = 1:length(fileList)
-                % ¼ÓÔØÎÄ¼şÖĞµÄTrialData_Processed±äÁ¿
+                % åŠ è½½æ–‡ä»¶ä¸­çš„TrialData_Processedå˜é‡
                 data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'TrialData_Processed');
                 
-                % »ñÈ¡Êı¾İ´óĞ¡
+                % è·å–æ•°æ®å¤§å°
                 [numRows, ~] = size(data.TrialData_Processed);
                 
-                % È·±£Êı¾İĞĞÊı¿ÉÒÔ±»33Õû³ı
+                % ç¡®ä¿æ•°æ®è¡Œæ•°å¯ä»¥è¢«33æ•´é™¤
                 if mod(numRows, 28) == 0
-                    % ¼ÆËãÑù±¾ÊıÁ¿
+                    % è®¡ç®—æ ·æœ¬æ•°é‡
                     numSamples = numRows / 28;
                     sampleFrames = [];
-                    % Ñ¡È¡Ñù±¾
+                    % é€‰å–æ ·æœ¬
                     for sampleIdx = 1:numSamples
-                        % Ö»Ñ¡È¡ÏÂÃæ µÄÊı¾İ£¬´Ó¶ø¹¹³ÉÒ»¸öÍêÕûµÄtrialµÄÊı¾İ
+                        % åªé€‰å–ä¸‹é¢ çš„æ•°æ®ï¼Œä»è€Œæ„æˆä¸€ä¸ªå®Œæ•´çš„trialçš„æ•°æ®
                         if sampleIdx==1 || sampleIdx==2 || sampleIdx==4 || sampleIdx==6 || sampleIdx==8 || sampleIdx==10
-                            % ¼ÆËãµ±Ç°Ñù±¾µÄÆğÊ¼ĞĞ
+                            % è®¡ç®—å½“å‰æ ·æœ¬çš„èµ·å§‹è¡Œ
                             startRow = (sampleIdx-1)*28 + 1;
-                            % ÌáÈ¡Ñù±¾
+                            % æå–æ ·æœ¬
                             sampleData = data.TrialData_Processed(startRow:startRow+27, :);
-                            % Ñ¡ÔñÖ¸¶¨µÄÍ¨µÀ
+                            % é€‰æ‹©æŒ‡å®šçš„é€šé“
                             sampleData = sampleData(channel_selected, :);
-                            % ´æ´¢Ñù±¾Êı¾İ
+                            % å­˜å‚¨æ ·æœ¬æ•°æ®
                             sampleFrames = [sampleFrames; sampleData']; 
                         end
                     end
@@ -133,45 +133,45 @@ for category = 0:2
             end
         end
     end
-    % ´æ´¢ËùÓĞÀà±ğµÄÊı¾İ
+    % å­˜å‚¨æ‰€æœ‰ç±»åˆ«çš„æ•°æ®
     allData{category+1} = categoryData;
 end
 
-% ¼ÙÉè allData{2} ºÍ allData{3} ·Ö±ğ´æ´¢ÁËÀà±ğ1ºÍÀà±ğ2µÄÊı¾İ
-% ÌáÈ¡Á½¸öÀà±ğµÄÊı¾İ
+% å‡è®¾ allData{2} å’Œ allData{3} åˆ†åˆ«å­˜å‚¨äº†ç±»åˆ«1å’Œç±»åˆ«2çš„æ•°æ®
+% æå–ä¸¤ä¸ªç±»åˆ«çš„æ•°æ®
 dataClass0 = allData{1};
 dataClass1 = allData{2};
 dataClass2 = allData{3};
 %dataClass_all = [dataClass1, dataClass2];
 
-% »æÖÆERSPÍ¼
+% ç»˜åˆ¶ERSPå›¾
 [ersp,itc,powbase,times,freqs]=newtimef(dataClass1,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
     'freqs',[1 35],  'erspmax', 10, 'scale', 'log', 'plotmean', 'off');
 
-% ´´½¨Ò»¸öĞÂµÄÍ¼ĞÎ´°¿Ú
+% åˆ›å»ºä¸€ä¸ªæ–°çš„å›¾å½¢çª—å£
 figure;
 
-% Ê¹ÓÃ imagesc º¯ÊıÏÔÊ¾ERSP
+% ä½¿ç”¨ imagesc å‡½æ•°æ˜¾ç¤ºERSP
 imagesc(times, freqs, ersp);
 
-% ÉèÖÃ×ø±êÖá·½Ïò - Í¨³£Ê±¼äÊÇxÖá£¬ÆµÂÊÊÇyÖá
+% è®¾ç½®åæ ‡è½´æ–¹å‘ - é€šå¸¸æ—¶é—´æ˜¯xè½´ï¼Œé¢‘ç‡æ˜¯yè½´
 axis xy;
 
-% Ìí¼ÓÑÕÉ«ÌõÒÔ±íÊ¾²»Í¬¹¦ÂÊµÄÑÕÉ«±àÂë
+% æ·»åŠ é¢œè‰²æ¡ä»¥è¡¨ç¤ºä¸åŒåŠŸç‡çš„é¢œè‰²ç¼–ç 
 hColorbar = colorbar;
-hColorbar.Label.String = 'dB';  % ÉèÖÃÑÕÉ«ÌõµÄ±êÇ©Îª 'dB'
+hColorbar.Label.String = 'dB';  % è®¾ç½®é¢œè‰²æ¡çš„æ ‡ç­¾ä¸º 'dB'
 
-% ÔöÇ¿ÑÕÉ«ÌõµÄÁÁ¶È
-hColorbar.Limits = [-10 10]; % ÉèÖÃÑÕÉ«ÌõµÄ·¶Î§
-colormap jet; % Ê¹ÓÃ 'jet' ÑÕÉ«Í¼£¬Ëü¾ßÓĞÏÊÑŞµÄÑÕÉ«
+% å¢å¼ºé¢œè‰²æ¡çš„äº®åº¦
+hColorbar.Limits = [-10 10]; % è®¾ç½®é¢œè‰²æ¡çš„èŒƒå›´
+colormap jet; % ä½¿ç”¨ 'jet' é¢œè‰²å›¾ï¼Œå®ƒå…·æœ‰é²œè‰³çš„é¢œè‰²
 
-% Ìí¼Ó±êÌâºÍÖá±êÇ©
+% æ·»åŠ æ ‡é¢˜å’Œè½´æ ‡ç­¾
 title('C3');
 xlabel('Times (ms)');
 ylabel('Frequency (Hz)');
 
-% ÔÚxÖáµÄ0¿Ì¶È´¦Ìí¼ÓÒ»ÌõºÚÉ«ĞéÏß
+% åœ¨xè½´çš„0åˆ»åº¦å¤„æ·»åŠ ä¸€æ¡é»‘è‰²è™šçº¿
 line([0 0], ylim, 'Color', 'k', 'LineStyle', '--', 'LineWidth', 2);
 
-% ÉèÖÃºÏÊÊµÄÑÕÉ«·¶Î§
+% è®¾ç½®åˆé€‚çš„é¢œè‰²èŒƒå›´
 caxis([-10 10]);

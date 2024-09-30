@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Jyt_0905_online_simu';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Jyt_0923_compare_offline_20240923_203150110_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Jyt_0923_compare_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Wyx_0923_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Wyx_0923_offline_20240930_193029629_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Wyx_0923_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
-session_idx = 3;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Jyt_0905_online_simu_20240926_163129514_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
+foldername_Sessions = 'Wyx_0923_online_20240930_202209233_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
 %MotorClassMI = 2;  % Èç¹ûÊÇµ¥ÔË¶¯ÏëÏóÈÎÎñµÄ»°£¬ÄÇ¾ÍÖ±½ÓÖ¸¶¨ÈÎÎñ¾ÍºÃÁË
@@ -78,6 +78,7 @@ preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
               1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
               2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0, ...
               2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0, ...
+              1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
               1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0,]; 
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 if trial_random == 2
@@ -151,7 +152,7 @@ fwrite(GloveControl, sendbuf_glo);
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 StimAmplitude_1 = 7;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
-StimAmplitude_2 = 9;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_2 = 7;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
