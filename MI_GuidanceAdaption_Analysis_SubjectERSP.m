@@ -1,9 +1,9 @@
 newtimef% 运动想象基本参数设置
-subject_name = 'Wyx_0923_compare_online';  % 被试姓名
-foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Wyx_0923_compare_online';
+subject_name = 'Wzq_online';  % 被试姓名
+foldername_Sessions = 'Wzq_online_20241002_205143540_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Wzq_online';
 
-EEG_Cap = 0;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
+EEG_Cap = 1;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
 channel_selection=1; % 判断是否要进行通道选择，目前设置为0，保留所有数据，但是在后面服务器上可以开启选择
 
 % 定义起始和结束的trial数量
@@ -145,7 +145,7 @@ dataClass2 = allData{3};
 %dataClass_all = [dataClass1, dataClass2];
 
 % 绘制ERSP图
-[ersp,itc,powbase,times,freqs]=newtimef(dataClass1,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
+[ersp,itc,powbase,times,freqs]=newtimef(dataClass2,256*12,[-3*1000 11*1000],256, 0,'plotitc','off',...
     'freqs',[1 35],  'erspmax', 10, 'scale', 'log', 'plotmean', 'off');
 
 % 创建一个新的图形窗口
