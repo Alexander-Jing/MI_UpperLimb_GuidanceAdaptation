@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % 判
 %% 在线实验参数设置部分，用于设置每一个被试的情况，依据被试情况进行修改
 
 % 运动想象基本参数设置
-subject_name = 'Wzh_compare_';  % 被试姓名
-sub_offline_collection_folder = 'Wyx_0923_compare_offline_20240929_203055611_data';  % 被试的离线采集数据
-subject_name_offline =  'Wzh_compare_offline';  % 离线收集数据时候的被试名称
+subject_name = 'Qbt_compare_online';  % 被试姓名
+sub_offline_collection_folder = 'Qbt_compare_offline_20241003_163015645_data';  % 被试的离线采集数据
+subject_name_offline =  'Qbt_compare_offline';  % 离线收集数据时候的被试名称
 % session 大于1时候要改动的部分
 % 注意，由于设备问题，建议在session_idx为4之前重启下matlab，防止出现后面的中断
-session_idx = 2;  % session index数量，如果是1的话，会自动生成相关排布
-foldername_Sessions = 'Wyx_0923_compare_online_test_20241002_134103396_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+session_idx = 4;  % session index数量，如果是1的话，会自动生成相关排布
+foldername_Sessions = 'Qbt_compare_online_20241003_172117106_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
 
 fNIRS_Use = 1;  % 是否使用fNIRs设备，设置为1是使用，否则就不用
 MotorClass = 2; % 运动想象动作数量，注意这里是纯设计的运动想象动作的数量，不包括空想idle状态
