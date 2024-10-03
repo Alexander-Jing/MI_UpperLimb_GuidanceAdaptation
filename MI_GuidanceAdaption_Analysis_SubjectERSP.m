@@ -1,18 +1,18 @@
 newtimef% 运动想象基本参数设置
-subject_name = 'Wzq_online';  % 被试姓名
-foldername_Sessions = 'Wzq_online_20241002_205143540_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Wzq_online';
+subject_name = 'Wzq_compare_online';  % 被试姓名
+foldername_Sessions = 'Wzq_compare_online_20241003_205711999_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Wzq_compare_online';
 
 EEG_Cap = 1;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
 channel_selection=1; % 判断是否要进行通道选择，目前设置为0，保留所有数据，但是在后面服务器上可以开启选择
 
 % 定义起始和结束的trial数量
 startTrial_1 = 73; % 第一组起始trial的数字
-endTrial_1 = 84; % 第一组结束trial的数字
+endTrial_1 = 84; % 第一组结束trial的数字12
 
 session2 = 1; % 是否使用第二个session
-startTrial_2 = 97; % 第二组起始trial的数字
-endTrial_2 = 108; % 第二组结束trial的数字
+startTrial_2 = 85; % 第二组起始trial的数字
+endTrial_2 = 96; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
