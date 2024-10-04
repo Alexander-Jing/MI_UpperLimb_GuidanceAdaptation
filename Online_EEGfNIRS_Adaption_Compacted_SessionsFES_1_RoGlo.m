@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Qbt_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Qbt_offline_20241004_162411943_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Qbt_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Gxy_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Gxy_offline_20241004_204743742_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Gxy_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
 session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Qbt_online_20241004_171833979_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Sessions = 'Gxy_online_20241004_213241753_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 fNIRS_Use = 1;  % ÊÇ·ñÊ¹ÓÃfNIRsÉè±¸£¬ÉèÖÃÎª1ÊÇÊ¹ÓÃ£¬·ñÔò¾Í²»ÓÃ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
@@ -153,8 +153,8 @@ fwrite(GloveControl, sendbuf_glo);
 
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
-StimAmplitude_1 = 7;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
-StimAmplitude_2 = 9;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_1 = 5;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
+StimAmplitude_2 = 7;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
@@ -832,6 +832,11 @@ elseif session_idx > 1  % Èç¹ûsession´óÓÚ1µÄ»°£¬¿ÉÒÔ½øĞĞ¸²¸Ç´æ´¢
         'RestTimeLens','muSups_trial', 'MI_Acc_Trials', 'MI_Acc_GlobalAvg_Trials', 'Train_Performance','Train_Thre_FesOpt','-append');
 end
 
+%% µ¯´°ÌáÊ¾Ïà¹Ø²Ù×÷
+% ´´½¨ÏûÏ¢ÄÚÈİ
+message = ['µ±Ç°ÊÇsession: ', num2str(session_idx), ', ×¢ÒâÖØÆôµ¥Æ¬»úºÍÖØĞÂÁ¬½Ó»úĞµ±Û'];
+% ÏÔÊ¾µ¯´°
+h = msgbox(message, 'Session Alert');
 
 %% ´æ´¢ÔÚÔË¶¯ÏëÏó¹ı³ÌÖĞµÄ²ÎÓë¶ÈÖ¸±ê
 function SaveMIEngageTrials(EI_indices, mu_powers, mu_suppressions, subject_name, foldername, config_data, EI_index_scores, resultsMI, ...
