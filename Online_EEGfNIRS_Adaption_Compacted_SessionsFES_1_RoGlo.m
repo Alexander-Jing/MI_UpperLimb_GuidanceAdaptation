@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Wzq_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Wzq_offline_20241002_201005247_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Wzq_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Qbt_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Qbt_offline_20241004_162411943_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Qbt_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
 session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Wzq_online_20241002_205143540_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Sessions = 'Qbt_online_20241004_171833979_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 fNIRS_Use = 1;  % ÊÇ·ñÊ¹ÓÃfNIRsÉè±¸£¬ÉèÖÃÎª1ÊÇÊ¹ÓÃ£¬·ñÔò¾Í²»ÓÃ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
@@ -79,7 +79,8 @@ preSet_seq = [1, 2, 1, 2, 0, 0, 2, 2, 1, 1, 0, 0, ...
               1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
               2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0, ...
               1, 2, 2, 2, 0, 0, 2, 1, 1, 1, 0, 0, ...
-              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0,
+              2, 2, 1, 1, 0, 0, 1, 2, 2, 1, 0, 0, ...
+              2, 1, 1, 2, 0, 0, 2, 1, 1, 2, 0, 0,
               ]; 
 TrialNum = length(original_seq)*training_seqs;  % Ã¿Ò»¸öÀà±ğµÄtrialµÄÊıÁ¿
 if trial_random == 2
