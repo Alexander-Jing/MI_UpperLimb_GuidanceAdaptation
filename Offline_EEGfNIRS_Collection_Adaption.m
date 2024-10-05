@@ -108,7 +108,7 @@ port = 8880;  % 和后端服务器连接的两个参数
 % 电刺激强度设置
 Fes_flag = 0;  % 是否开启Fes辅助，1是开启，0是关闭
 StimAmplitude_1 = 5;
-StimAmplitude_2 = 7;  % 幅值设置（mA）
+StimAmplitude_2 = 5;  % 幅值设置（mA）
 
 % 设置近红外连接参数
 oxy = actxserver('oxysoft.oxyapplication');  % 连接近红外

@@ -22,7 +22,7 @@ fopen(StimControl);
 
 % 设置电刺激强度
 Fes_stimu1 = 5;
-Fes_stimu2 = 7;
+Fes_stimu2 = 5;
 Fes_stimu3 = 5;
 
 tStim = [3,14,2]; % [t_up,t_flat,t_down] * 100ms
