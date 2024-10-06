@@ -50,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Thy_compare_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Wmy_compare_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
@@ -108,7 +108,7 @@ port = 8880;  % ºÍºó¶Ë·şÎñÆ÷Á¬½ÓµÄÁ½¸ö²ÎÊı
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
 Fes_flag = 0;  % ÊÇ·ñ¿ªÆôFes¸¨Öú£¬1ÊÇ¿ªÆô£¬0ÊÇ¹Ø±Õ
 StimAmplitude_1 = 5;
-StimAmplitude_2 = 5;  % ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_2 = 7;  % ·ùÖµÉèÖÃ£¨mA£©
 
 % ÉèÖÃ½üºìÍâÁ¬½Ó²ÎÊı
 oxy = actxserver('oxysoft.oxyapplication');  % Á¬½Ó½üºìÍâ

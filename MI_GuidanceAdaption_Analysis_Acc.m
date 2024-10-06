@@ -1,7 +1,7 @@
 % 运动想象基本参数设置
-subject_name = 'Thy_compare_online';  % 被试姓名
-foldername_Sessions = 'Thy_compare_online_20241005_202904211_data';  % folder data
-foldername_Engagements = 'Online_Engagements_Thy_compare_online';
+subject_name = 'Wmy_compare_online';  % 被试姓名
+foldername_Sessions = 'Wmy_compare_online_20241006_165200385_data';  % folder data
+foldername_Engagements = 'Online_Engagements_Wmy_compare_online';
 % 定义起始和结束的trial数量
 startTrial_1 = 73; % 第一组起始trial的数字
 endTrial_1 = 84; % 第一组结束trial的数字
