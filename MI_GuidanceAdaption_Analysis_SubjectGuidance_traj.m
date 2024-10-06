@@ -1,12 +1,12 @@
 % 运动想象基本参数设置
-subject_name = 'Wmy_online';  % 被试姓名
-foldername_Sessions = 'Wmy_online_20241005_170043403_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_Engagements = 'Online_Engagements_Wmy_online';
+subject_name = 'Thy_online';  % 被试姓名
+foldername_Sessions = 'Thy_online_20241006_202611367_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Thy_online';
 foldername_trajectory = fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name]);
 
 % 定义起始和结束的trial数量
 startTrial = 1; % 起始trial的数字
-endTrial = 108; % 结束trial的数字
+endTrial = 120; % 结束trial的数字
 allData_ThreTrial = [];
 allData_AccTrial = [];
 

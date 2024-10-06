@@ -1,72 +1,72 @@
-% ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Thy_online';  % ±»ÊÔĞÕÃû
+% è¿åŠ¨æƒ³è±¡åŸºæœ¬å‚æ•°è®¾ç½®
+subject_name = 'Thy_online';  % è¢«è¯•å§“å
 foldername_Sessions = 'Thy_online_20241006_202611367_data';  % folder data
 foldername_Engagements = 'Online_Engagements_Thy_online';
-% ¶¨ÒåÆğÊ¼ºÍ½áÊøµÄtrialÊıÁ¿
-startTrial_1 = 73; % µÚÒ»×éÆğÊ¼trialµÄÊı×Ö
-endTrial_1 = 84; % µÚÒ»×é½áÊøtrialµÄÊı×Ö
+% å®šä¹‰èµ·å§‹å’Œç»“æŸçš„trialæ•°é‡
+startTrial_1 = 109; % ç¬¬ä¸€ç»„èµ·å§‹trialçš„æ•°å­—
+endTrial_1 = 120; % ç¬¬ä¸€ç»„ç»“æŸtrialçš„æ•°å­—
 
-session2 = 1; % ÊÇ·ñÊ¹ÓÃµÚ¶ş¸ösession
-startTrial_2 = 97; % µÚ¶ş×éÆğÊ¼trialµÄÊı×Ö
-endTrial_2 = 108; % µÚ¶ş×é½áÊøtrialµÄÊı×Ö
+session2 = 1; % æ˜¯å¦ä½¿ç”¨ç¬¬äºŒä¸ªsession
+startTrial_2 = 85; % ç¬¬äºŒç»„èµ·å§‹trialçš„æ•°å­—
+endTrial_2 = 96; % ç¬¬äºŒç»„ç»“æŸtrialçš„æ•°å­—
 
-% ³õÊ¼»¯´æ´¢Ô¤²âÖµºÍ±êÇ©µÄÊı×é
+% åˆå§‹åŒ–å­˜å‚¨é¢„æµ‹å€¼å’Œæ ‡ç­¾çš„æ•°ç»„
 allPredictions = [];
 allLabels = [];
 
-% ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
+% éå†æŒ‡å®šèŒƒå›´å†…çš„trial
 for category = 0:2
-    % ±éÀúÖ¸¶¨·¶Î§ÄÚµÄtrial
+    % éå†æŒ‡å®šèŒƒå›´å†…çš„trial
     for trial = startTrial_1:endTrial_1
-        % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+        % æ„å»ºæ–‡ä»¶åæ¨¡å¼
         split_name = strsplit(subject_name, '_');
         if strcmp(split_name(end), 'control') || strcmp(split_name(end-1), 'compare')
-            % ÔÚ¶ÔÕÕÊµÑéÖĞ£¬ÓÉÓÚÊÇÃ»ÓĞ½øĞĞÔÚÏßµÄ¸üĞÂ£¬ËùÒÔwindowsµÄÊıÁ¿Ã»ÓĞ¸üĞÂ£¬´Ó¶øµ¼ÖÂ×îºó´æ´¢µÄÊ±ºòÊÇÕâÑùµÄ
+            % åœ¨å¯¹ç…§å®éªŒä¸­ï¼Œç”±äºæ˜¯æ²¡æœ‰è¿›è¡Œåœ¨çº¿çš„æ›´æ–°ï¼Œæ‰€ä»¥windowsçš„æ•°é‡æ²¡æœ‰æ›´æ–°ï¼Œä»è€Œå¯¼è‡´æœ€åå­˜å‚¨çš„æ—¶å€™æ˜¯è¿™æ ·çš„
             filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_8EI_mu.mat', subject_name, category, trial);
         else
             filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
         end
         
-        % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
+        % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
         fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
         
-        % ±éÀúÕÒµ½µÄÎÄ¼ş
+        % éå†æ‰¾åˆ°çš„æ–‡ä»¶
         for fileIdx = 1:length(fileList)
-            % ¼ÓÔØÎÄ¼şÖĞµÄresultsMI±äÁ¿
+            % åŠ è½½æ–‡ä»¶ä¸­çš„resultsMIå˜é‡
             data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'resultsMI');
             
-            % ÌáÈ¡Ô¤²âÖµºÍ±êÇ©
+            % æå–é¢„æµ‹å€¼å’Œæ ‡ç­¾
             predictions = data.resultsMI(1, :);
             labels = data.resultsMI(end, :);
             
-            % ´æ´¢½á¹û
+            % å­˜å‚¨ç»“æœ
             allPredictions = [allPredictions, predictions];
             allLabels = [allLabels, labels];
         end
     end
-    if session2 == 1  % Èç¹û»¹Òªµ¼Èë±ğµÄsession
+    if session2 == 1  % å¦‚æœè¿˜è¦å¯¼å…¥åˆ«çš„session
         for trial = startTrial_2:endTrial_2
-            % ¹¹½¨ÎÄ¼şÃûÄ£Ê½
+            % æ„å»ºæ–‡ä»¶åæ¨¡å¼
             split_name = strsplit(subject_name, '_');
             if strcmp(split_name(end), 'control') || strcmp(split_name(end-1), 'compare')
-                % ÔÚ¶ÔÕÕÊµÑéÖĞ£¬ÓÉÓÚÊÇÃ»ÓĞ½øĞĞÔÚÏßµÄ¸üĞÂ£¬ËùÒÔwindowsµÄÊıÁ¿Ã»ÓĞ¸üĞÂ£¬´Ó¶øµ¼ÖÂ×îºó´æ´¢µÄÊ±ºòÊÇÕâÑùµÄ
+                % åœ¨å¯¹ç…§å®éªŒä¸­ï¼Œç”±äºæ˜¯æ²¡æœ‰è¿›è¡Œåœ¨çº¿çš„æ›´æ–°ï¼Œæ‰€ä»¥windowsçš„æ•°é‡æ²¡æœ‰æ›´æ–°ï¼Œä»è€Œå¯¼è‡´æœ€åå­˜å‚¨çš„æ—¶å€™æ˜¯è¿™æ ·çš„
                 filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_8EI_mu.mat', subject_name, category, trial);
             else
                 filePattern = sprintf('Online_EEG_data2Server_%s_class_%d_session_*_trial_%d_window_9EI_mu.mat', subject_name, category, trial);
             end
-            % »ñÈ¡ÎÄ¼ş¼ĞÖĞÆ¥ÅäµÄÎÄ¼şÁĞ±í
+            % è·å–æ–‡ä»¶å¤¹ä¸­åŒ¹é…çš„æ–‡ä»¶åˆ—è¡¨
             fileList = dir(fullfile(foldername_Sessions, foldername_Engagements, filePattern));
             
-            % ±éÀúÕÒµ½µÄÎÄ¼ş
+            % éå†æ‰¾åˆ°çš„æ–‡ä»¶
             for fileIdx = 1:length(fileList)
-                % ¼ÓÔØÎÄ¼şÖĞµÄresultsMI±äÁ¿
+                % åŠ è½½æ–‡ä»¶ä¸­çš„resultsMIå˜é‡
                 data = load(fullfile(fileList(fileIdx).folder, fileList(fileIdx).name), 'resultsMI');
                 
-                % ÌáÈ¡Ô¤²âÖµºÍ±êÇ©
+                % æå–é¢„æµ‹å€¼å’Œæ ‡ç­¾
                 predictions = data.resultsMI(1, :);
                 labels = data.resultsMI(end, :);
                 
-                % ´æ´¢½á¹û
+                % å­˜å‚¨ç»“æœ
                 allPredictions = [allPredictions, predictions];
                 allLabels = [allLabels, labels];
             end
@@ -75,37 +75,37 @@ for category = 0:2
 end
 
 
-% ¼ÆËã×ÜÌå¾«¶È
+% è®¡ç®—æ€»ä½“ç²¾åº¦
 %totalAccuracy = sum(allLabels == allPredictions) / length(allLabels);
 
-% ¼ÆËã»ìÏı¾ØÕó
+% è®¡ç®—æ··æ·†çŸ©é˜µ
 [C,~] = confusionmat(allLabels, allPredictions);
 totalAccuracy = sum(diag(C))/sum(C(:));
 
-% ³õÊ¼»¯F1·ÖÊıÊı×é
+% åˆå§‹åŒ–F1åˆ†æ•°æ•°ç»„
 recall = zeros(1,3);
 precision = zeros(1,3);
 F1scores = zeros(1,3);
 
-% ¼ÆËãÃ¿¸öÀà±ğµÄF1·ÖÊı
+% è®¡ç®—æ¯ä¸ªç±»åˆ«çš„F1åˆ†æ•°
 for class = 1:3
     precision(class) = C(class,class) / sum(C(:,class));
     recall(class) = C(class,class) / sum(C(class,:));
     F1scores(class) = 2 * precision(class) * recall(class) / (precision(class) + recall(class));
 end
 
-% ¼ÆËãÆ½¾ùF1·ÖÊı
+% è®¡ç®—å¹³å‡F1åˆ†æ•°
 averageF1score = mean(F1scores);
 
-% ÏÔÊ¾½á¹û
-fprintf('Trial: %d µ½ %d \n', startTrial_1, endTrial_1);
+% æ˜¾ç¤ºç»“æœ
+fprintf('Trial: %d åˆ° %d \n', startTrial_1, endTrial_1);
 if session2==1
-    fprintf('Trial: %d µ½ %d \n', startTrial_2, endTrial_2);
+    fprintf('Trial: %d åˆ° %d \n', startTrial_2, endTrial_2);
 end
-fprintf('×ÜÌå¾«¶È: %.2f\n', totalAccuracy);
-fprintf('Æ½¾ùF1·ÖÊı: %.2f\n', averageF1score);
+fprintf('æ€»ä½“ç²¾åº¦: %.2f\n', totalAccuracy);
+fprintf('å¹³å‡F1åˆ†æ•°: %.2f\n', averageF1score);
 for category = 1:3
-    fprintf('Àà±ğ %d µÄÕÙ»ØÂÊ: %.2f\n', category-1, recall(category));
-    %fprintf('Àà±ğ %d µÄ¾«È·ÂÊ: %.2f\n', category-1, precision(category));
-    fprintf('Àà±ğ %d µÄF1·ÖÊı: %.2f\n', category-1, F1scores(category));
+    fprintf('ç±»åˆ« %d çš„å¬å›ç‡: %.2f\n', category-1, recall(category));
+    %fprintf('ç±»åˆ« %d çš„ç²¾ç¡®ç‡: %.2f\n', category-1, precision(category));
+    fprintf('ç±»åˆ« %d çš„F1åˆ†æ•°: %.2f\n', category-1, F1scores(category));
 end
