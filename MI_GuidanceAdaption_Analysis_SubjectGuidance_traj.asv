@@ -1,19 +1,19 @@
-% ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Nkc_online';  % ±»ÊÔĞÕÃû
-foldername_Sessions = 'Nkc_online_20241007_170347400_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
-foldername_Engagements = 'Online_Engagements_Nkc_online';
+% è¿åŠ¨æƒ³è±¡åŸºæœ¬å‚æ•°è®¾ç½®
+subject_name = 'Nkc_online';  % è¢«è¯•å§“å
+foldername_Sessions = 'Thy_online_20241006_202611367_data';  % å½“sessionå¤§äº1çš„æ—¶å€™ï¼Œéœ€è¦æ‰‹å·¥ä¿®æ­£foldername_Sessions
+foldername_Engagements = 'Online_Engagements_Thy_online';
 foldername_trajectory = fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name]);
 
-% ¶¨ÒåÆğÊ¼ºÍ½áÊøµÄtrialÊıÁ¿
-startTrial = 1; % ÆğÊ¼trialµÄÊı×Ö
-endTrial = 120; % ½áÊøtrialµÄÊı×Ö
+% å®šä¹‰èµ·å§‹å’Œç»“æŸçš„trialæ•°é‡
+startTrial = 1; % èµ·å§‹trialçš„æ•°å­—
+endTrial = 120; % ç»“æŸtrialçš„æ•°å­—
 allData_ThreTrial = [];
 allData_AccTrial = [];
 
-% ¶¨Òå¸ĞĞËÈ¤µÄÍ¨µÀ
+% å®šä¹‰æ„Ÿå…´è¶£çš„é€šé“
 channels = [1,2,3,4,5,6,7,8,10,11,12,13,15,16,17,18,19,21,22,23,24,25,26,27,28,29,30];
 
-% ¶ÁÈ¡Ã¿Ò»¸öÀà±ğµÄÃ¿Ò»¸ötrialµÄãĞÖµ
+% è¯»å–æ¯ä¸€ä¸ªç±»åˆ«çš„æ¯ä¸€ä¸ªtrialçš„é˜ˆå€¼
 data_thre = load(fullfile(foldername_Sessions, ['Online_EEGMI_trajectory_', subject_name], ['Online_EEGMI_trajectory_', subject_name, '.mat']), 'Train_Performance');
 data_thres = data_thre.Train_Performance;
 trials_category = (endTrial-startTrial+1)/3;
@@ -24,27 +24,27 @@ for category = 1:2
     data_acc_ = data_thres(1,labels==category);
     data_thres_repeated = repmat(data_thres_(1:trials_category), 1, 1);
     data_acc_repeated = repmat(data_acc_(1:trials_category), 1, 1);
-    % ½«¾ØÕó×ª»»ÎªĞĞÏòÁ¿
+    % å°†çŸ©é˜µè½¬æ¢ä¸ºè¡Œå‘é‡
     data_thres_repeated = data_thres_repeated(:)';
     data_acc_repeated = data_acc_repeated(:)';
     allData_ThreTrial = [allData_ThreTrial; data_thres_repeated];
     allData_AccTrial = [allData_AccTrial; data_acc_repeated];
 end
 
-% ÎªÃ¿¸öÀà±ğ»æÖÆÍ¼ĞÎ
+% ä¸ºæ¯ä¸ªç±»åˆ«ç»˜åˆ¶å›¾å½¢
 for i = 1:size(allData_AccTrial, 1)
-    figure; % ´´½¨ĞÂÍ¼ĞÎ´°¿Ú
-    % Ê¹ÓÃsmoothdataº¯Êı¶ÔÊı¾İ½øĞĞÆ½»¬´¦Àí
+    figure; % åˆ›å»ºæ–°å›¾å½¢çª—å£
+    % ä½¿ç”¨smoothdataå‡½æ•°å¯¹æ•°æ®è¿›è¡Œå¹³æ»‘å¤„ç†
     smoothedData = movmean(allData_AccTrial(i,:), 8);
-    plot(smoothedData, 'LineWidth', 2); % »æÖÆÏßÍ¼
+    plot(smoothedData, 'LineWidth', 2); % ç»˜åˆ¶çº¿å›¾
     hold on;
     smoothedData_Thre = movmean(allData_ThreTrial(i,:), 4)/1.0;
     plot(smoothedData_Thre, 'LineWidth', 2);
     hold off;
-    title(sprintf('Category %d Accuracy', i)); % ÉèÖÃ±êÌâ
-    xlabel('Trial Number'); % xÖá±êÇ©
-    ylabel('Accuracy'); % yÖá±êÇ©
-    grid on; % ÏÔÊ¾Íø¸ñ
-    ylim([0.2 0.60]); % ÉèÖÃyÖá·¶Î§
-    legend('Average Accuracy', 'Target Accuracy'); % Ìí¼ÓÍ¼Àı
+    title(sprintf('Category %d Accuracy', i)); % è®¾ç½®æ ‡é¢˜
+    xlabel('Trial Number'); % xè½´æ ‡ç­¾
+    ylabel('Accuracy'); % yè½´æ ‡ç­¾
+    grid on; % æ˜¾ç¤ºç½‘æ ¼
+    ylim([0.2 0.60]); % è®¾ç½®yè½´èŒƒå›´
+    legend('Average Accuracy', 'Target Accuracy'); % æ·»åŠ å›¾ä¾‹
 end
