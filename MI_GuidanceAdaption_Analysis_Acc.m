@@ -1,14 +1,14 @@
 % 运动想象基本参数设置
-subject_name = 'Nkc_online';  % 被试姓名
-foldername_Sessions = 'Nkc_online_20241007_170347400_data';  % folder data
-foldername_Engagements = 'Online_Engagements_Nkc_online';
+subject_name = 'Whz_compare_online';  % 被试姓名
+foldername_Sessions = 'Whz_compare_online_20241007_211132112_data';  % folder data
+foldername_Engagements = 'Online_Engagements_Whz_compare_online';
 % 定义起始和结束的trial数量
-startTrial_1 = 85; % 第一组起始trial的数字
-endTrial_1 = 96; % 第一组结束trial的数字
+startTrial_1 = 73; % 第一组起始trial的数字
+endTrial_1 = 84; % 第一组结束trial的数字
 
 session2 = 1; % 是否使用第二个session
-startTrial_2 = 97; % 第二组起始trial的数字
-endTrial_2 = 108; % 第二组结束trial的数字
+startTrial_2 = 85; % 第二组起始trial的数字
+endTrial_2 = 96; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组
 allPredictions = [];
