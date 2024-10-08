@@ -1,10 +1,10 @@
 % 运动想象基本参数设置
-subject_name = 'Whz_compare_online';  % 被试姓名
-foldername_Sessions = 'Whz_compare_online_20241007_211132112_data';  % folder data
-foldername_Engagements = 'Online_Engagements_Whz_compare_online';
+subject_name = 'Whz_online';  % 被试姓名
+foldername_Sessions = 'Whz_online_20241008_212519003_data';  % folder data
+foldername_Engagements = 'Online_Engagements_Whz_online';
 % 定义起始和结束的trial数量
-startTrial_1 = 73; % 第一组起始trial的数字
-endTrial_1 = 84; % 第一组结束trial的数字
+startTrial_1 = 61; % 第一组起始trial的数字
+endTrial_1 = 72; % 第一组结束trial的数字
 
 session2 = 1; % 是否使用第二个session
 startTrial_2 = 85; % 第二组起始trial的数字

@@ -50,7 +50,7 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÀëÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Whz_compare_offline';  % ±»ÊÔĞÕÃû
+subject_name = 'Whz_offline';  % ±»ÊÔĞÕÃû
 TrialNum = 30*4;  % ÉèÖÃ²É¼¯µÄÊıÁ¿
 Trial_setSession = 1;  % ÉèÖÃÊÇ·ñĞèÒª¶ÔÓÚ²É¼¯µÄTrialNum¸ötrial·Ösession´¦Àí£¬Ã¿Ò»¸ösessionº¬ÓĞTrialNum/session¸öÑù±¾£¬1ÉèÖÃÎªÊÇ£¬0ÉèÖÃÎª·ñ
 Trial_Session = 4;  % Èç¹ûÉÏÃæÉèÖÃÎª1£¬ĞèÒª¶ÔÓÚsessionÊıÁ¿½øĞĞÉè¶¨
