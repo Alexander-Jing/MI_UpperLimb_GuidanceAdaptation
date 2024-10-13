@@ -54,13 +54,13 @@ status = CheckNetStreamingVersion(con);                                    % ÅĞ¶
 %% ÔÚÏßÊµÑé²ÎÊıÉèÖÃ²¿·Ö£¬ÓÃÓÚÉèÖÃÃ¿Ò»¸ö±»ÊÔµÄÇé¿ö£¬ÒÀ¾İ±»ÊÔÇé¿ö½øĞĞĞŞ¸Ä
 
 % ÔË¶¯ÏëÏó»ù±¾²ÎÊıÉèÖÃ
-subject_name = 'Whz_online';  % ±»ÊÔĞÕÃû
-sub_offline_collection_folder = 'Whz_offline_20241008_204032089_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
-subject_name_offline =  'Whz_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
+subject_name = 'Wzh_online';  % ±»ÊÔĞÕÃû
+sub_offline_collection_folder = 'Wzh_offline_20241013_202325661_data';  % ±»ÊÔµÄÀëÏß²É¼¯Êı¾İ
+subject_name_offline =  'Wzh_offline';  % ÀëÏßÊÕ¼¯Êı¾İÊ±ºòµÄ±»ÊÔÃû³Æ
 % session ´óÓÚ1Ê±ºòÒª¸Ä¶¯µÄ²¿·Ö
 % ×¢Òâ£¬ÓÉÓÚÉè±¸ÎÊÌâ£¬½¨ÒéÔÚsession_idxÎª4Ö®Ç°ÖØÆôÏÂmatlab£¬·ÀÖ¹³öÏÖºóÃæµÄÖĞ¶Ï
 session_idx = 10;  % session indexÊıÁ¿£¬Èç¹ûÊÇ1µÄ»°£¬»á×Ô¶¯Éú³ÉÏà¹ØÅÅ²¼
-foldername_Sessions = 'Whz_online_20241008_212519003_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
+foldername_Sessions = 'Wzh_online_20241013_211807227_data';  % µ±session´óÓÚ1µÄÊ±ºò£¬ĞèÒªÊÖ¹¤ĞŞÕıfoldername_Sessions
 
 fNIRS_Use = 1;  % ÊÇ·ñÊ¹ÓÃfNIRsÉè±¸£¬ÉèÖÃÎª1ÊÇÊ¹ÓÃ£¬·ñÔò¾Í²»ÓÃ
 MotorClass = 2; % ÔË¶¯ÏëÏó¶¯×÷ÊıÁ¿£¬×¢ÒâÕâÀïÊÇ´¿Éè¼ÆµÄÔË¶¯ÏëÏó¶¯×÷µÄÊıÁ¿£¬²»°üÀ¨¿ÕÏëidle×´Ì¬
@@ -153,8 +153,8 @@ fwrite(GloveControl, sendbuf_glo);
 
 
 % µç´Ì¼¤Ç¿¶ÈÉèÖÃ
-StimAmplitude_1 = 7;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
-StimAmplitude_2 = 6;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
+StimAmplitude_1 = 5;  % MI1 ¼ç¹Ø½ÚµÄµç´Ì¼¤·ùÖµ²âÊÔ£¨mA£©
+StimAmplitude_2 = 7;  % MI2 ÊÖ²¿·ÖµÄ·ùÖµÉèÖÃ£¨mA£©
 
 % %% ÉèÖÃµç´Ì¼¤Á¬½Ó
 % ÉèÖÃÁ¬½Ó
