@@ -21,7 +21,7 @@ fopen(StimControl);
 %% 设置fes强度
 
 % 设置电刺激强度
-Fes_stimu1 = 4;
+Fes_stimu1 = 5;
 Fes_stimu2 = 7;
 Fes_stimu3 = 5;
 
