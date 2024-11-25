@@ -1,13 +1,13 @@
 % 运动想象基本参数设置
-subject_name = 'Nkc_compare_online_simu';  % 被试姓名
-foldername_Sessions = 'Nkc_compare_online_simu_20241125_212627148_SimuData';  % folder data
-foldername_Engagements = 'Online_Engagements_Nkc_compare_online_simu';
+subject_name = 'Thy_compare_online_simu';  % 被试姓名
+foldername_Sessions = 'Thy_compare_online_simu_20241125_221913555_SimuData';  % folder data
+foldername_Engagements = 'Online_Engagements_Thy_compare_online_simu';
 % 定义起始和结束的trial数量
-startTrial_1 = 97; % 第一组起始trial的数字
-endTrial_1 = 108; % 第一组结束trial的数字
+startTrial_1 = 61; % 第一组起始trial的数字
+endTrial_1 = 72; % 第一组结束trial的数字
 
-session2 = 0; % 是否使用第二个session
-startTrial_2 = 97; % 第二组起始trial的数字
+session2 = 1; % 是否使用第二个session
+startTrial_2 = 85; % 第二组起始trial的数字
 endTrial_2 = 108; % 第二组结束trial的数字
 
 % 初始化存储预测值和标签的数组

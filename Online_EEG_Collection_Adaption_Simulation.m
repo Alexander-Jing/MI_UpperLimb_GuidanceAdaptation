@@ -7,10 +7,10 @@ close all;
 % 由于这部分是纯粹的伪在线模拟实验，所以这里不设置其余设备的连接，只设置server的连接
 
 % 数据文件读取
-subject_name_simu = 'Nkc_compare_online_simu';  % 被试姓名
-subject_name = 'Nkc_compare_online';  % 被试姓名
-foldername_Sessions = 'Nkc_compare_online_20241019_174149761_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_RawData = 'Online_EEGMI_RawData_Nkc_compare_online';  % 用于存储原始数据的文件夹
+subject_name_simu = 'Thy_compare_online_simu';  % 被试姓名
+subject_name = 'Thy_compare_online';  % 被试姓名
+foldername_Sessions = 'Thy_compare_online_20241005_202904211_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_RawData = 'Online_EEGMI_RawData_Thy_compare_online';  % 用于存储原始数据的文件夹
 
 % MI脑电相关变量
 sample_frequency = 256; 
@@ -58,7 +58,7 @@ end
 underscore_idx = strfind(subject_name, '_'); % 提取第一个下划线之前的子字符串 
 short_name = subject_name(1:underscore_idx(1)-1);
 
-for session_idx=6:9
+for session_idx=1:9
     % session级别的数据采集
     disp(["session: ", num2str(session_idx)]);
     session_rawdata = RawDataTrial(session_idx, subject_name, fullfile('Subjects', short_name, foldername_Sessions), foldername_RawData);
