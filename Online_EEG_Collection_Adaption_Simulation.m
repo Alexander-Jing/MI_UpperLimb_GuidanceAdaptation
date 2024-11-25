@@ -7,10 +7,10 @@ close all;
 % 由于这部分是纯粹的伪在线模拟实验，所以这里不设置其余设备的连接，只设置server的连接
 
 % 数据文件读取
-subject_name_simu = 'Lh_compare_online_simu';  % 被试姓名
-subject_name = 'Lh_compare_online';  % 被试姓名
-foldername_Sessions = 'Lh_compare_online_20241019_214916195_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_RawData = 'Online_EEGMI_RawData_Lh_compare_online';  % 用于存储原始数据的文件夹
+subject_name_simu = 'Nkc_compare_online_simu';  % 被试姓名
+subject_name = 'Nkc_compare_online';  % 被试姓名
+foldername_Sessions = 'Nkc_compare_online_20241019_174149761_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_RawData = 'Online_EEGMI_RawData_Nkc_compare_online';  % 用于存储原始数据的文件夹
 
 % MI脑电相关变量
 sample_frequency = 256; 
@@ -58,7 +58,7 @@ end
 underscore_idx = strfind(subject_name, '_'); % 提取第一个下划线之前的子字符串 
 short_name = subject_name(1:underscore_idx(1)-1);
 
-for session_idx=1:9
+for session_idx=6:9
     % session级别的数据采集
     disp(["session: ", num2str(session_idx)]);
     session_rawdata = RawDataTrial(session_idx, subject_name, fullfile('Subjects', short_name, foldername_Sessions), foldername_RawData);
@@ -103,7 +103,7 @@ for session_idx=1:9
         config_data = [WindowLength;size(channels, 2);Trials(AllTrial_Session);session_idx;AllTrial_Session;size(MI_Acc, 2);0; 0;0;0;0 ];
         order = 2.0;  % 传输数据和训练的命令
         Online_Data2Server_Send(order, [0,0,0,0], ip, port, subject_name_simu, config_data);  % 发送指令，让服务器更新数据，[0,0,0,0]单纯是用于凑下数据，防止应为空集影响传输
-        pause((5.0 + session_idx));
+        pause(5.0);
         SaveMIEngageTrials(subject_name_simu, foldername, config_data, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
         resultsMI = [];  % MI分类结果保存数值还原
