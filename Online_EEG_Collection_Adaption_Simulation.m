@@ -7,12 +7,12 @@ close all;
 % 由于这部分是纯粹的伪在线模拟实验，所以这里不设置其余设备的连接，只设置server的连接
 
 % 数据文件读取
-subject_name_simu = 'Jyt_test_0905_online_simu';  % 被试姓名
-subject_name = 'Jyt_test_0905_online';  % 被试姓名
-sub_offline_collection_folder = 'Jyt_test_0905_offline_20240905_200349806_data';  % 被试的离线采集数据
-subject_name_offline =  'Jyt_test_0905_offline';  % 离线收集数据时候的被试名称
-foldername_Sessions = 'Jyt_test_0905_online_20240905_205326173_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_RawData = 'Online_EEGMI_RawData_Jyt_test_0905_online';  % 用于存储原始数据的文件夹
+subject_name_simu = 'Gxy_compare_online_simu';  % 被试姓名
+subject_name = 'Gxy_compare_online';  % 被试姓名
+sub_offline_collection_folder = 'Gxy_compare_offline_20241016_202526979_data';  % 被试的离线采集数据
+subject_name_offline =  'Gxy_compare_offline';  % 离线收集数据时候的被试名称
+foldername_Sessions = 'Gxy_compare_online_20241016_211308947_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_RawData = 'Online_EEGMI_RawData_Gxy_compare_online';  % 用于存储原始数据的文件夹
 
 % MI脑电相关变量
 sample_frequency = 256; 
@@ -57,10 +57,13 @@ foldername = ['.\\', FunctionNowFilename([subject_name_simu, '_'], '_SimuData')]
 if ~exist(foldername, 'dir')
    mkdir(foldername);
 end
-for session_idx=1:8
+underscore_idx = strfind(subject_name, '_'); % 提取第一个下划线之前的子字符串 
+short_name = subject_name(1:underscore_idx(1)-1);
+
+for session_idx=1:9
     % session级别的数据采集
     disp(["session: ", num2str(session_idx)]);
-    session_rawdata = RawDataTrial(session_idx, subject_name, foldername_Sessions, foldername_RawData);
+    session_rawdata = RawDataTrial(session_idx, subject_name, fullfile('Subjects', short_name, foldername_Sessions), foldername_RawData);
     for trial_idx=1:12
         % trial级别的数据采集
         trial_rawdata = session_rawdata(:, (trial_idx-1)*10*256+1:(trial_idx)*10*256);
@@ -102,7 +105,7 @@ for session_idx=1:8
         config_data = [WindowLength;size(channels, 2);Trials(AllTrial_Session);session_idx;AllTrial_Session;size(MI_Acc, 2);0; 0;0;0;0 ];
         order = 2.0;  % 传输数据和训练的命令
         Online_Data2Server_Send(order, [0,0,0,0], ip, port, subject_name_simu, config_data);  % 发送指令，让服务器更新数据，[0,0,0,0]单纯是用于凑下数据，防止应为空集影响传输
-        pause(5.0);
+        pause((5.0 + session_idx));
         SaveMIEngageTrials(subject_name_simu, foldername, config_data, resultsMI, ...
             MI_Acc, MI_Acc_GlobalAvg, TrialData_Processed);
         resultsMI = [];  % MI分类结果保存数值还原
