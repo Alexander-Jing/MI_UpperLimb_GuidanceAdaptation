@@ -1,7 +1,7 @@
 % 运动想象基本参数设置
-subject_name = 'Whz_compare_online_simu';  % 被试姓名
-foldername_Sessions = 'Whz_compare_online_simu_20241126_212826600_SimuData';  % folder data
-foldername_Engagements = 'Online_Engagements_Whz_compare_online_simu';
+subject_name = 'Thy_compare_online_simu';  % 被试姓名
+foldername_Sessions = 'Thy_compare_online_simu_20241126_221338546_SimuData';  % folder data
+foldername_Engagements = 'Online_Engagements_Thy_compare_online_simu';
 % 定义起始和结束的trial数量
 startTrial_1 = 97; % 第一组起始trial的数字
 endTrial_1 = 108; % 第一组结束trial的数字
