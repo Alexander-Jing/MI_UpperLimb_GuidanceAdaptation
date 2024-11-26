@@ -7,15 +7,15 @@ close all;
 % 由于这部分是纯粹的伪在线模拟实验，所以这里不设置其余设备的连接，只设置server的连接
 
 % 数据文件读取
-subject_name_simu = 'Wyx_0923_compare_online_simu';  % 被试姓名
-subject_name = 'Wyx_0923_compare_online';  % 被试姓名
-foldername_Sessions = 'Wyx_0923_compare_online_20240929_212507760_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_RawData = 'Online_EEGMI_RawData_Wyx_0923_compare_online';  % 用于存储原始数据的文件夹
+subject_name_simu = 'Wzq_compare_online_simu';  % 被试姓名
+subject_name = 'Wzq_compare_online';  % 被试姓名
+foldername_Sessions = 'Wzq_compare_online_20241003_205711999_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_RawData = 'Online_EEGMI_RawData_Wzq_compare_online';  % 用于存储原始数据的文件夹
 
 % 运动想象任务调整设置
 sample_frequency = 256; 
 WindowLength = 512;  % 每个窗口的长度
-EEG_Cap = 0;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
+EEG_Cap = 1;  % 判断使用的脑电帽子设备，0为原来的老帽子(Jyt-20240824-GraelEEG.xml)，1为新的帽子(Jyt-20240918-GraelEEG.xml)
 channel_selection=1; % 判断是否要进行通道选择，目前设置为0，保留所有数据，但是在后面服务器上可以开启选择
 if EEG_Cap==0  % 选择老的帽子(Jyt-20240824-GraelEEG.xml)
     if channel_selection==0
