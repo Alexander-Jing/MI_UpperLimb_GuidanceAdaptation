@@ -7,10 +7,10 @@ close all;
 % 由于这部分是纯粹的伪在线模拟实验，所以这里不设置其余设备的连接，只设置server的连接
 
 % 数据文件读取
-subject_name_simu = 'Thy_compare_online_simu';  % 被试姓名
-subject_name = 'Thy_compare_online';  % 被试姓名
-foldername_Sessions = 'Thy_compare_online_20241005_202904211_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
-foldername_RawData = 'Online_EEGMI_RawData_Thy_compare_online';  % 用于存储原始数据的文件夹
+subject_name_simu = 'Whz_compare_online_simu';  % 被试姓名
+subject_name = 'Whz_compare_online';  % 被试姓名
+foldername_Sessions = 'Whz_compare_online_20241007_211132112_data';  % 当session大于1的时候，需要手工修正foldername_Sessions
+foldername_RawData = 'Online_EEGMI_RawData_Whz_compare_online';  % 用于存储原始数据的文件夹
 
 % MI脑电相关变量
 sample_frequency = 256; 
